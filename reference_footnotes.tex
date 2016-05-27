@@ -1,0 +1,79 @@
+\documentclass[pdftex,letterpaper,11pt]{article}
+
+%%
+%%  Graphics packages
+%%
+\pdfoutput=1
+\usepackage[dvips,pdftex]{graphicx}
+%%
+%%  Math/Symbol packages
+%%
+\usepackage{amsmath}   %%  contains advanced math extensions
+\usepackage{latexsym}  %%  adds other symbols in to be used in math mode
+\usepackage{amssymb}   %%  adds new symbols in to be used in math mode
+%%
+%%  Page Formatting packages
+%%
+%%  Define page size and margin sizes
+\usepackage[top=1.0in,bottom=1.5in, left=1.5in, right=1.5in]{geometry}
+\linespread{1.00}         %%  Set line spacing to single space
+\usepackage{indentfirst}  %%  Force first paragraph to indent
+%%
+%%  Referencing packages
+%%
+\usepackage{hyperref}     %%  Allow internal and external references
+%%
+%%  Reference Footnotes
+%%
+\usepackage{fmtcount}  %%  Allow user to keep track of counters/labels
+%\fmtcountsetoptions{fmtord=level}  %%  change from superscript to [#]
+\renewcommand{\fmtord}[1]{}  %%  remove st, nd, rd, th, etc. from ordinal suffixes
+
+%%%%%%####################################################################################
+%%%%%%%%  Begin the document
+%%%%%%####################################################################################
+\begin{document}
+
+%%----------------------------------------------------------------------------------------
+%%  Section:  First Section
+%%----------------------------------------------------------------------------------------
+\section{\label{sec:First}First Section}
+
+\indent  This file shows an example of how to use the \textbf{\textit{fmtcount}} package to reference a footnote\footnote{This is the 1st footnote.}\storeordinalnum{ftn:SMfootnote}{\value{footnote}}.  We save the identifier by using the \\
+\verb+\storeordinalnum{label}{number}+ \\
+command\footnote{The \textbf{\textit{fmtcount}} package and documentation are included in the CTAN distribution.}, where \textit{label} is similar to the label taken by the \verb+\ref{label}+ command and \textit{number} is the counter value associated with the footnote retrieved by using \verb+\value{footnote}+.  The actual command, \verb+\FMCuse{label}+, used to reference \textit{label} is discussed in Section \ref{sec:Reference}.  
+
+\indent  Note that it is often useful to create a prefix for each \textit{label} associated with the type of environment/command it references.  A common set of prefixes\footnote{These specific examples are relied upon by the \textbf{\textit{fancyref}} package.} are:  \emph{fig:} for figures; \emph{tab:} for tables; \emph{sec:} for sections; \emph{eq:} for equations; \emph{lst:} for code listing; and \emph{itm:} for enumerated lists.  I often use the following as well:  \emph{subsec:} for subsections; \emph{subsubsec:} for subsubsections; \emph{app:} for appendices; and \emph{ftn:} for footnotes.
+
+%%----------------------------------------------------------------------------------------
+%%  Section:  Second Section
+%%----------------------------------------------------------------------------------------
+\section{\label{sec:Second}Second Section}
+\indent  Now we wish to reference the first footnote at some later point in the document, but we have created other footnotes\footnote{This is the 3rd footnote.} and sections (see Section \ref{sec:First}) etc.
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Section:  Reference First Footnote
+%%----------------------------------------------------------------------------------------
+\section{\label{sec:Reference}Reference First Footnote}
+
+\noindent  Now we will reference the first footnote\footnotemark[\FMCuse{ftn:SMfootnote}] using \\
+
+\noindent  \verb+\footnotemark[\FMCuse{label}]+ \\
+
+\noindent  where \\
+
+\noindent  \verb+\FMCuse{label}+ \\
+
+\noindent  is part of the \textbf{\textit{fmtcount}} package and \\
+
+\noindent  \verb+\footnotemark[number]+ \\
+
+\noindent  is a standard part of the \LaTeX\ distribution.  \\
+
+\indent  Notice that this did not print the footnote on the current page\footnote{I have found this useful for journal articles such as in \emph{Physical Review Letters} where the \emph{REVTeX} package causes footnotes to act similar to cited references.}.  The operations simply produced the footnote mark associated with the \textit{label} we defined in Section \ref{sec:First}.  
+
+%%%%%%####################################################################################
+%%%%%%%%  End the document
+%%%%%%####################################################################################
+\end{document}
