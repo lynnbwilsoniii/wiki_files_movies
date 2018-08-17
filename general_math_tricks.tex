@@ -42,6 +42,7 @@
 %%
 %%  Page Formatting packages
 %%
+\usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage[compact]{titlesec}
 \usepackage[paperwidth=8.5in, paperheight=11.0in, top=1.25in, bottom=1.25in, left=0.875in, right=0.875in, marginparsep=0pt, textwidth=6.5in, textheight=8.5in, headheight=20.0pt, headsep=35.0pt, footnotesep=5pt, footskip=20pt, bindingoffset=0pt, showframe=false]{geometry}
@@ -1489,6 +1490,857 @@ and we can also note that:
 
 \noindent  where Equation \ref{eq:quadratic18} is the commonly seen form of the general solution to any second-order polynomial of the form of Equation \ref{eq:quadratic0}.
 
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Section: Velocity Distribution Functions
+%%----------------------------------------------------------------------------------------
+\section{Velocity Distribution Functions} \label{app:VelocityDistributionFunctions}
+\indent  Let us define a generalized Gaussian probability density function as:
+
+\begin{equation}
+  \label{eq:gauss_0}
+  f{\scriptstyle_{s}}\left( x \right) = \frac{ A{\scriptstyle_{o}} }{\sqrt{ 2 \pi \sigma^{2} }} \ e^{^{\displaystyle - \frac{ (x - x{\scriptstyle_{o}})^{2} }{ 2 \sigma^{2} } }}
+\end{equation}
+
+where $x{\scriptstyle_{o}}$ is the displacement of the peak from x $=$ 0, $A{\scriptstyle_{o}}$ is a normalization amplitude, $s$ denotes the specific set (later used for particle species) of data the distribution describes, and $\sigma^{2}$ is the variance (e.g., see Section \ref{subsubsec:variance}).  For this distribution, one can find the Full Width at Half Maximum (FWHM) as:
+
+\begin{equation}
+  \label{eq:gauss_1}
+  FWHM = 2 \sqrt{ 2 \ln 2 } \ \sigma
+\end{equation}
+
+which is an expression for the width of the distribution at half its peak value.  If we change x $\rightarrow$ v, where v is a velocity, then the distribution in Equation \ref{eq:gauss_0} is now referred to as a Maxwell-Boltzmann distribution, or Maxwellian.  A one dimensional Maxwellian is given by:
+
+\begin{equation}
+  \label{eq:gauss_2}
+  f{\scriptstyle_{s}}\left( v \right) = \frac{ n{\scriptstyle_{o}} }{ \sqrt{\pi} \ V{\scriptscriptstyle_{T_{s}}} } \ e^{^{\displaystyle - \left( \frac{ v - v{\scriptstyle_{o}} }{ V{\scriptscriptstyle_{T_{s}}} } \right)^{2} }}
+\end{equation}
+
+where $v{\scriptstyle_{o}}$ is the drift speed of the peak relative to zero, $n{\scriptstyle_{o}}$ is the particle number density, and we have replaced 2$\sigma^{2}$ with $V{\scriptstyle_{T_{s}}}^{2}$, the thermal speed\footnote{Note that this version is referred to as the \emph{most probable speed} for a 1D Gaussian.}, which is given by:
+
+\begin{equation}
+  \label{eq:gauss_3}
+  V{\scriptstyle_{T_{s}}} = \sqrt{ \frac{ 2 k{\scriptstyle_{B}} T{\scriptstyle_{s}} }{ m{\scriptstyle_{s}} } }
+\end{equation}
+
+where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $T{\scriptstyle_{s}}$ is the temperature, $m{\scriptstyle_{s}}$ is the mass, and $s$ is the particle species.  Therefore, one can show that FWHM $=$ 2$\sqrt{\ln 2}$ $V{\scriptstyle_{T_{s}}}$.
+
+\indent  The general representation of a two dimensional multivariate distribution is given by the following:
+
+\begin{subequations}
+  \begin{align}
+    f\left( x, y \right) & = \alpha \ e^{^{\displaystyle - \left( \frac{ \beta }{ \sqrt{ 2 \left( 1 - \rho^{2} \right) } } \right)^{2} }}  \label{eq:gauss_4a} \\
+    \alpha & = \frac{ A{\scriptstyle_{o}} }{ 2 \pi \sigma{\scriptstyle_{x}} \sigma{\scriptstyle_{y}} \sqrt{1 - \rho^{2}} }  \label{eq:gauss_4b} \\
+    \beta^{2} & = \left[ \left(\frac{ x - x{\scriptstyle_{o}} }{ \sigma{\scriptstyle_{x}} }\right)^{2} + \left(\frac{ y - y{\scriptstyle_{o}} }{ \sigma{\scriptstyle_{y}} }\right)^{2} - \left( \frac{ 2 \rho (x - x{\scriptstyle_{o}}) (y - y{\scriptstyle_{o}}) }{ \sigma{\scriptstyle_{x}} \sigma{\scriptstyle_{y}} } \right) \right]  \label{eq:gauss_4c}
+  \end{align}
+\end{subequations}
+
+where we define $\rho$ and $\sigma{\scriptstyle_{j}}$ in the following manner:
+
+\begin{subequations}
+  \begin{align}
+    \rho & = \frac{ cov\left( x, y \right) }{ \sigma{\scriptstyle_{x}} \sigma{\scriptstyle_{y}} }  \label{eq:gauss_5a} \\
+    cov\left( x, y \right) & = E\left[ \left( x - \mu{\scriptstyle_{x}} \right) \left( y - \mu{\scriptstyle_{y}} \right) \right]  \label{eq:gauss_5b} 
+  \end{align}
+\end{subequations}
+where $\rho$ is the correlation between x and y, $\mu{\scriptstyle_{x}}$ $=$ E[x] is the expected value of the aggregate data set X $=$ $\cup{\scriptstyle_{i}}$ $x{\scriptstyle_{i}}$, and $\mu{\scriptstyle_{x_{i}}}$ (e.g., see Section \ref{subsec:meanvarcovar}).  In the limit $\rho$ $\rightarrow$ 0 (i.e., x and y are uncorrelated), Equation \ref{eq:gauss_4b} reduces to:
+
+\begin{equation}
+  \label{eq:gauss_6}
+  f\left( x, y \right) = \frac{ A{\scriptstyle_{x}} A{\scriptstyle_{y}} }{ 2 \pi \sigma{\scriptstyle_{x}} \sigma{\scriptstyle_{y}} } \ e^{^{\displaystyle - \frac{1}{2} \left[ \left(\frac{ x - \mu{\scriptstyle_{x}} }{ \sigma{\scriptstyle_{x}} }\right)^{2} + \left(\frac{ y - \mu{\scriptstyle_{y}} }{ \sigma{\scriptstyle_{y}} }\right)^{2} \right] }} \text{  .}
+\end{equation}
+
+In general, for uncorrelated variables, we can write:
+
+\begin{equation}
+  \label{eq:gauss_7}
+  f\left( x, y, z \right) = f\left( x \right) f\left( y \right) f\left( z \right)
+\end{equation}
+
+but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\cos{\phi}$, $V{\scriptstyle_{y}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\sin{\phi}$, and $V{\scriptstyle_{z}}$ $\rightarrow$ $V{\scriptstyle_{\parallel}}$, where $\phi$ is the phase angle of the velocity and $\partial f/\partial \phi$ $=$ 0, the distribtuion is gyrotropic.  
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Bi-Maxwellian Distributions
+%%----------------------------------------------------------------------------------------
+\subsection{Bi-Maxwellian Distributions} \label{subsec:bimaxwellian}
+
+\indent  One can show that a gyrotropic distribution satisfies $V{\scriptstyle_{T \perp, x}}$ $=$ $V{\scriptstyle_{T \perp, y}}$ $\equiv$ $V{\scriptstyle_{T \perp}}$.  If we substitute into Equation \ref{eq:gauss_6} x $\rightarrow$ $V{\scriptstyle_{\parallel}}$, y $\rightarrow$ $V{\scriptstyle_{\perp}}$, $\mu{\scriptstyle_{j}}$ $\rightarrow$ $V{\scriptstyle_{o, j}}$, and $\sigma{\scriptstyle_{j}}$ $\rightarrow$ $V{\scriptstyle_{T, j}} / \sqrt{2}$ we arrive at a bi-Maxwellian distribution given by:
+
+\begin{equation}
+  \label{eq:gauss_8}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \frac{ n{\scriptstyle_{o}} }{ \pi^{3/2} V{\scriptstyle_{T \perp}}^{2} V{\scriptstyle_{T \parallel}} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{2} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{2} \right]}}
+\end{equation}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Derivatives of Parameters: Bi-Maxwellian Distributions
+%%----------------------------------------------------------------------------------------
+\subsubsection{Derivatives of Parameters: Bi-Maxwellian Distributions} \label{subsubsec:bimaxwellian}
+
+\indent  In the use of numerical methods like the Levenberg-Marquardt algorithm \citep[e.g.,][]{markwardt09a}, it is useful to define the derivatives of a function with respect to the free parameters.  In the case of velocity distributions, these are the density, thermal speeds, drift speeds, and exponent (for self-similar and kappa distributions).  First, we define some simplifying terms for brevity.  Let us define the following:
+
+\begin{subequations}
+  \begin{align}
+    u{\scriptstyle_{j}} & = V{\scriptstyle_{j}} - v{\scriptstyle_{o j}} \label{eq:deriv_mdf0} \\
+    w{\scriptstyle_{j}} & = \frac{ u{\scriptstyle_{j}} }{ V{\scriptstyle_{T j}} } \label{eq:deriv_mdf1} \\
+    \psi\left( z \right) & = \frac{ \Gamma'\left( z \right) }{ \Gamma\left( z \right) } \equiv \text{digamma function} \label{eq:deriv_mdf2}
+  \end{align}
+\end{subequations}
+
+\noindent  Now we can proceed and define the partial derivatives of Equation \ref{eq:gauss_8} which we will denote as $f^{(m)}$ for brevity:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial f^{(m)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(m)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_mdf3} \\
+    \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ \left( w{\scriptstyle_{\parallel}}^{2} - 1 \right) }{ V{\scriptstyle_{T \parallel}} } \right] \ f^{(m)} \label{eq:deriv_mdf4} \\
+    \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left[ \frac{ 2 \ \left( w{\scriptstyle_{\perp}}^{2} - 1 \right) }{ V{\scriptstyle_{T \perp}} } \right] \ f^{(m)} \label{eq:deriv_mdf5} \\
+    \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\parallel}} }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(m)} \label{eq:deriv_mdf6} \\
+    \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\perp}} }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(m)} \label{eq:deriv_mdf7}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Bi-Kappa Distributions
+%%----------------------------------------------------------------------------------------
+\subsection{Bi-Kappa Distributions} \label{subsec:bikappa}
+
+\indent  A generalized power-law particle distribution is given by a bi-kappa distribution \citep[e.g.,][]{livadiotis15a, mace10a}, for electrons here as:
+
+\begin{equation}
+  \label{eq:bikappa_0}
+  f\left( V{\scriptstyle_{\perp}}, V{\scriptstyle_{\parallel}} \right) = \left[ \frac{ 1 }{ \pi \left( \kappa - \tfrac{3}{2} \right) } \right]^{3/2} \frac{ n{\scriptstyle_{o}} \ \Gamma\left( \kappa + 1 \right) }{ V{\scriptstyle_{T \perp}}^{2} \ V{\scriptstyle_{T \parallel}} \ \Gamma\left( \kappa - \tfrac{1}{2} \right) } \left\{ 1 + \frac{ 1 }{ \left( \kappa - \tfrac{3}{2} \right) } \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{2} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{2} \right]  \right\}^{-( \kappa + 1 )}
+\end{equation}
+
+\noindent  Note that we have again defined $V{\scriptstyle_{T j}}$ as the most probable speed of a 1D Gaussian for consistency, i.e., it does not depend upon $\kappa$.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Derivatives of Parameters: Bi-Kappa Distributions
+%%----------------------------------------------------------------------------------------
+\subsubsection{Derivatives of Parameters: Bi-Kappa Distributions} \label{subsubsec:bikappa}
+
+\indent  In the use of numerical methods like the Levenberg-Marquardt algorithm \citep[e.g.,][]{markwardt09a}, it is useful to define the derivatives of a function with respect to the free parameters.  In the case of velocity distributions, these are the density, thermal speeds, drift speeds, and exponent (for self-similar and kappa distributions).  First, we define some simplifying terms for brevity.  Let us define the following:
+
+\begin{subequations}
+  \begin{align}
+    u{\scriptstyle_{j}} & = V{\scriptstyle_{j}} - v{\scriptstyle_{o j}} \label{eq:deriv_kdf0} \\
+    w{\scriptstyle_{j}} & = \frac{ u{\scriptstyle_{j}} }{ V{\scriptstyle_{T j}} } \label{eq:deriv_kdf1} \\
+    \psi\left( z \right) & = \frac{ \Gamma'\left( z \right) }{ \Gamma\left( z \right) } \equiv \text{digamma function} \label{eq:deriv_kdf2} \\
+    D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) & = w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} + \left( \kappa - \tfrac{3}{2} \right) \label{eq:deriv_kdf30}
+  \end{align}
+\end{subequations}
+
+\noindent  Now we can proceed and define the partial derivatives of Equation \ref{eq:bikappa_0} which we will denote as $f^{(\kappa)}$ for brevity:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial f^{(\kappa)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(\kappa)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_kdf3} \\
+    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}}^{2} \ \left( \kappa + \tfrac{1}{2} \right) - w{\scriptstyle_{\perp}}^{2} - \left( \kappa - \tfrac{3}{2} \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf4} \\
+    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left\{ \frac{ 2 \ \left[ \kappa \ w{\scriptstyle_{\perp}}^{2} - w{\scriptstyle_{\parallel}}^{2} - \left( \kappa - \tfrac{3}{2} \right) \right] }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right\} \ f^{(\kappa)} \label{eq:deriv_kdf5} \\
+    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf6} \\
+    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \perp}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\perp}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf7} \\
+    \frac{ \partial f^{(\kappa)} }{ \partial \kappa } & = \left\{ \frac{ \left( w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} \right) \left( \kappa - \tfrac{1}{2} \right) - \tfrac{3}{2} \ \left( \kappa - \tfrac{3}{2} \right) }{ \left( \kappa - \tfrac{3}{2} \right) \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } - \ln{ \lvert 1 + \frac{ w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} }{ \left( \kappa - \tfrac{3}{2} \right) } \rvert } + \psi\left( \kappa + 1 \right) - \psi\left( \kappa - \tfrac{1}{2} \right) \right\} \ f^{(\kappa)} \label{eq:deriv_kdf8}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Self-Similar Distributions
+%%----------------------------------------------------------------------------------------
+\subsection{Self-Similar Distributions} \label{subsec:selfsimilar}
+
+\indent  When a distribution evolves under the action of inelastic scattering, the result is a \emph{self-similar distribution} \citep{dum74a, dum75a, goldman84a, horton76a, horton79a, jain79a}, which in one dimension is given by:
+
+\begin{equation}
+  \label{eq:app4_0}
+  f{\scriptstyle_{s}}\left( x, t \right) = C{\scriptstyle_{o}} \ e^{^{\displaystyle - \left(\frac{ x }{ x{\scriptstyle_{o}} }\right)^{p} }}
+\end{equation}
+
+\noindent  where we define $C{\scriptstyle_{o}}$ by defining:
+
+\begin{subequations}
+  \begin{align}
+    n{\scriptstyle_{o}} & = \int_{-\infty}^{\infty} dv \ f{\scriptstyle_{s}}\left( v, t \right)  \label{eq:app4_1a}  \\
+    & = 2 \int_{0}^{\infty} dv \ f{\scriptstyle_{s}}\left( v, t \right) \text{  (if symmetric)}  \label{eq:app4_1b}
+  \end{align}
+\end{subequations}
+
+\noindent  where the general solution to Equation \ref{eq:app4_1b} is given by:
+
+\begin{equation}
+  \label{eq:app4_2}
+  \int_{0}^{\infty} dx \ x^{n} e{^{\displaystyle - \alpha x^{p}}} = \frac{ \Gamma\left( k \right) }{ p \alpha^{k} }
+\end{equation}
+
+\noindent  for $n$ $>$ -1, $p$ $>$ 0, $\alpha$ $>$ 0, and $k$ $=$ ($n$ $+$ 1)/$p$\footnote{Note that $\Gamma \left(1/p\right)/p$ $=$ $\Gamma \left( 1 + 1/p \right)$}.  For $n$ $=$ 0, we can show:
+
+\begin{equation}
+  \label{eq:app4_3}
+  C{\scriptstyle_{o}} = \frac{{\displaystyle n{\scriptstyle_{o}} \ p \ \alpha^{1/p} }}{{\displaystyle 2 \ \Gamma\left( 1/p \right) }}
+\end{equation}
+
+\noindent  Physically we can see that $\alpha$ $\rightarrow$ $V{\scriptstyle_{T_{s}}}^{-p}$, therefore the one dimensional form of the self-similar distribution can be given by:
+
+\begin{equation}
+  \label{eq:app4_4}
+  f{\scriptstyle_{s}}\left( v, t \right) = \frac{{\displaystyle n{\scriptstyle_{o}} \ p }}{{\displaystyle 2 \ V{\scriptstyle_{T_{s}}} \ \Gamma\left( 1/p \right) }} \ e^{^{\displaystyle - \left(\frac{ v }{ V{\scriptstyle_{T_{s}}} }\right)^{p} }}
+\end{equation}
+
+\noindent  which in the limit as $p$ $\rightarrow$ 2 reduces to:
+
+\begin{equation}
+  \label{eq:app4_5}
+  f{\scriptstyle_{s}}\left( v, t \right) = \frac{{\displaystyle n{\scriptstyle_{o}} }}{{\displaystyle \sqrt{\pi} \ V{\scriptstyle_{T_{s}}} }} \ e^{^{\displaystyle - \left(\frac{ v }{ V{\scriptstyle_{T_{s}}} }\right)^{2} }}
+\end{equation}
+
+\noindent  which matches Equation \ref{eq:gauss_2} for $v{\scriptstyle_{o}}$ $\rightarrow$ 0.
+
+\indent  For the 3D case, the self-similar solution reduces to (for even $p$):
+
+\begin{equation}
+  \label{eq:app4_6}
+  f\left( V{\scriptstyle_{x}}, V{\scriptstyle_{y}}, V{\scriptstyle_{z}} \right) = \left[ \frac{ p }{{\displaystyle 2 \Gamma\left( \frac{n+1}{p} \right) }} \right]^{3} \frac{ n{\scriptstyle_{o}} }{ \left( V{\scriptstyle_{T_{x}}} \ V{\scriptstyle_{T_{y}}} \ V{\scriptstyle_{T_{z}}} \right)^{n+1} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{x}} }{ V{\scriptstyle_{T_{x}}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{y}} }{ V{\scriptstyle_{T_{y}}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{z}} }{ V{\scriptstyle_{T_{z}}} } \right)^{p} \right]}}
+\end{equation}
+
+\noindent  where we can follow the same lines of reasoning that lead to Equation \ref{eq:gauss_8} to find (for $n$ $\rightarrow$ 0):
+
+\begin{equation}
+  \label{eq:app4_7}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \left[ \frac{ p }{{\displaystyle 2 \Gamma\left( \frac{1}{p} \right) }} \right]^{3} \frac{ n{\scriptstyle_{o}} }{ V{\scriptstyle_{T \perp}}^{2} V{\scriptstyle_{T \parallel}} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{\perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{p} \right]}}
+\end{equation}
+
+\noindent  After some manipulation and letting $V{\scriptstyle_{j}}$ $\rightarrow$ $V{\scriptstyle_{j}}$ - $v{\scriptstyle_{oj}}$ we find:
+
+\begin{equation}
+  \label{eq:app4_8}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \left[ 2 \Gamma\left( \frac{1 + p}{p} \right) \right]^{-3} \frac{ n{\scriptstyle_{o}} }{ V{\scriptstyle_{T \perp}}^{2} V{\scriptstyle_{T \parallel}} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{p} \right]}}
+\end{equation}
+
+\noindent  Note that we have again defined $V{\scriptstyle_{T j}}$ as the most probable speed of a 1D Gaussian for consistency, i.e., it does not depend upon $p$.  Further, one can see that Equation \ref{eq:app4_8} reduces to Equation \ref{eq:gauss_8} in the limit where $p \rightarrow 2$.
+
+\indent  A slightly more general approach can be taken where the exponents are not uniform, e.g., one assumes:
+
+\begin{equation}
+  \label{eq:genbissvdf_0}
+  f\left( V{\scriptstyle_{x}}, V{\scriptstyle_{y}}, V{\scriptstyle_{z}} \right) = C{\scriptstyle_{o}} \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{x}} }{ V{\scriptstyle_{T_{x}}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{y}} }{ V{\scriptstyle_{T_{y}}} } \right)^{q} + \left( \frac{ V{\scriptstyle_{z}} }{ V{\scriptstyle_{T_{z}}} } \right)^{r} \right]}}
+\end{equation}
+
+\noindent  then we find that the triple integral results in the following (still assuming we set the result equal to $n{\scriptstyle_{o}}$ and assuming the integrals are symmetric about zero):
+
+\begin{equation}
+  \label{eq:genbissvdf_1}
+  n{\scriptstyle_{o}} = 2^{3} \ C{\scriptstyle_{o}} \ V{\scriptstyle_{T_{x}}} \ V{\scriptstyle_{T_{y}}} \ V{\scriptstyle_{T_{z}}} \ \Gamma\left( 1 + p^{-1} \right) \ \Gamma\left( 1 + q^{-1} \right) \ \Gamma\left( 1 + r^{-1} \right)
+\end{equation}
+
+\noindent  We can further reduce this by assuming gyrotropy about the mean magnetic field direction such that we let $r \rightarrow q$, $V{\scriptstyle_{T_{z}}} \rightarrow V{\scriptstyle_{T_{y}}}$, $V{\scriptstyle_{z}} \rightarrow V{\scriptstyle_{y}}$, and $x \rightarrow \parallel$ and $y \rightarrow \perp$, then we find the expression for the normalization constant to be:
+
+\begin{equation}
+  \label{eq:genbissvdf_2}
+  C{\scriptstyle_{o}} = \frac{ p \ q^{2} \ n{\scriptstyle_{o}} }{ 2^{3} \ V{\scriptstyle_{T_{\parallel}}} \ V{\scriptstyle_{T_{\perp}}}^{2} \ \Gamma\left( p^{-1} \right) \ \Gamma^{2}\left( q^{-1} \right) }
+\end{equation}
+
+\noindent  Thus, the full bi-self-similar velocity distribution for non-homogenous exponents is given by:
+
+\begin{equation}
+  \label{eq:genbissvdf_3}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \frac{ p \ q^{2} \ n{\scriptstyle_{o}} }{ 2^{3} \ V{\scriptstyle_{T_{\parallel}}} \ V{\scriptstyle_{T_{\perp}}}^{2} \ \Gamma\left( p^{-1} \right) \ \Gamma^{2}\left( q^{-1} \right) } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{q} \right]}}
+\end{equation}
+
+\noindent  or in another form as:
+
+\begin{equation}
+  \label{eq:genbissvdf_4}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \frac{ n{\scriptstyle_{o}}  \ \Gamma^{-1}\left( \frac{1+p}{p} \right) \ \Gamma^{-2}\left( \frac{1+q}{q} \right) }{ 2^{3} \ V{\scriptstyle_{T_{\parallel}}} \ V{\scriptstyle_{T_{\perp}}}^{2} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{q} \right]}}
+\end{equation}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Derivatives of Parameters: Self-Similar Distributions
+%%----------------------------------------------------------------------------------------
+\subsubsection{Derivatives of Parameters: Self-Similar Distributions} \label{subsubsec:selfsimilar}
+
+\indent  In the use of numerical methods like the Levenberg-Marquardt algorithm \citep[e.g.,][]{markwardt09a}, it is useful to define the derivatives of a function with respect to the free parameters.  In the case of velocity distributions, these are the density, thermal speeds, drift speeds, and exponent (for self-similar and kappa distributions).  First, we define some simplifying terms for brevity.  Let us define the following:
+
+\begin{subequations}
+  \begin{align}
+    u{\scriptstyle_{j}} & = V{\scriptstyle_{j}} - v{\scriptstyle_{o j}} \label{eq:deriv_sdf0} \\
+    w{\scriptstyle_{j}} & = \frac{ u{\scriptstyle_{j}} }{ V{\scriptstyle_{T j}} } \label{eq:deriv_sdf1} \\
+    \psi\left( z \right) & = \frac{ \Gamma'\left( z \right) }{ \Gamma\left( z \right) } \equiv \text{digamma function} \label{eq:deriv_sdf2}
+  \end{align}
+\end{subequations}
+
+\noindent  Now we can proceed and define the partial derivatives of Equation \ref{eq:app4_8} which we will denote as $f^{(s)}$ for brevity:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial f^{(s)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(s)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_sdf3} \\
+    \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(s)} \label{eq:deriv_sdf4} \\
+    \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(s)} \label{eq:deriv_sdf5} \\
+    \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(s)} \label{eq:deriv_sdf6} \\
+    \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p - 1} }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(s)} \label{eq:deriv_sdf7} \\
+    \frac{ \partial f^{(s)} }{ \partial p } & = \left[ \frac{ 3 \ \psi\left( \frac{ 1 + p }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } - w{\scriptstyle_{\perp}}^{p} \ \ln{ w{\scriptstyle_{\perp}} } \right] \ f^{(s)} \label{eq:deriv_sdf8}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  We can also define the partial derivatives of Equation \ref{eq:genbissvdf_4}, denoted as $f^{(s2)}$ for brevity, as:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_s2df3} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df4} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df5} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df6} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df7} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial p } & = \frac{ \psi\left( \frac{ 1 + p }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } \label{eq:deriv_s2df8} \\
+    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial q } & = \frac{ 2 \ \psi\left( \frac{ 1 + q }{ q } \right) }{ q^{2} } - w{\scriptstyle_{\perp}}^{q} \ \ln{ w{\scriptstyle_{\perp}} } \label{eq:deriv_s2df9}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Section:  Wave Properties
+%%----------------------------------------------------------------------------------------
+\section{Wave Properties} \label{sec:waveprops}
+
+\noindent  Before we begin, we should define some terms and parameters/functions that will be used later:
+
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}    %% tighten up spacing between items
+  \setlength{\parskip}{0pt}    %% tighten up spacing between items
+  \item  \textbf{Wave Number:}  $\equiv$ effectively the number of wave crests (i.e., anti-node of local maximum) per unit length $\leftrightharpoons$ ``density'' of waves $\rightarrow$ $\mathbf{k}$ $=$ $\mathbf{k} \left(\omega,\mathbf{x},t\right)$ in general (sometimes denoted by $\boldsymbol{\kappa}$ as in \citet[][]{whitham99a})
+  \item  \textbf{Wave Frequency:}  $\equiv$ effectively the number of wave crests crossing position $\mathbf{x}$ per unit time $\leftrightharpoons$ ``flux'' of waves $\rightarrow$ $\omega$ $=$ $\omega\left(\mathbf{k},\mathbf{x},t\right)$ in general
+  \item  \textbf{Wave Phase:}  $\equiv$ position on a wave cycle between a crest and a trough (i.e., anti-node of local minimum) $\rightarrow$ $\phi$ $=$ $\phi\left(\mathbf{x},t\right)$ in general
+  \item  \textbf{Dispersive Wave:}  $\equiv$ a propagating fluctuation where the wave frequency, $\omega\left(\mathbf{k},\mathbf{x},t\right)$, is nonlinearly dependent upon the wave number, $\mathbf{k} \left(\omega,\mathbf{x},t\right)$ $\Rightarrow$ modes with different $\mathbf{k}$ will propagate at different speeds $\Rightarrow$ modes will spread out spatially $=$ \emph{disperse}.
+  \item  \textbf{Dispersion Relation:}  $\equiv$ the mathematical dependence of $\omega$ on $\mathbf{k}$ (or vice versa) $\leftrightharpoons$ mathematical relationship between $\omega$ and $\mathbf{k}$
+  \item  \textbf{[Wave] Mode:}  $\equiv$ a general solution to a dispersion relation\footnote{There can be multiple \emph{modes} for one dispersion relation}
+\end{enumerate}
+
+\noindent  We can define an elementary solution to periodic wave equations as:
+
+\begin{equation}
+  \label{eq:waveprops_0a}
+  \psi\left( \mathbf{x}, t \right) = \mathcal{A} \thickspace e^{ {\displaystyle i\left( \boldsymbol{\kappa} \cdot \mathbf{x} - \omega t \right) } }
+\end{equation}
+
+\noindent  where $\mathcal{A}$ is the wave amplitude and, in general, can be a function of $\boldsymbol{\kappa}$ and/or $\omega$, but we will assume constant for now.  Let us assume that a \emph{dispersion relation}, $\omega$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right)$, exists and may be solved for positive real roots.  In general, there will be multiple solutions to the dispersion relation, where each solution is referred to as different \emph{modes}.  The term in the exponent is known as the \emph{wave phase}, given by:
+
+\begin{equation}
+  \label{eq:waveprops_1a}
+  \phi\left( \mathbf{x}, t \right) = \boldsymbol{\kappa}\left( \omega, \mathbf{x}, t \right) \cdot \mathbf{x}  -  \omega\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) \thickspace t + \phi{\scriptstyle_{o}}
+\end{equation}
+
+\noindent  where we have used a general form for the frequency, $\omega$, and wave number, $\boldsymbol{\kappa}$.  Recall that the Fourier transform of an arbitrary function, $f(\mathbf{x},t)$, in four-dimensions is given by:
+
+\begin{equation}
+  \label{eq:waveprops_2a}
+  f\left( \mathbf{x}, t \right) = \frac{1}{\left( 2 \pi \right)^{2}} \int_{-\infty}^{\infty} \thickspace d^{3}\kappa \thickspace d\omega \thickspace \tilde{f}\left( \boldsymbol{\kappa}, \omega \right) e^{ {\displaystyle i\left( \boldsymbol{\kappa} \cdot \mathbf{x} - \omega t \right) } }
+\end{equation}
+
+\noindent  where $\mathbf{x}(t)$ is an arbitrary position on a plane of constant phase at time $t$.  In other words, ``$\mathbf{x}$ represents the point of maximum constructive interference at time $t$ for a wave packet centered, in Fourier space, on $\boldsymbol{\kappa}$ and $\omega$'' \citep[page 71 of][]{stix92a}.  Because $\phi\left(\mathbf{x},t\right)$ results from solutions of the wave equation, its derivatives must satisfy the dispersion relation through the following:
+
+\begin{equation}
+  \label{eq:waveprops_3a}
+  - \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial t } = \mathcal{W}\left( \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial \mathbf{x} }, \mathbf{x}, t \right)
+\end{equation}
+
+\noindent  and we can see from Equation \ref{eq:waveprops_1a} that the following is true:
+
+\begin{subequations}
+  \begin{align}
+    \boldsymbol{\kappa} & = \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial \mathbf{x} }  \label{eq:waveprops_4a}  \\
+    \omega & = - \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial t }  \text{   .}  \label{eq:waveprops_4b}
+  \end{align}
+\end{subequations}
+
+\noindent  We also know that $\partial^{2} \phi / \partial \mathbf{x} \partial t$ $=$ $\partial^{2} \phi / \partial t \partial \mathbf{x}$ \citep[page 119 of][]{kulsrud05b}, therefore:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial^{2} \phi }{ \partial t \partial \mathbf{x} } - \frac{ \partial^{2} \phi }{ \partial \mathbf{x} \partial t } & = 0  \label{eq:waveprops_5a}  \\
+    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } - \frac{ - \partial \omega }{ \partial \mathbf{x} } = 0  \label{eq:waveprops_5b}  \\
+    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \mathbf{x} } = 0  \label{eq:waveprops_5c}  \\
+    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \nabla \omega = 0  \text{   .}  \label{eq:waveprops_5d}
+  \end{align}
+\end{subequations}
+
+\noindent  One can see that Equation \ref{eq:waveprops_5d} looks similar to the \emph{continuity equation}, so long as $\boldsymbol{\kappa}$ $\leftrightharpoons$ ``density'' of the waves, and $\omega$ $\leftrightharpoons$ ``flux'' of the waves.  \\
+\indent  From the above relations, we can see that on \emph{contours} of constant $\phi\left(\mathbf{x},t\right)$, we are sitting on local wave crests (i.e., \emph{phase fronts}) where $\boldsymbol{\kappa}$ is orthogonal to these \emph{contours}.  These phase fronts move parallel to $\boldsymbol{\kappa}$ at a speed, $\mathbf{V}{\scriptstyle_{\phi}}$, known as the \emph{phase velocity}.  The general form for this speed is given by:
+
+\begin{equation}
+  \label{eq:waveprops_6a}
+  \mathbf{V}{\scriptstyle_{\phi}} \equiv \frac{ \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \kappa } \boldsymbol{\hat{\kappa}}  \text{   .}
+\end{equation}
+
+\noindent  If we multiply the 2nd term in Equation \ref{eq:waveprops_5c} by unity, we get:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \mathbf{x} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \boldsymbol{\kappa} } & = 0  \label{eq:waveprops_7a}  \\
+    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } & = 0  \label{eq:waveprops_7b}  \\
+    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \left( \mathbf{V}{\scriptstyle_{g}} \cdot \nabla \right) \boldsymbol{\kappa} & = 0  \label{eq:waveprops_7c}
+  \end{align}
+\end{subequations}
+
+\noindent  where $\mathbf{V}{\scriptstyle_{g}}$ is called the \emph{group velocity}, where we note that:
+
+\begin{equation}
+  \label{eq:waveprops_8a}
+  \frac{ \partial \omega }{ \partial \mathbf{x} } = \frac{ \partial \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \mathbf{x} }
+\end{equation}
+
+\noindent  which shows that $\partial \mathcal{W}$/$\partial \boldsymbol{\kappa}$ $=$ $\left( \partial \omega / \partial \boldsymbol{\kappa} \right){\scriptstyle_{\mathbf{x}}}$ $\Rightarrow$ \emph{different $\boldsymbol{\kappa}$'s propagate with velocity $\mathbf{V}{\scriptstyle_{g}}$} \citep[page 376 of][]{whitham99a}.  In other words, \emph{$\mathbf{V}{\scriptstyle_{g}}$ is the propagation velocity for $\kappa$} \citep[page 380 of][]{whitham99a} and \emph{$\mid$$\mathcal{A}$$\mid^{2}$ propagates with velocity $\mathbf{V}{\scriptstyle_{g}}$} \citep[page 379 of][]{whitham99a}.
+
+\indent  We wish to define the term \emph{dispersive} more appropriately, so we require the following constraints:
+
+\begin{subequations}
+  \begin{align}
+    \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) & = \text{ real and } \neq 0  \label{eq:waveprops_9a}  \\
+    \frac{ \partial^{2} \thickspace \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \kappa^{2} } & \neq 0  \label{eq:waveprops_9b}
+  \end{align}
+\end{subequations}
+
+\noindent  and finally:
+
+\begin{equation}
+  \label{eq:waveprops_10a}
+  \det \left\lvert \frac{ \partial^{2} \thickspace \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \kappa{\scriptstyle_{i}} \thickspace \partial \kappa{\scriptstyle_{j}} } \right\rvert \neq 0  \text{   .}
+\end{equation}
+
+\noindent  Thus, an observer moving with the phase fronts (crests) moves at $\mathbf{V}{\scriptstyle_{\phi}}$, but they observe the local wave number and frequency to change in time $\Rightarrow$ neighboring phase fronts (crests) move away from the observer in this frame.  In contrast, for an observer moving with $\mathbf{V}{\scriptstyle_{g}}$, they observe constant local wave number and frequency (with respect to time), but phase fronts (crests) continuously move past the observer in this frame \citep[page 377 of][]{whitham99a}.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Standing Waves
+%%----------------------------------------------------------------------------------------
+\subsection{Standing Waves} \label{subsec:StandingWaves}
+
+\indent  Let $\tau$ be the tension and $\mu$ be a linear mass density (i.e., mass per unit length), then the wave equation for a string is given by:
+
+\begin{equation}
+  \label{eq:standwave_00a}
+  \partial{\scriptstyle_{tt}} \psi \left(x,t\right) - \frac{ \tau }{ \mu } \partial{\scriptstyle_{xx}} \psi \left(x,t\right) = 0
+\end{equation}
+
+\noindent  where $\partial{\scriptstyle_{jj}} \equiv \partial^{2}/\partial j^{2}$ and $\psi \left(x,t\right)$ is a general solution to this equation, called the \textit{wave equation} \citep[e.g.,][]{french71a, whitham99a}.  This has a simple solution of the form:
+
+\begin{equation}
+  \label{eq:standwave_01a}
+  \psi \left(x,t\right) = A \ e^{i \left( \pm \mathbf{k} \cdot \mathbf{x} \pm \omega t \right)}
+\end{equation}
+
+\noindent  where $A$ is some amplitude and the phase speed of the wave is given by:
+
+\begin{equation}
+  \label{eq:standwave_02a}
+  \frac{\omega}{k} = \sqrt{\frac{ \tau }{ \mu }} \equiv C
+\end{equation}
+
+\indent  We want to find solutions of the form $f\left( x - C \ t \right)$, but this only works for \textit{non-dispersive waves} and does not work for nonlinear waves.  In other words, the solution applies when the wave's phase speed is $C$ = constant.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Reflection and Transmission
+%%----------------------------------------------------------------------------------------
+\subsubsection{Reflection and Transmission} \label{subsubsec:ReflectionandTransmission}
+
+\indent  First, assume $\tau$ is uniform throughout the string to avoid any unwanted acceleration.  Next, let us define a general form:
+
+\begin{equation}
+  \label{eq:standwave_03a}
+  \psi{\scriptstyle_{j}} \left(x,t\right) = f{\scriptstyle_{j}} \left(x - v{\scriptstyle_{j}} t\right) = f{\scriptstyle_{j}} \left(t - \frac{x}{v{\scriptstyle_{j}}} \right)
+\end{equation}
+
+\noindent  where the subcript $j = i$ for incident, $r$ for reflected, and $t$ for transmitted waves.  Now let us assume there is some boundary at $x$ $=$ 0 and that our string has different mass densities on either side.  Let's define $\mu{\scriptstyle_{1}}$ for Region 1 (-$\infty < x < 0$) and $\mu{\scriptstyle_{2}}$ for Region 2 ($0 < x < \infty$).  Then we have:
+
+\begin{subequations}
+  \begin{align}
+    v{\scriptstyle_{1}} & = \sqrt{\frac{ \tau }{ \mu{\scriptstyle_{1}} }}  \label{eq:standwave_04a} \\
+    v{\scriptstyle_{2}} & = \sqrt{\frac{ \tau }{ \mu{\scriptstyle_{2}} }}  \label{eq:standwave_04b}
+  \end{align}
+\end{subequations}
+
+\indent  Note that the reflected wave, $\psi{\scriptstyle_{r}} \left(x,t\right)$, will have a negative $v{\scriptstyle_{r}}$ and thus a positive sign in the expression for $f$.  Since the waves are linear, we can just write them a linear superposition of two waves for Region 1.  Then we have:
+
+\begin{subequations}
+  \begin{align}
+    \psi{\scriptstyle_{1}} \left(x,t\right) & = \psi_{i} \left(x,t\right) + \psi_{r} \left(x,t\right) = f{\scriptstyle_{i}} \left(t - \frac{x}{v{\scriptstyle_{1}}} \right) + f{\scriptstyle_{r}} \left(t + \frac{x}{v{\scriptstyle_{1}}} \right)  \label{eq:standwave_05a} \\
+    \psi{\scriptstyle_{2}} \left(x,t\right) & = \psi{\scriptstyle_{t}} \left(x,t\right) = f{\scriptstyle_{t}} \left(t - \frac{x}{v{\scriptstyle_{2}}} \right)  \label{eq:standwave_05b}
+  \end{align}
+\end{subequations}
+
+\noindent  \textbf{Boundary Conditions (BCs)} \\
+
+\indent  There are two boundary conditions (BCs) that must be met: (1) the string is continuous and (2) the slope of the string is continuous.  These can be written mathematically as:
+
+\begin{subequations}
+  \begin{align}
+    \psi{\scriptstyle_{1}} \left(0,t\right) & = \psi{\scriptstyle_{2}} \left(0,t\right)  \label{eq:standwave_06a} \\
+    \partial{\scriptstyle_{x}} \psi{\scriptstyle_{1}} \left(x,t\right) \vert_{x = 0} & = \partial{\scriptstyle_{x}} \psi{\scriptstyle_{2}} \left(x,t\right) \vert_{x = 0}  \label{eq:standwave_06b}
+  \end{align}
+\end{subequations}
+
+\noindent  where these equations can be rewritten in terms of $f{\scriptstyle_{j}}$ (and integrating the second) to find:
+
+\begin{subequations}
+  \begin{align}
+    f{\scriptstyle_{i}} \left(t - \frac{x}{v{\scriptstyle_{1}}} \right) + f{\scriptstyle_{r}} \left(t + \frac{x}{v{\scriptstyle_{1}}} \right) & = f{\scriptstyle_{t}} \left(t - \frac{x}{v{\scriptstyle_{2}}} \right)  \label{eq:standwave_07a} \\
+    v{\scriptstyle_{2}} \left[ \ f{\scriptstyle_{i}} \left(t\right) - f{\scriptstyle_{r}} \left(t\right) \right] & = v{\scriptstyle_{1}} f{\scriptstyle_{t}} \left(t\right)  \label{eq:standwave_07b}
+  \end{align}
+\end{subequations}
+
+\noindent  We can solve these two equations for $f{\scriptstyle_{r}}$ and $f{\scriptstyle_{t}}$ in terms of $f{\scriptstyle_{i}}$ to find:
+
+\begin{subequations}
+  \begin{align}
+    f{\scriptstyle_{r}} & = \left( \frac{ v{\scriptstyle_{2}} - v{\scriptstyle_{1}} }{ v{\scriptstyle_{1}} + v{\scriptstyle_{2}} } \right) \ f{\scriptstyle_{i}}  \label{eq:standwave_08a} \\
+    f{\scriptstyle_{t}} & = \left( \frac{ 2 \ v{\scriptstyle_{2}} }{ v{\scriptstyle_{1}} + v{\scriptstyle_{2}} } \right) \ f{\scriptstyle_{i}}  \label{eq:standwave_08b}
+  \end{align}
+\end{subequations}
+
+\indent  We can see from the last two equations that the amplitudes of the reflected ($R$) and transmitted ($T$) wave are given by:
+
+\begin{subequations}
+  \begin{align}
+    R & = \left( \frac{ v{\scriptstyle_{2}} - v{\scriptstyle_{1}} }{ v{\scriptstyle_{1}} + v{\scriptstyle_{2}} } \right) = \left( \frac{ \sqrt{ \mu{\scriptstyle_{1}} } - \sqrt{ \mu{\scriptstyle_{2}} } }{ \sqrt{ \mu{\scriptstyle_{1}} } + \sqrt{ \mu{\scriptstyle_{2}} } } \right)  \label{eq:standwave_09a} \\
+    T & = \left( \frac{ 2 \ v{\scriptstyle_{2}} }{ v{\scriptstyle_{1}} + v{\scriptstyle_{2}} } \right) = \left( \frac{ 2 \ \sqrt{ \mu{\scriptstyle_{1}} } }{ \sqrt{ \mu{\scriptstyle_{1}} } + \sqrt{ \mu{\scriptstyle_{2}} } } \right)  \label{eq:standwave_09b}
+  \end{align}
+\end{subequations}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Massless Ring
+%%----------------------------------------------------------------------------------------
+\subsubsection{Massless Ring} \label{subsubsec:MasslessRing}
+
+\indent  A massless ring\footnote{The ring must be massless to maintain the boundary conditions without requiring an infinite force to do so.  This results because we require continuity in slope and tension at the junction.  A finite mass would also result in $Z_{2} \neq 0$, as it would act like an second tension.  This scenario requires different boundary conditions} at one end of a string\footnote{Assume the ring is on a frictionless vertical rod.} is treated as a form of \textit{impedence}.  Because the ring is massless, we require that the net transverse (i.e., orthogonal to the direction of wave propagation, say, along the x/horizontal direction) force be zero.  A finite transverse force would result in an infinite acceleration.  The only difference in this case is that we need to use a non-uniform tension.  So we just follow the same steps as above but use $\tau{\scriptstyle_{j}}$ for Region $j$ and so we have:
+
+\begin{subequations}
+  \begin{align}
+    \tau{\scriptstyle_{1}} \ \sin{\theta{\scriptstyle_{1}}} & = \tau{\scriptstyle_{2}} \ \sin{\theta{\scriptstyle_{2}}}  \label{eq:standwave_10a} \\
+    \tau{\scriptstyle_{1}} \ \partial_{x} \psi{\scriptstyle_{1}} \left(x,t\right) \vert_{x = 0} & = \tau{\scriptstyle_{2}} \ \partial_{x} \psi{\scriptstyle_{2}} \left(x,t\right) \vert_{x = 0}  \label{eq:standwave_10b}
+  \end{align}
+\end{subequations}
+
+\noindent  where the angles, $\theta{\scriptstyle_{j}}$, are relative to the x/horizontal direction.  We can define the impedence as $Z{\scriptstyle_{j}} = \tau_{j}/v_{j} = \sqrt{ \tfrac{ \tau{\scriptstyle_{j}} }{ \mu{\scriptstyle_{j}} } }$, which allows us to redefine the reflection ($R$) and transmission ($T$) coefficients as:
+
+\begin{subequations}
+  \begin{align}
+    R & = \left( \frac{ Z{\scriptstyle_{1}} - Z{\scriptstyle_{2}} }{ Z{\scriptstyle_{1}} + Z{\scriptstyle_{2}} } \right)  \label{eq:standwave_11a} \\
+    T & = \left( \frac{ 2 \ Z{\scriptstyle_{1}} }{ Z{\scriptstyle_{1}} + Z{\scriptstyle_{2}} } \right)  \label{eq:standwave_11b}
+  \end{align}
+\end{subequations}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Massive Ring
+%%----------------------------------------------------------------------------------------
+\subsubsection{Massive Ring} \label{subsubsec:MassiveRing}
+
+\indent  In contrast to a massless ring, a massive ring requires an alteration of the BCs since we now need to include Newton's laws.  We can assume the string applies a force and the massive ring undergoes an acceleration, allowing us to write:
+
+\begin{subequations}
+  \begin{align}
+    F & = \tau \ \partial{\scriptstyle_{x}} \psi \left(x,t\right)  \label{eq:standwave_12a} \\
+    m \ a & = m \ \partial{\scriptstyle_{tt}} \psi \left(x,t\right)  \label{eq:standwave_12b}
+  \end{align}
+\end{subequations}
+
+\noindent  Note that $F$ in Equation \ref{eq:standwave_12a} is the vertical force on the ring due to the tension in the string, $m$ in Equation \ref{eq:standwave_12b} is the mass of the ring, and $a$ in Equation \ref{eq:standwave_12b} is the acceleration of the ring\footnote{As an aside, one should note that BCs and differential equations are the primary constituents of a problem.  This is relevant as the reader can see that the superposition rule was not used in Equations \ref{eq:standwave_12a} and \ref{eq:standwave_12b} in contrast to the approach used in earlier sections.  The use of a superposition is just one of many possible methods one can use to solve the differential equations but is not required and may not apply in some circumstances.  That is, the BCs and differential equations exist independent of whether one can apply the superposition rule.}.
+
+\indent  We can see that in the limit as $m \rightarrow 0$ we have $\partial{\scriptstyle_{x}} \psi \rightarrow 0$, thus the force is null as is necessary for a massless system.  We also see that as $m \rightarrow \infty$ we have $\partial{\scriptstyle_{tt}} \psi \rightarrow 0$, which implies a constant velocity for the massive ring (i.e., it would be zero here as the initial condition is that it starts from rest).
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Boundary Examples
+%%----------------------------------------------------------------------------------------
+\subsubsection{Boundary Examples} \label{subsubsec:BoundaryExamples}
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  \textbf{Uniform String:}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $\lim_{\mu{\scriptstyle_{2}} \rightarrow \mu{\scriptstyle_{1}}} \ v{\scriptstyle_{2}} = v{\scriptstyle_{1}}$ $\Rightarrow$ $R = 0$ and $T = +1$
+  \end{itemize}
+  \item  \textbf{Solid(inifinite?) Wall at $x = 0$:}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $\lim_{\mu{\scriptstyle_{2}} \rightarrow \infty} \ v{\scriptstyle_{2}} = 0$ $\Rightarrow$ $R = -1$ and $T = 0$
+  \end{itemize}
+  \item  \textbf{Zero mass string for $x > 0$:}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $\lim_{\mu{\scriptstyle_{2}} \rightarrow 0} \ v{\scriptstyle_{2}} = \infty$ $\Rightarrow$ $R = +1$ and $T = +2$
+  \end{itemize}
+  \item  \textbf{Zero mass ring at $x = 0$:}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $\lim_{\tau{\scriptstyle_{2}} \rightarrow 0} \ Z{\scriptstyle_{2}} = 0$ $\Rightarrow$ $R = +1$ and $T = +2$
+  \end{itemize}
+  \item  \textbf{Massive ring at $x = 0$:}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $\lim_{m \rightarrow 0} \ \partial{\scriptstyle_{x}} \psi = 0$ $\Rightarrow$ $R = +1$ and $T = +2$
+    \item  $\lim_{m \rightarrow \infty} \ \partial{\scriptstyle_{tt}} \psi = 0$ $\Rightarrow$ $R = -1$ and $T = 0$
+  \end{itemize}
+\end{itemize}
+
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Inhomogeneous Media
+%%----------------------------------------------------------------------------------------
+\subsection{Inhomogeneous Media} \label{subsec:inhomogeneous}
+
+\indent  Recall that for an arbitrary function, $\mathcal{F}$ $=$ $\mathcal{F} \left( t, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, ..., x{\scriptstyle_{n - 1}}, x{\scriptstyle_{n}} \right)$, the \emph{exact derivative} or \emph{total derivative} is given by:
+
+\begin{equation}
+  \label{eq:inhomogeneous_0a}
+  \frac{ d \mathcal{F} }{ dt } = \frac{ \partial \mathcal{F} }{ \partial t } + \sum_{i = 1}^{n} \frac{ \partial \mathcal{F} }{ \partial x{\scriptstyle_{i}} } \thickspace \frac{ d x{\scriptstyle_{i}} }{ dt }  \text{   .}
+\end{equation}
+
+\indent  Let us start with the assumption of a lossless dispersion relation, $\mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right)$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right)$ $=$ 0, where $\mathcal{W}$ $=$ 0 for all points along a trajectory following $\mathbf{V}{\scriptstyle_{g}}$.  The variation of the dispersion relation, $\delta \mathcal{W}$, is given by:
+
+\begin{equation}
+  \label{eq:inhomogeneous_0b}
+  \delta \mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right) = \frac{ \partial \mathcal{W} }{ \partial t } \delta t + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \cdot \delta \mathbf{x} + \frac{ \partial \mathcal{W} }{ \partial \omega } \delta \omega + \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \delta \boldsymbol{\kappa} = 0
+\end{equation}
+
+\noindent  which we require to $=$ 0 as well\footnote{this is actually the constraint that makes $\mathcal{W}$ $\rightarrow$ 0 for all points along the $\mathbf{V}{\scriptstyle_{g}}$-trajectory}.  Now if we let $\tau$ be a measure of distance along this trajectory and we vary the parameters with respect to $\tau$ (e.g., $\delta \boldsymbol{\kappa}$ $\rightarrow$ $d\boldsymbol{\kappa} / d\tau$ $\delta \tau$), then we find the following relations that cause the terms in Equation \ref{eq:inhomogeneous_0b} to cancel accordingly:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ d \mathbf{x} }{ d \tau } & = \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} }  \label{eq:inhomogeneous_1a}  \\
+    \frac{ d \boldsymbol{\kappa} }{ d \tau } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_1b}  \\
+    \frac{ d t }{ d \tau } & = - \frac{ \partial \mathcal{W} }{ \partial \omega }  \label{eq:inhomogeneous_1c}  \\
+    \frac{ d \omega }{ d \tau } & = \frac{ \partial \mathcal{W} }{ \partial t }  \label{eq:inhomogeneous_1d}  \\
+    \intertext{therefore,}
+    \delta \mathbf{x} & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \delta \tau  \label{eq:inhomogeneous_1e}  \\
+    \delta \boldsymbol{\kappa} & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \delta \tau  \label{eq:inhomogeneous_1f}  \\
+    \delta t & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \omega } \delta \tau  \label{eq:inhomogeneous_1g}  \\
+    \delta \omega & \rightarrow \frac{ \partial \mathcal{W} }{ \partial t } \delta \tau  \label{eq:inhomogeneous_1h}
+  \end{align}
+\end{subequations}
+
+\noindent  which shows us that the 2nd and 4th terms and 1st and 3rd terms in Equation \ref{eq:inhomogeneous_0b} cancel, respectively \citep[Chapter 4.7 of][]{stix92a}.  Combining Equations \ref{eq:inhomogeneous_1a} and \ref{eq:inhomogeneous_1c}, we find:
+
+\begin{equation}
+  \label{eq:inhomogeneous_1i}
+  \frac{ d \mathbf{x} }{ d t } = - \frac{ \partial \mathcal{W}/\partial \boldsymbol{\kappa} }{ \partial \mathcal{W}/\partial \omega } = \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} } \equiv \mathbf{V}{\scriptstyle_{g}}  \text{   .}
+\end{equation}
+
+\indent  Now let us consider the dispersion relation, $\omega$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right)$, then variation can be shown to be:
+
+\begin{equation}
+  \label{eq:inhomogeneous_2a}
+  \delta \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) = \frac{ \partial \mathcal{W} }{ \partial t } \delta t + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \cdot \delta \mathbf{x} + \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \delta \boldsymbol{\kappa} = 0
+\end{equation}
+
+\noindent  which gives us the following relationships:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ d \mathbf{x} }{ d t } & = \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } = \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} }  \label{eq:inhomogeneous_3a}  \\
+    \frac{ d \boldsymbol{\kappa} }{ d t } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } = - \frac{ \partial \omega }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_3b}  \\
+    \frac{ d \omega }{ d t } & = \frac{ \partial \mathcal{W} }{ \partial t } = \frac{ \partial \omega }{ \partial t }  \text{   .}  \label{eq:inhomogeneous_3c}
+  \end{align}
+\end{subequations}
+
+\indent  We can show this by considering that the total derivative of $\boldsymbol{\kappa}$ is given by:
+
+\begin{subequations}
+  \begin{align}
+    \boldsymbol{\kappa} & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } dt + \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } \cdot d \mathbf{x}  \notag \\
+    \frac{ d \boldsymbol{\kappa} }{ dt } & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99a}  \\
+    & = - {\displaystyle \left( \frac{ \partial \omega }{ \partial \mathbf{x} } \right)_{{\scriptstyle_{t}}} } + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99b}  \\
+    & = - \left\{ \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \right\} + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99c}  \\
+    & = - \left\{ \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \right\} + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99d}  \\
+    \intertext{therefore,}
+    \frac{ d \boldsymbol{\kappa} }{ dt } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \equiv - \left( \frac{ \partial \omega }{ \partial \mathbf{x} } \right)_{{\scriptstyle_{\boldsymbol{\kappa}}}}  \label{eq:inhomogeneous_99e}
+  \end{align}
+\end{subequations}
+
+\noindent  where the notation $\left(  \right){\scriptstyle_{\alpha}}$ considers the expression within the parentheses a constant with respect to $\alpha$.  Equation \ref{eq:inhomogeneous_99e} is known as the \emph{wave normal equation}, or sometimes as the \emph{eikonal equation} \citep[Chapter 5.6 of][]{kulsrud05b}.  This equation defines the total rate of change of $\boldsymbol{\kappa}$ for a wave packet while following the wave packet\footnote{this is also the wave packet's \emph{refraction}}.
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Anisotropic Media
+%%----------------------------------------------------------------------------------------
+\subsection{Anisotropic Media} \label{subsec:AnisotropicMedia}
+
+In anisotropic media, the angle between $\mathbf{V}{\scriptstyle_{gr}}$ and $\mathbf{V}{\scriptstyle_{ph}}$, $\alpha$, is given by:
+
+\begin{subequations}
+  \begin{align}
+    \tan{\alpha} & = \frac{{\displaystyle \frac{ 1 }{ k } \left(\frac{ \partial \omega }{ \partial \theta }\right)_{k} }}{{\displaystyle \left(\frac{ \partial \omega }{ \partial k }\right)_{\theta} }}  \label{eq:definition_9a}  \\
+    & = \frac{{\displaystyle \frac{ 1 }{ n } \left(\frac{ \partial \omega }{ \partial \theta }\right)_{n} }}{{\displaystyle \left(\frac{ \partial \omega }{ \partial n }\right)_{\theta} }}  \label{eq:definition_9b}  \\
+    & = - \frac{ 1 }{ n } \left( \frac{ \partial n }{ \partial \theta } \right)_{\omega}  \text{  .}  \label{eq:definition_9c}
+  \end{align}
+\end{subequations}
+
+Often times it is useful to write $\mathbf{V}{\scriptstyle_{gr}}$ in terms of $\mathbf{V}{\scriptstyle_{ph}}$.  This can be done in the following way:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \partial \omega }{ \partial k } & = \frac{ c }{ n } - \frac{ k c }{ n^{2} } \left(\frac{ \partial n }{ \partial k }\right)  \label{eq:definition_10a}  \\
+    & = \frac{ c }{ n } \left[ 1 - \frac{ k }{ n } \left( \frac{ \partial \omega }{ \partial k } \cdot \frac{ \partial n }{ \partial \omega } \right) \right]  \label{eq:definition_10b}  \\
+    \frac{ c }{ n } & = \left[ 1 + \frac{ \omega }{ n } \left( \frac{ \partial n }{ \partial \omega } \right) \right] \frac{ \partial \omega }{ \partial k }  \label{eq:definition_10c}  \\
+    \frac{ \partial \omega }{ \partial k } & = \frac{{\displaystyle c }}{{\displaystyle n + \omega \frac{ \partial n }{ \partial \omega } }}  \label{eq:definition_10d}  \\
+    \frac{ \partial \omega }{ \partial k } & = V{\scriptstyle_{gr}} = \frac{{\displaystyle V{\scriptstyle_{ph}} }}{{\displaystyle \frac{ c }{ V{\scriptstyle_{ph}} } + c \omega \frac{ \partial V{\scriptstyle_{ph}}^{-1} }{ \partial \omega } }}  \label{eq:definition_10e}  \\
+    & = \frac{{\displaystyle c }}{{\displaystyle \frac{ c }{ V{\scriptstyle_{ph}} } \left( 1 - \frac{ \omega }{ V{\scriptstyle_{ph}} } \frac{ \partial V{\scriptstyle_{ph}} }{ \partial \omega } \right) }}  \label{eq:definition_10f}
+  \end{align}
+\end{subequations}
+
+which gives us a simple relation between the group and phase speeds, given by:
+
+\begin{equation}
+  \label{eq:definition_11}
+  \mathbf{V}{\scriptstyle_{gr}} = \frac{{\displaystyle V{\scriptstyle_{ph}} }}{{\displaystyle \left( 1 - \frac{ \omega }{ V{\scriptstyle_{ph}} } \frac{ \partial V{\scriptstyle_{ph}} }{ \partial \omega } \right) }}  \text{  .}
+\end{equation}
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Nonlinear Optics
+%%----------------------------------------------------------------------------------------
+\subsection{Nonlinear Optics} \label{subsec:nonlinoptics}
+
+\indent  To be more general, let us assume that a nonlinear phase, $\vartheta\left(\mathbf{x},t\right)$, contains separable terms where one part represents the phase of the wave if the medium was uniform, stationary, and linear ($\mathbf{k}{\scriptstyle_{o}}$, $\omega{\scriptstyle_{o}}$) and a second part that allows for nonlinear terms ($\boldsymbol{\varkappa}$, $\varpi$).  Under these conditions, we can see that $\omega{\scriptstyle_{o}}$ $=$ $\omega{\scriptstyle_{o}} \left( \mathbf{k}{\scriptstyle_{o}}, 0 \right)$.  Therefore, we can say:
+
+\begin{equation}
+  \label{eq:nonlinoptics_0a}
+  \vartheta\left( \mathbf{x}, t \right) = \left[ \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} - \omega{\scriptstyle_{o}} \thickspace t \right] + \varphi\left( \mathbf{x}, t \right)
+\end{equation}
+
+\noindent  where we now use $\varphi\left(\mathbf{x},t\right)$ to describe the nonlinear part of the wave phase \citep[Chapter 15 of][]{sagdeev88a}.  From this, we can see that the total wave number, $\boldsymbol{\kappa}$, and frequency, $\omega$, are given by:
+
+\begin{subequations}
+  \begin{align}
+    \boldsymbol{\kappa} & = \nabla \vartheta\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1a}  \\
+    & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) - \nabla \left( \omega{\scriptstyle_{o}} \thickspace t \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1b}  \\
+    & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1c}  \\
+    \intertext{and}
+    \omega & = - \partial{\scriptstyle_{t}} \thickspace \vartheta\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1d}  \\
+    & = - \partial{\scriptstyle_{t}} \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) - \partial{\scriptstyle_{t}} \left( - \omega{\scriptstyle_{o}} \thickspace t \right) - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right) \label{eq:nonlinoptics_1e}  \\
+    & = \partial{\scriptstyle_{t}} \left( \omega{\scriptstyle_{o}} \thickspace t \right) - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_1f}
+  \end{align}
+\end{subequations}
+
+\noindent  If we assume that $\partial{\scriptstyle_{t}}$ and $\nabla$ acting on either $\mathbf{k}{\scriptstyle_{o}}$ or $\omega{\scriptstyle_{o}}$ $\rightarrow$ 0, then we have:
+
+\begin{subequations}
+  \begin{align}
+    \boldsymbol{\kappa} & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_2a}  \\
+    \intertext{and}
+    \omega & = \omega{\scriptstyle_{o}} - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_2b}
+  \end{align}
+\end{subequations}
+
+\noindent  To proceed further, we need to recall some rules for vector calculus.  These rules are:
+
+\begin{subequations}
+  \begin{align}
+    \nabla \left( \mathbf{A} \cdot \mathbf{B} \right) & = \mathbf{A} \times \left( \nabla \times \mathbf{B} \right) + \mathbf{B} \times \left( \nabla \times \mathbf{A} \right) + \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B} + \left( \mathbf{B} \cdot \nabla \right) \thickspace \mathbf{A}  \label{eq:nonlinoptics_3a}  \\
+    \nabla \cdot \left( \mathbf{A} \thickspace \mathbf{B} \right) & = \left( \nabla \cdot \mathbf{A} \right) \thickspace \mathbf{B} + \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3b}  \\
+    \mathbf{A} \times \left( \nabla \times \mathbf{B} \right) & = \left( \nabla \thickspace \mathbf{B} \right) \cdot \mathbf{A} - \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3c}  \\
+    \nabla \times \left( \mathbf{A} \times \mathbf{B} \right) & = \mathbf{A} \thickspace \left( \nabla \cdot \mathbf{B} \right) - \mathbf{B} \thickspace \left( \nabla \cdot \mathbf{A} \right) + \left( \mathbf{B} \cdot \nabla \right) \thickspace \mathbf{A} - \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3d}  \\
+    \intertext{and}
+    \nabla \times \mathbf{x} & = 0  \label{eq:nonlinoptics_3e}  \\
+    \nabla \cdot \mathbf{x} & = 3  \label{eq:nonlinoptics_3f}  \\
+    \nabla \thickspace \mathbf{x} & = \overleftrightarrow{\mathbb{I}}  \label{eq:nonlinoptics_3g}
+  \end{align}
+\end{subequations}
+
+\noindent  where $\overleftrightarrow{\mathbb{I}}$ is the unit dyad\footnote{often this is called the unit tensor or unit matrix or identity matrix because it satisfies the multiplication identity for rank two tensors}.  Using these relationships, we can show:
+
+\begin{subequations}
+  \begin{align}
+    \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) & = \mathbf{k}{\scriptstyle_{o}} \times \left( \nabla \times \mathbf{x} \right) + \mathbf{x} \times \left( \nabla \times \mathbf{k}{\scriptstyle_{o}} \right) + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} + \left( \mathbf{x} \cdot \nabla \right) \thickspace \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_4a}  \\
+    & = 0 + \left\{ \left( \nabla \thickspace \mathbf{k}{\scriptstyle_{o}} \right) \cdot \mathbf{x} - \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} \right\} + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} + \left( \mathbf{x} \cdot \nabla \right) \thickspace \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_4b}  \\
+    & = \left( \nabla \thickspace \mathbf{k}{\scriptstyle_{o}} \right) \cdot \mathbf{x} + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x}  \label{eq:nonlinoptics_4c}  \\
+    & = 0 + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x}  \text{   .}  \label{eq:nonlinoptics_4d}
+  \end{align}
+\end{subequations}
+
+\noindent  The final term can be reduced even further by noticing:
+
+\begin{subequations}
+  \begin{align}
+    \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} & = \left( \mathbf{k}{\scriptstyle_{ox}} \thickspace \partial{\scriptstyle_{x}} + \mathbf{k}{\scriptstyle_{oy}} \thickspace \partial{\scriptstyle_{y}} + \mathbf{k}{\scriptstyle_{oz}} \thickspace \partial{\scriptstyle_{z}} \right) \thickspace \left\{ x \thickspace \textbf{i} + y \thickspace \textbf{j} + z \thickspace \mathbf{k} \right\}  \label{eq:nonlinoptics_5a}  \\
+    & = \left( \mathbf{k}{\scriptstyle_{ox}} \thickspace \partial{\scriptstyle_{x}} \thickspace x \right) \textbf{i} + \left( \mathbf{k}{\scriptstyle_{oy}} \thickspace \partial{\scriptstyle_{y}} \thickspace y \right) \textbf{j} + \left( \mathbf{k}{\scriptstyle_{oz}} \thickspace \partial{\scriptstyle_{z}} \thickspace z \right) \mathbf{k}  \label{eq:nonlinoptics_5b}  \\
+    & = \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_5c}
+  \end{align}
+\end{subequations}
+
+\noindent  which means that the final forms for $\boldsymbol{\kappa}$ and $\omega$ are given by:
+
+\begin{subequations}
+  \begin{align}
+    \boldsymbol{\kappa} & = \mathbf{k}{\scriptstyle_{o}} + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_6a}  \\
+    \omega & = \omega{\scriptstyle_{o}} - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_6b}
+%%    \left\langle  \right\rangle
+%%    \left[  \right]
+%%    \left(  \right)
+%%    \left\{  \right\}
+  \end{align}
+\end{subequations}
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Doppler Effect
+%%----------------------------------------------------------------------------------------
+\subsection{Doppler Effect}  \label{subsec:doppler}
+
+\noindent  If we assume we are at rest with respect to a fluid moving at a velocity of $\mathbf{V}{\scriptstyle_{sw}}$, then the frequency of a signal convecting with the fluid would be given by:
+
+\begin{equation}
+  \label{eq:doppler_0}
+  \omega{\scriptstyle_{obs}} = \gamma \left( \omega{\scriptstyle_{o}} + \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{V}{\scriptstyle_{sw}} \right)
+\end{equation}
+
+\noindent  where $\omega{\scriptstyle_{obs}}$ is the frequency we observe, $\omega{\scriptstyle_{o}}$ is the actual frequency of the source, $\gamma$ is the relativistic factor, and $\mathbf{k}{\scriptstyle_{o}}$ is the wave vector of the source.  The relationship in Equation \ref{eq:doppler_0} holds because the phase of any signal, $\phi$, is a Lorentz invariant \citep[see page 529 of][]{jackson98a}.  This means:
+
+\begin{equation}
+  \label{eq:doppler_1}
+  \phi = \omega{\scriptstyle_{obs}} t{\scriptstyle_{obs}} - \mathbf{k}{\scriptstyle_{obs}} \cdot \mathbf{x}{\scriptstyle_{obs}} = \omega{\scriptstyle_{o}} t{\scriptstyle_{o}} - \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x}{\scriptstyle_{o}}
+\end{equation}
+
+\noindent  where t${\scriptstyle_{j}}$ is the time in the $j$-frame and $\mathbf{x}{\scriptstyle_{j}}$ the position in the $j$-frame.  The wave number is given by:
+
+\begin{equation}
+  \label{eq:doppler_2}
+  k{\scriptstyle_{j}}\left(\omega{\scriptstyle_{j}}\right) = \frac{ \omega{\scriptstyle_{j}} }{ c } n\left(\omega{\scriptstyle_{j}}\right)
+\end{equation}
+
+\noindent  where n$\left(\omega{\scriptstyle_{j}}\right)$ is the wave index of refraction in the $j$-frame.  Thus, we can show for stationary phase ($\partial \thickspace \phi$/$\partial \thickspace \omega$ $=$ 0):
+
+\begin{equation}
+  \label{eq:doppler_3}
+  c \frac{ d \thickspace k{\scriptstyle_{j}} }{ d \thickspace \omega{\scriptstyle_{j}} } = n\left(\omega{\scriptstyle_{j}}\right) + \omega{\scriptstyle_{j}} \frac{ d \thickspace n\left(\omega{\scriptstyle_{j}}\right) }{ d \thickspace \omega{\scriptstyle_{j}} }  \text{  .}
+\end{equation}
+
+\noindent  In general the frequency and wave number are a four vector with the following Lorentz transformations:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ \omega' }{ c } & = \gamma \left( \frac{ \omega }{ c } - \frac{ \mathbf{v} }{ c } \cdot \mathbf{k} \right)  \label{eq:doppler_4a}  \\
+    k{\scriptstyle_{\parallel}}' & = \gamma \left( \frac{ \mathbf{v} \cdot \mathbf{k} }{ \mid \mathbf{v} \mid } - \frac{ v }{ c } \frac{ \omega }{ c } \right)  \label{eq:doppler_4b}  \\
+    \mathbf{k}{\scriptstyle_{\perp}}' & = \mathbf{k}{\scriptstyle_{\perp}}  \text{  .}  \label{eq:doppler_4c}
+  \end{align}
+\end{subequations}
+
+\noindent  For an electromagnetic wave with the angle between $\mathbf{k}$ and $\mathbf{v}$ defined as $\theta$, we have:
+
+\begin{equation}
+  \label{eq:doppler_4}
+  \tan{\theta'} = \frac{{\displaystyle \sin{\theta} }}{{\displaystyle \gamma \left( \cos{\theta} - \frac{ v }{ c } \right) }}
+\end{equation}
+
+\noindent  which shows that there exists a Doppler shift even when $\mathbf{k}$ is orthogonal to $\mathbf{v}$ (i.e. $\theta$ $\rightarrow$ $\pi$/2) \citep[see page 530 of][]{jackson98a}.
 
 \clearpage
 %%----------------------------------------------------------------------------------------
@@ -1789,92 +2641,126 @@ Again we step back and intentionally remove the rounding errors before renormali
 %%  Subsection: The Action Principle
 %%----------------------------------------------------------------------------------------
 \subsection{The Action Principle}
-Action \citep{oliver04a} is mathematically defined by the integral:
+
+\indent  Action \citep{oliver04a} is mathematically defined by the integral:
+
 \begin{equation}
 \label{eq:oliver1}
 S = \int_{t_{1}}^{t_{2}} L dt
 \end{equation}
-where, \emph{L} is defined as the Lagrangian\footnote{Note: Oliver refers to the Lagrangian as the \textit{the gene of motion}.}.  The action principle can be stated as follows: \emph{of all the possible paths the particles may take between any two given points in space and time, they take those paths for which the action, S, has the least possible value}.  The Lagrangian is really nothing more than the difference between kinetic and potential energy, in Galilean space-time, but in its evolution, nature seeks to minimize any deviation between kinetic and potential energy, regardless of the continual interchange between the two.  In relativistic space-time, the action becomes the dominating factor in what path, for any given particle, the universe will conspire to create.  
-If we define the total energy as:
+
+\noindent  where, \emph{L} is defined as the Lagrangian\footnote{Note: Oliver refers to the Lagrangian as the \textit{the gene of motion}.}.  The action principle can be stated as follows: \emph{of all the possible paths the particles may take between any two given points in space and time, they take those paths for which the action, S, has the least possible value}.  The Lagrangian is really nothing more than the difference between kinetic and potential energy, in Galilean space-time, but in its evolution, nature seeks to minimize any deviation between kinetic and potential energy, regardless of the continual interchange between the two.  In relativistic space-time, the action becomes the dominating factor in what path, for any given particle, the universe will conspire to create.  
+
+\indent  If we define the total energy as:
+
 \begin{equation}
 \label{eq:oliver2}
   H = \sum_{\alpha} \textbf{p}_{\alpha} \cdot \dot{\textbf{x}}_{\alpha} - L\left(\textbf{x}_{\alpha},\dot{\textbf{x}}_{\alpha}\right)
 \end{equation}
-where \textbf{p}$_{\alpha}$ is the momentum of a particle defined by:
+
+\noindent  where \textbf{p}$_{\alpha}$ is the momentum of a particle defined by:
+
 \begin{equation}
 \label{eq:oliver3}
   \textbf{p}_{\alpha} \equiv \frac{\partial L\left(\textbf{x}_{\alpha},\dot{\textbf{x}}_{\alpha}\right)}{\partial \dot{\textbf{x}}_{\alpha}} \text{ .}
 \end{equation}
-The kinetic energy can be defined as:
+
+\noindent  The kinetic energy can be defined as:
+
 \begin{equation}
 \label{eq:oliver4}
   T \equiv \frac{1}{2} \sum_{\alpha} \frac{\partial L\left(\textbf{x}_{\alpha},\dot{\textbf{x}}_{\alpha}\right)}{\partial \dot{\textbf{x}}_{\alpha}} \cdot \dot{\textbf{x}}_{\alpha} \text{ ,}
 \end{equation}
-and the angular momentum is:
+
+\noindent  and the angular momentum is:
+
 \begin{equation}
 \label{eq:oliver5}
   \textbf{J} \equiv \textbf{x}_{\alpha} \times \frac{\partial L\left(\textbf{x}_{\alpha},\dot{\textbf{x}}_{\alpha}\right)}{\partial \dot{\textbf{x}}_{\alpha}} \text{ .}
 \end{equation}
-We are also met with another way of describing what is meant when one claims \emph{the action must be minimized:}  think of the bottom of a valley as minimum in potential energy.  It can also be said that if the valley is a smoothly varying ''bowl,'' if you will, then one might claim that the bottom of the valley has an approximately zero slope.  What does it mean to have no \emph{slope}?  For any given function, f(q$_{1}$,q$_{2}$,q$_{3}$,$\dotsc$,q$_{n}$), the following statement defines what it means to have \emph{no slope} at some point, q$_{o}$, in space-time:
+
+\indent  We are also met with another way of describing what is meant when one claims \emph{the action must be minimized:}  think of the bottom of a valley as minimum in potential energy.  It can also be said that if the valley is a smoothly varying ''bowl,'' if you will, then one might claim that the bottom of the valley has an approximately zero slope.  What does it mean to have no \emph{slope}?  For any given function, f(q$_{1}$,q$_{2}$,q$_{3}$,$\dotsc$,q$_{n}$), the following statement defines what it means to have \emph{no slope} at some point, q$_{o}$, in space-time:
+
 \begin{equation}
 \label{eq:oliver6}
   \frac{\partial f}{\partial q_{i}} \Bigr\rvert_{q_{i} = q_{o}} = 0 \text{ ,}
 \end{equation}
-or one could also say that the \emph{variation} of a function must vanish at some point, q$_{o}$, in space-time:
+
+\noindent  or one could also say that the \emph{variation} of a function must vanish at some point, q$_{o}$, in space-time:
+
 \begin{equation}
 \label{eq:oliver7}
   \delta f = \frac{\partial f}{\partial q_{i}} \delta q_{i} = 0 \text{ ,}
 \end{equation}
-where $\delta$q$_{i}$ are the \emph{arguments} of the function, f.  The variation of the function, f, illustrate how small changes in its arguments, q$_{i}$, cause changes in the function itself.  That means, if the partial derivative of one of the arguments vanishes, the variation in \emph{f} suffers no change (e.g. $\partial$f/$\partial$q$_{i}$ = 0, thus $\delta$f = 0 regardless of $\delta$q$_{i}$).  Since the variation of the arguments, $\delta$q$_{i}$, are arbitrary, the vanishing variation of \emph{f} requires that every partial derivative, $\partial$f/$\partial$q$_{i}$, vanishes at the arbitrary point, q$_{o}$.  Thus, \emph{least action} is define as the conditions for which the functions, q(t), satisfy the requirements to force $\delta$S = 0.  The action is defined as a \emph{functional} $\equiv$ \emph{a quantity that has a single value corresponding to an entire function}.  Thus, the variation of the action is defined as:
+
+\noindent  where $\delta$q$_{i}$ are the \emph{arguments} of the function, f.  The variation of the function, f, illustrate how small changes in its arguments, q$_{i}$, cause changes in the function itself.  That means, if the partial derivative of one of the arguments vanishes, the variation in \emph{f} suffers no change (e.g. $\partial$f/$\partial$q$_{i}$ = 0, thus $\delta$f = 0 regardless of $\delta$q$_{i}$).  Since the variation of the arguments, $\delta$q$_{i}$, are arbitrary, the vanishing variation of \emph{f} requires that every partial derivative, $\partial$f/$\partial$q$_{i}$, vanishes at the arbitrary point, q$_{o}$.  Thus, \emph{least action} is define as the conditions for which the functions, q(t), satisfy the requirements to force $\delta$S = 0.  The action is defined as a \emph{functional} $\equiv$ \emph{a quantity that has a single value corresponding to an entire function}.  Thus, the variation of the action is defined as:
+
 \begin{equation}
 \label{eq:oliver8}
   \delta S \equiv \int_{t_{1}}^{t_{2}} \delta L dt = \int_{t_{1}}^{t_{2}} \Biggl(\frac{\partial L}{\partial q_{i}}\delta q_{i} + \frac{\partial L}{\partial \dot{q}_{i}}\delta \dot{q}_{i} \Biggr) dt
 \end{equation}
-where the second term in the equation is defined as:
+
+\noindent  where the second term in the equation is defined as:
+
 \begin{subequations}
   \begin{align}
   \frac{\partial L}{\partial \dot{q}_{i}}\delta \dot{q}_{i} & = \frac{\partial L}{\partial \dot{q}_{i}} \frac{d}{dt} \Bigl(\delta q_{i}\Bigr) \label{eq:oliver9} \\
   & = \frac{d}{dt} \Biggl(\frac{\partial L}{\partial \dot{q}_{i}} \delta q_{i} \Biggr) - \Biggl[\frac{d}{dt} \Biggl(\frac{\partial L}{\partial \dot{q}_{i}} \Biggr)\Biggr] \delta q_{i} \label{eq:oliver10}\text{ .}
   \end{align}
 \end{subequations}
-An important thing to note is that the path variations, $\delta$q, vanish at the end points, ($\delta$q,t)$_{1}$ and ($\delta$q,t)$_{2}$.  So we look at the first term in Equation \ref{eq:oliver10} and notice the following:
+
+\indent  An important thing to note is that the path variations, $\delta$q, vanish at the end points, ($\delta$q,t)$_{1}$ and ($\delta$q,t)$_{2}$.  So we look at the first term in Equation \ref{eq:oliver10} and notice the following:
+
 \begin{equation}
   \label{eq:oliver11}
   \int_{t_{1}}^{t_{2}} \frac{d}{dt} \Biggl(\frac{\partial L}{\partial \dot{q}_{i}} \delta q_{i} \Biggr) dt = \Biggl(\frac{\partial L}{\partial \dot{q}_{i}} \delta q_{i} \Biggr)\Biggr\rvert_{t_{1}}^{t_{2}} = 0\text{ .}
 \end{equation}
-So we then have the following from Equation \ref{eq:oliver10}:
+
+\noindent  So we then have the following from Equation \ref{eq:oliver10}:
+
 \begin{equation}
   \label{eq:oliver12}
   \int_{t_{1}}^{t_{2}} \frac{\partial L}{\partial \dot{q}_{i}}\delta \dot{q}_{i} dt = - \int_{t_{1}}^{t_{2}}\Biggl[\frac{d}{dt} \Biggl(\frac{\partial L}{\partial \dot{q}_{i}} \Biggr)\Biggr] \delta q_{i} dt
 \end{equation}
-which means we've now transformed the second term in Equation \ref{eq:oliver8} into a variation of $\delta$ q$_{i}$, instead of $\delta\dot{q}_{i}$.  This implies that we can do the following:
+
+\noindent  which means we've now transformed the second term in Equation \ref{eq:oliver8} into a variation of $\delta$ q$_{i}$, instead of $\delta\dot{q}_{i}$.  This implies that we can do the following:
+
 \begin{equation}
   \label{eq:oliver13}
   \delta S = - \int_{t_{1}}^{t_{2}} \Biggl(\frac{d}{dt} \Bigl(\frac{\partial L}{\partial \dot{q}_{i}} \Bigr) -  \frac{\partial L}{\partial q_{i}}\Biggr)\delta q_{i} dt\text{ .}
 \end{equation}
+
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Other important definitions
 %%----------------------------------------------------------------------------------------
 \subsection{Other important definitions}
+
 \textbf{The Total Time Derivative}
+
 \begin{subequations}
   \begin{align}
   \frac{df}{dt} & = \frac{\partial f}{\partial t} + \Biggl(\frac{\partial f}{\partial q_{i}} \dot{q}_{i} + \frac{\partial f}{\partial p_{i}} \dot{p}_{i} \Biggr) \label{eq:oliver14} \\
   & = \frac{\partial f}{\partial t} + \Bigl\{f,\mathcal{H} \Bigr\} \label{eq:oliver15}
   \end{align}
 \end{subequations}
-where \{f,$\mathcal{H}$\} is called a \emph{Poisson bracket} and $\mathcal{H}$ is the Hamiltonian, defined by:
+
+\noindent  where \{f,$\mathcal{H}$\} is called a \emph{Poisson bracket} and $\mathcal{H}$ is the Hamiltonian, defined by:
+
 \begin{equation}
   \label{eq:oliver16}
   \Bigl\{f,g \Bigr\} \equiv \Biggl(\frac{\partial f}{\partial q_{i}} \frac{\partial g}{\partial p_{i}} - \frac{\partial g}{\partial q_{i}} \frac{\partial f}{\partial p_{i}}\Biggr) \text{ .}
 \end{equation}
-It is important to note that the position-momentum pair is an \emph{antisymmetric manifestation of a symplectic structure}.  Here are some general rules of Poisson brackets:
+
+\indent  It is important to note that the position-momentum pair is an \emph{antisymmetric manifestation of a symplectic structure}.  Here are some general rules of Poisson brackets:
+
 \begin{enumerate}
   \item If both \emph{f} and \emph{g} are scalars, \{f,g\} is a scalar
   \item If \emph{f} is a vector and \emph{g} is a scalar, \{f,g\} is a vector
   \item If both \emph{f} and \emph{g} are vectors, \{f,g\} is a second rank tensor.
 \end{enumerate}
-The Hamilton equations of motion allow/show an example of where this notation can be of constructive use with the following two examples/definitions:
+
+\indent  The Hamilton equations of motion allow/show an example of where this notation can be of constructive use with the following two examples/definitions:
+
 \begin{subequations}
   \begin{align}
     \dot{q}_{i} & = \Bigl\{q_{i},\mathcal{H} \Bigr\} \label{eq:oliver17} \\
@@ -1911,12 +2797,16 @@ The Hamilton equations of motion allow/show an example of where this notation ca
     \Bigl\{f,J_{j} \Bigr\}     & = 0                    \label{eq:oliver27}
   \end{align}
 \end{subequations}
-(where \textbf{F} is any arbitrary vector function and \emph{f} is any arbitrary scalar).  Phase space is always an even-dimensional manifold that describes the space of motion.  This motion fills phase space with the phase trajectories described by q(t) and p(t).  The essence of configuration space is Euclidean while phase space is symplectic\footnote{\emph{Symplectic structure} is named after the Greek word, $\pi \lambda \epsilon \kappa \acute{o} \varsigma$, meaning \emph{twined} or \emph{braided}.  It is an antisymmetric pairing of coordinates induced by the action principle.}.  If we define the following as the single 2s state vector of phase space:
+
+\noindent  (where \textbf{F} is any arbitrary vector function and \emph{f} is any arbitrary scalar).  Phase space is always an even-dimensional manifold that describes the space of motion.  This motion fills phase space with the phase trajectories described by q(t) and p(t).  The essence of configuration space is Euclidean while phase space is symplectic\footnote{\emph{Symplectic structure} is named after the Greek word, $\pi \lambda \epsilon \kappa \acute{o} \varsigma$, meaning \emph{twined} or \emph{braided}.  It is an antisymmetric pairing of coordinates induced by the action principle.}.  If we define the following as the single 2s state vector of phase space:
+
 \begin{equation}
   \label{eq:oliver28}
   \xi = \bigl(q , p \bigr)
 \end{equation}
-where the first s-components of $\xi$ are position coordinates of all the particles in the phase space you're trying to describe.  The \emph{symplectic} is a 2s $\times$ 2s antisymmetric matrix defined as:
+
+\noindent  where the first s-components of $\xi$ are position coordinates of all the particles in the phase space you're trying to describe.  The \emph{symplectic} is a 2s $\times$ 2s antisymmetric matrix defined as:
+
 \begin{equation}
   \label{eq:oliver29}
  \textit{J} = \left[
@@ -1925,17 +2815,23 @@ where the first s-components of $\xi$ are position coordinates of all the partic
      -\textit{I} & 0
   \end{array} \right]
 \end{equation}
-where \textit{I} is the identity or unit matrix (of dimension \emph{s}).  The \textit{J} is a perfect example of symplectic space (Oliver calls it the \emph{signature} of symplectic phase space).  It has the following properties:
+
+\noindent  where \textit{I} is the identity or unit matrix (of dimension \emph{s}).  The \textit{J} is a perfect example of symplectic space (Oliver calls it the \emph{signature} of symplectic phase space).  It has the following properties:
+
 \begin{equation}
   \label{eq:oliver30}
    \textit{J} = - \textit{J}^{\dagger} = - \textit{J}^{-1} 
 \end{equation}
-where \textit{J}$^{\dagger}$ is defined by:
+
+\noindent  where \textit{J}$^{\dagger}$ is defined by:
+
 \begin{equation}
   \label{eq:oliver31}
    \textit{J}_{ij}^{\dagger} = -\textit{J}_{ji}^{*}
 \end{equation}
-or, in other words, the \emph{transpose conjugate}.  The symplectic also has a square:
+
+\noindent  or, in other words, the \emph{transpose conjugate}.  The symplectic also has a square:
+
 \begin{equation}
   \label{eq:oliver32}
  \textit{J}^{2} = - \left[
@@ -1944,32 +2840,44 @@ or, in other words, the \emph{transpose conjugate}.  The symplectic also has a s
      -\textit{I} & 0
   \end{array} \right] = - \textit{J}
 \end{equation}
-and it has the \emph{defining property} of inducing a vanishing scalar product on any phase space vector:
+
+\noindent  and it has the \emph{defining property} of inducing a vanishing scalar product on any phase space vector:
+
 \begin{equation}
   \label{eq:oliver33}
    \xi_{i} \textit{J}_{ij}\xi_{j} = 0 \text{ (often seen as } \xi \textit{J} \xi = 0 \text{).}
 \end{equation}
-The symplectic allows us to rewrite the Poisson bracket notation in a different manner:
+
+\noindent  The symplectic allows us to rewrite the Poisson bracket notation in a different manner:
+
 \begin{equation}
   \label{eq:oliver34}
    \Bigl\{f,g \Bigr\} = \frac{\partial f}{\partial \xi} \textit{J} \frac{\partial g}{\partial \xi}
 \end{equation}
-which allows one to look at the Poisson bracket of any function, f($\xi$), with the phase space vector, $\xi$:
+
+\noindent  which allows one to look at the Poisson bracket of any function, f($\xi$), with the phase space vector, $\xi$:
+
 \begin{equation}
   \label{eq:oliver35}
    \Bigl\{\xi,f \Bigr\} = \textit{J} \frac{\partial f}{\partial \xi} \text{ .}
 \end{equation}
-We are finally allowed to look at the Hamiltonian equations using the symplectic and phase space vectors:
+
+\noindent  We are finally allowed to look at the Hamiltonian equations using the symplectic and phase space vectors:
+
 \begin{equation}
   \label{eq:oliver36}
    \dot{\xi} = \Bigl\{\xi,\mathcal{H} \Bigr\} = \textit{J} \frac{\partial \mathcal{H}}{\partial \xi} \text{ .}
 \end{equation}
-A useful relationship between any two quantities, F$\bigl(\xi\bigr)$ and G$\bigl(\xi \bigr)$, can be shown to be:
+
+\noindent  A useful relationship between any two quantities, F$\bigl(\xi\bigr)$ and G$\bigl(\xi \bigr)$, can be shown to be:
+
 \begin{equation}
   \label{eq:oliver37}
     \Bigl\{F,G \Bigr\} = \frac{\partial F}{\partial \xi} \textit{J} \frac{\partial G}{\partial \xi} = \frac{\partial F}{\partial \xi} \cdot \Bigl\{\xi,G \Bigr\} = -\frac{\partial G}{\partial \xi} \cdot \Bigl\{\xi,F \Bigr\} \text{ .}
 \end{equation}
-So the Poisson bracket illustrates a number of points:
+
+\noindent  So the Poisson bracket illustrates a number of points:
+
 \begin{enumerate}
   \item The Poisson bracket is a \emph{projection of the normals of the level surfaces of one quantity upon the tangents of the level surfaces of the other}.
   \item If $\bigl\{$F,G$\bigr\}$ $\ne$ 0, the \emph{flow of F} does NOT stay on level surfaces of G, rather it cuts ACROSS them! $\Rightarrow$ G is NOT a constant on the flow of F.
@@ -1977,29 +2885,39 @@ So the Poisson bracket illustrates a number of points:
   \item Every mechanical quantity, F$\bigl(\xi\bigr)$, has an image in phase space as \emph{sheets} of level surfaces filled with streamlines generated by $\bigl\{ \xi$,F$\bigr\}$ $\equiv$ the flow. $\Rightarrow$ The Poisson bracket describes the intersection of the two flows produced by F$\bigl(\xi\bigr)$ and G$\bigl(\xi \bigr)$.
   \item The \emph{phase flow} is incompressible.
 \end{enumerate}
+
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Hamilton-Jacobi Theory
 %%----------------------------------------------------------------------------------------
 \subsection{Hamilton-Jacobi Theory}
-\emph{The motion of the world is imaged as a flow in phase space}.  The manner in which to find these \emph{flows} involves the integrals to Hamilton's equations.  The mathematical forms of the action principle, Hamilton's equations, and Poisson brackets are independent of the coordinate system they are expressed in.  \emph{Motion with s-degrees of freedom has 2s canonical coordinates which form s-conjugate pairs}. $\Rightarrow$ Any set of canonical coordinates is related to another set by transformations which preserve the action principle.
-Consider the set of canonical coordinates (Q,P), where Q = (Q$_{1}$,Q$_{2}$,$ \dotsc$,Q$_{s}$) and P = (P$_{1}$,P$_{2}$,$ \dotsc$,P$_{s}$).  Though it may appear that Q and P are actual position and momentum coordinates, they need not be.  Now Hamilton's equations are:
+
+\indent  \emph{The motion of the world is imaged as a flow in phase space}.  The manner in which to find these \emph{flows} involves the integrals to Hamilton's equations.  The mathematical forms of the action principle, Hamilton's equations, and Poisson brackets are independent of the coordinate system they are expressed in.  \emph{Motion with s-degrees of freedom has 2s canonical coordinates which form s-conjugate pairs}. $\Rightarrow$ Any set of canonical coordinates is related to another set by transformations which preserve the action principle.
+
+\indent  Consider the set of canonical coordinates (Q,P), where Q = (Q$_{1}$,Q$_{2}$,$ \dotsc$,Q$_{s}$) and P = (P$_{1}$,P$_{2}$,$ \dotsc$,P$_{s}$).  Though it may appear that Q and P are actual position and momentum coordinates, they need not be.  Now Hamilton's equations are:
+
 \begin{subequations}
   \begin{align}
     \dot{Q}_{i} & = \quad \frac{\partial \mathcal{H}}{\partial P_{i}} \label{eq:oliver38} \\
     \dot{P}_{i} & = -\frac{\partial \mathcal{H}}{\partial Q_{i}} \label{eq:oliver39}
   \end{align}
 \end{subequations}
-so that now $\mathcal{H}$ $\rightarrow$ $\mathcal{H}$'$\bigl(Q,P\bigr)$ which still satisfies:
+
+\noindent  so that now $\mathcal{H}$ $\rightarrow$ $\mathcal{H}$'$\bigl(Q,P\bigr)$ which still satisfies:
+
 \begin{equation}
   \label{eq:oliver40}
   \delta S = \delta \int_{t_{1}}^{t_{2}} \Bigl(p_{i}dq_{i} - \mathcal{H}dt \Bigr) =  \delta \int_{t_{1}}^{t_{2}} \Bigl(P_{i}dQ_{i} - \mathcal{H}' dt \Bigr) \text{ .}
 \end{equation}
-These two integrals may differ by any function, F, which has a vanishing variation (i.e. $\delta$F = 0).  Thus the difference between the integrals in Equation \ref{eq:oliver40} must be the total differential of F:
+
+\indent  These two integrals may differ by any function, F, which has a vanishing variation (i.e. $\delta$F = 0).  Thus the difference between the integrals in Equation \ref{eq:oliver40} must be the total differential of F:
+
 \begin{equation}
   \label{eq:oliver41}
   dF = p_{i}dq_{i} - P_{i}dQ_{i} - \Bigl(\mathcal{H} - \mathcal{H}'\Bigr)dt
 \end{equation}
-which defines what is referred to as \emph{the generating function}.  The generating function, from Equation \ref{eq:oliver41}, is F = F$\bigl($q,Q,t$\bigr)$.  The relationship of any coordinate can be described as follows:
+
+\noindent  which defines what is referred to as \emph{the generating function}.  The generating function, from Equation \ref{eq:oliver41}, is F = F$\bigl($q,Q,t$\bigr)$.  The relationship of any coordinate can be described as follows:
+
 \begin{subequations}
   \begin{align}
     p_{i} & = \quad \frac{\partial F}{\partial q_{i}} \label{eq:oliver42} \\
@@ -2007,12 +2925,16 @@ which defines what is referred to as \emph{the generating function}.  The genera
     \Bigl(\mathcal{H} - \mathcal{H}'\Bigr) & = \quad \frac{\partial F}{\partial t} \label{eq:oliver44}
   \end{align}
 \end{subequations}
-but the generating function can be written in a different form as:
+
+\noindent  but the generating function can be written in a different form as:
+
 \begin{equation}
   \label{eq:oliver45}
   dG = d\Bigl(F + P_{i}Q_{i}\Bigr) = p_{i}dq_{i} + P_{i}dQ_{i} - \Bigl(\mathcal{H} - \mathcal{H}'\Bigr)dt \text{ .}
 \end{equation}
-Here, G = G$\bigl($q,P,t$\bigr)$, where the coordinates are:
+
+\noindent  Here, G = G$\bigl($q,P,t$\bigr)$, where the coordinates are:
+
 \begin{subequations}
   \begin{align}
     p_{i} & = \quad \frac{\partial G}{\partial q_{i}} \label{eq:oliver46} \\
@@ -2020,26 +2942,32 @@ Here, G = G$\bigl($q,P,t$\bigr)$, where the coordinates are:
     \Bigl(\mathcal{H} - \mathcal{H}'\Bigr) & = - \frac{\partial G}{\partial t} \label{eq:oliver48}
   \end{align}
 \end{subequations}
+
 \begin{enumerate}
   \item The generating function incorporates ONE coordinate from the old pair and ONE coordinate from the new pair.
   \item The canonical transformation presents one of the coordinates explicitly and one of them implicitly.  Meaning, in the transformation from the state (q,p) to the state (Q,P) by the generating function, G$\bigl($q,P,t$\bigr)$, the implicit-explicit nature can be seen in Equations \ref{eq:oliver49} and \ref{eq:oliver50}.
   \item \emph{Explicit Dependence} $\equiv$ A direct relationship between two quantities, e.g. f(t) explicitly depends on $t$ if the variable $t$ exists directly in the function f(t), NOT if a variable in f(t) has a dependence on time.  Meaning, f$\bigl($\textbf{x}(t)$\bigr)$ would not explicitly depend on $t$ UNLESS $t$ existed indpendent of \textbf{x}(t) in the function.
   \item \emph{Implicit Dependence} $\equiv$ An indirect relationship between two quantities, e.g. f$\bigl($\textbf{x}(t)$\bigr)$ implicitly depends on the variable $t$, but \textbf{x} explicitly depends on $t$
 \end{enumerate}
+
 \begin{subequations}
   \begin{align}
     \frac{\partial}{\partial q_{i}} G\Bigl(q, P, t\Bigr) & = p_{i} \label{eq:oliver49} \\
     Q_{i} & = \frac{\partial}{\partial P_{i}} G\Bigl(q, P, t\Bigr)  \label{eq:oliver50}
   \end{align}
 \end{subequations}
-where the new coordinates, Q$\bigl($q,p$\bigr)$, are given \textbf{explicitly} by Equation \ref{eq:oliver50} and the coordinates, P$\bigl($q,p$\bigr)$, are given \textbf{implicitly} by Equation \ref{eq:oliver49}.  The two following examples illustrate some trivial transformations:
+
+\noindent  where the new coordinates, Q$\bigl($q,p$\bigr)$, are given \textbf{explicitly} by Equation \ref{eq:oliver50} and the coordinates, P$\bigl($q,p$\bigr)$, are given \textbf{implicitly} by Equation \ref{eq:oliver49}.  The two following examples illustrate some trivial transformations:
+
 \begin{subequations}
   \begin{align}
     G\Bigl(q, P, t\Bigr) & = q_{i} P_{i} \label{eq:oliver51} \\
     F\Bigl(q, Q, t\Bigr) & = q_{i} Q_{i} \label{eq:oliver52}
   \end{align}
 \end{subequations}
-yield the following identity and inverse-identity transformations: 1) for G$\bigl($q,P,t$\bigr)$ we have the identity transformation given by:
+
+\noindent  yield the following identity and inverse-identity transformations: 1) for G$\bigl($q,P,t$\bigr)$ we have the identity transformation given by:
+
 \begin{subequations}
   \begin{align}
     Q_{i} & = q_{i} \label{eq:oliver53} \\
@@ -2047,7 +2975,9 @@ yield the following identity and inverse-identity transformations: 1) for G$\big
     \mathcal{H}' & = \mathcal{H} \label{eq:oliver55}
   \end{align}
 \end{subequations}
-and 2) for F$\bigl($q,Q,t$\bigr)$ we have the inverse-identity transformation given by:
+
+\noindent  and 2) for F$\bigl($q,Q,t$\bigr)$ we have the inverse-identity transformation given by:
+
 \begin{subequations}
   \begin{align}
     Q_{i} & = \quad p_{i} \label{eq:oliver56} \\
@@ -2055,29 +2985,38 @@ and 2) for F$\bigl($q,Q,t$\bigr)$ we have the inverse-identity transformation gi
     \mathcal{H}' & = \quad \mathcal{H} \label{eq:oliver58} \text{ .}
   \end{align}
 \end{subequations}
-A nineteenth-century astronomer, C.E. Delaunay, used the fact that the transformations must ONLY be canonical in nature by attempting to simplify the problem of motion.  In his attempts, he found coordinates that are now referred to as \emph{elementary flow} coordinates, which occur when one of the coordinates, P$_{i}$ or Q$_{i}$, are selected as constants (i.e. assume we chose P$_{i}$ $\equiv$ I$_{i}$, then $\dot{I}_{i}$ = 0 and Q$_{i}$ $\equiv$ $\alpha_{i}$).  Now Hamilton's equations simplify dramatically to:
+
+\indent  A nineteenth-century astronomer, C.E. Delaunay, used the fact that the transformations must ONLY be canonical in nature by attempting to simplify the problem of motion.  In his attempts, he found coordinates that are now referred to as \emph{elementary flow} coordinates, which occur when one of the coordinates, P$_{i}$ or Q$_{i}$, are selected as constants (i.e. assume we chose P$_{i}$ $\equiv$ I$_{i}$, then $\dot{I}_{i}$ = 0 and Q$_{i}$ $\equiv$ $\alpha_{i}$).  Now Hamilton's equations simplify dramatically to:
+
 \begin{subequations}
   \begin{align}
     \dot{\alpha}_{i} & = \quad \frac{\partial \mathcal{H}'}{\partial I_{i}} \label{eq:oliver59} \\
     \dot{I}_{i} & = -\frac{\partial \mathcal{H}'}{\partial \alpha_{i}} = 0 \label{eq:oliver60} 
   \end{align}
 \end{subequations}
-which simplifies our job of solving Hamilton's equations even more than just having Equation \ref{eq:oliver60} be null.  The reason for the underlying simplicity is due to the coordinate's symplectic union.  This equation also shows us that the Hamiltonian is now only a function of one canonical coordinate, namely $\mathcal{H}$' = $\mathcal{H}$'$\bigl(I\bigr)$.  We may now rewrite the R.H.S. of Equation \ref{eq:oliver61} as a function of only $I$ also:
+
+\noindent  which simplifies our job of solving Hamilton's equations even more than just having Equation \ref{eq:oliver60} be null.  The reason for the underlying simplicity is due to the coordinate's symplectic union.  This equation also shows us that the Hamiltonian is now only a function of one canonical coordinate, namely $\mathcal{H}$' = $\mathcal{H}$'$\bigl(I\bigr)$.  We may now rewrite the R.H.S. of Equation \ref{eq:oliver61} as a function of only $I$ also:
+
 \begin{equation}
   \label{eq:oliver61}
   \omega_{i}\bigl(I\bigr) \equiv \frac{\partial \mathcal{H}'}{\partial I_{i}} \text{ .}
 \end{equation}
-This reformulation of the coordinates allows for a remarkably trivial integral form, which might otherwise be seemingly impossible:
+
+\noindent  This reformulation of the coordinates allows for a remarkably trivial integral form, which might otherwise be seemingly impossible:
+
 \begin{equation}
   \label{eq:oliver62}
   \alpha_{i} = \int dt \Bigl(\frac{\partial \mathcal{H}'}{\partial I_{i}}\Bigr) = \omega_{i} t + \beta_{i}
 \end{equation}
-where $\beta_{i}$ (i = 1, 2, $\dotsc$, s) are the integration constants.
+
+\noindent  where $\beta_{i}$ (i = 1, 2, $\dotsc$, s) are the integration constants.
+
 \begin{enumerate}
   \item The elementary flow ONLY ''flows'' along the $\alpha$-coordinates $\Rightarrow$ its phase velocity has no components in the invariant coordinate, $I$, since $\dot{I}$ = 0.
   \item The integrals of elementary flow depend upon the two constants of integration, $I$ and $\beta$, which make up the two sets of \emph{s} quantities.
   \item We can define the \emph{Phase Vector} (Equation \ref{eq:oliver63}), the phase vector's \emph{Phase Velocity} (Equation \ref{eq:oliver64}), and the \emph{Integration Constants} (Equation \ref{eq:oliver65}).
 \end{enumerate}
+
 \begin{subequations}
   \begin{align}
     \Xi         & = \bigl(\alpha, I\bigr) \label{eq:oliver63} \\
@@ -2085,115 +3024,157 @@ where $\beta_{i}$ (i = 1, 2, $\dotsc$, s) are the integration constants.
     \mathcal{I} & = \bigl(\beta,  I\bigr) \label{eq:oliver65}
   \end{align}
 \end{subequations}
-Thus the elementary flow can be described by:
+
+\noindent  Thus the elementary flow can be described by:
+
 \begin{equation}
   \label{eq:oliver66}
   \Xi\bigl(t\bigr) = \Omega t + \mathcal{I} \text{ .}
 \end{equation}
-The elementary flow can be seen to depend upon the constants of flow, $\mathcal{I}$, which are also invariant in coordinate phase space because: \emph{Quantities invariant on the flow in one set of coordinates are invariant on the IMAGE of this flow in all other canonical coordinates} $\Rightarrow$ they are the 2s invariants of motion!  This is important because the elementary phase space coordinates, $\Xi$ = $\bigl(\alpha, I\bigr)$, are NOT connected to their image phase space coordinates, $\xi$ = $\bigl(q, p\bigr)$, in any simple way (typically a VERY ''ugly'' transformation connects them).  However, the invariants are the ''same'' in both phase spaces, linking the two together, satisfying an important conservation law:
+
+\indent  The elementary flow can be seen to depend upon the constants of flow, $\mathcal{I}$, which are also invariant in coordinate phase space because: \emph{Quantities invariant on the flow in one set of coordinates are invariant on the IMAGE of this flow in all other canonical coordinates} $\Rightarrow$ they are the 2s invariants of motion!  This is important because the elementary phase space coordinates, $\Xi$ = $\bigl(\alpha, I\bigr)$, are NOT connected to their image phase space coordinates, $\xi$ = $\bigl(q, p\bigr)$, in any simple way (typically a VERY ''ugly'' transformation connects them).  However, the invariants are the ''same'' in both phase spaces, linking the two together, satisfying an important conservation law:
+
 \begin{equation}
   \label{eq:oliver67}
   \Delta\bigl(\mathcal{I}\bigr) = 0 \text{ .}
 \end{equation}
-These invariants also satisfy the condition that its rate of change along the ''flow'' (i.e. its total time derivative) vanishes by:
+
+\noindent  These invariants also satisfy the condition that its rate of change along the ''flow'' (i.e. its total time derivative) vanishes by:
+
 \begin{equation}
   \label{eq:oliver68}
   \frac{d\mathcal{I}}{dt} = \frac{\partial \mathcal{I}}{\partial t} + \Bigl\{\mathcal{I}, \mathcal{H}\Bigr\} = 0 \text{ .}
 \end{equation}
-It is often the case where $\mathcal{I}$ $\ne$ $\mathcal{I}\bigl(t\bigr)$, \textbf{explicitly} (i.e. $\partial \mathcal{I}/\partial t = 0$), but only a function of the canonical phase space coordinates, $\mathcal{I}$ $=$ $\mathcal{I}\bigl(q,p\bigr)$.  Thus any quantity which does \textbf{NOT EXPLICITLY} depend upon time satisfies the following:
+
+\indent  It is often the case where $\mathcal{I}$ $\ne$ $\mathcal{I}\bigl(t\bigr)$, \textbf{explicitly} (i.e. $\partial \mathcal{I}/\partial t = 0$), but only a function of the canonical phase space coordinates, $\mathcal{I}$ $=$ $\mathcal{I}\bigl(q,p\bigr)$.  Thus any quantity which does \textbf{NOT EXPLICITLY} depend upon time satisfies the following:
+
 \begin{equation}
   \label{eq:oliver69}
   \Bigl\{\mathcal{I}, \mathcal{H}\Bigr\} = 0 \text{ ,}
 \end{equation}
-namely, it's Poisson bracket with the Hamiltonian vanishes.
+
+\noindent  namely, it's Poisson bracket with the Hamiltonian vanishes.
+
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Action Again
 %%----------------------------------------------------------------------------------------
 \subsection{Action Again}
-Since we can say that the Lagrangian is really just the total time derivative of the action, we can also say:
+
+\indent  Since we can say that the Lagrangian is really just the total time derivative of the action, we can also say:
+
 \begin{equation}
   \label{eq:oliver70}
     dS = -\mathcal{H} dt + p_{i} dq_{i} = \frac{\partial S}{\partial t}dt + \frac{\partial S}{\partial q_{i}}dq_{i} \text{ .}
 \end{equation}
-As one might expect from our previous treatments of such things, we can say:
+
+\noindent  As one might expect from our previous treatments of such things, we can say:
+
 \begin{subequations}
   \begin{align}
     \mathcal{H}  & = -\frac{\partial S}{\partial t} \label{eq:oliver71} \\
     p_{i}        & = \quad \frac{\partial S}{\partial q_{i}}dq_{i} \label{eq:oliver72} 
   \end{align}
 \end{subequations}
-and since $\mathcal{H}$ $=$ $\mathcal{H}\bigl(q,p\bigr)$, we can rewrite Equation \ref{eq:oliver71} as:
+
+\noindent  and since $\mathcal{H}$ $=$ $\mathcal{H}\bigl(q,p\bigr)$, we can rewrite Equation \ref{eq:oliver71} as:
+
 \begin{equation}
   \label{eq:oliver73}
     \frac{\partial S}{\partial t} + \mathcal{H}\Bigl(q,\frac{\partial S}{\partial q}\Bigr) = 0 \text{ .}
 \end{equation}
-We now know that S = S$\bigl(q,t\bigr)$ is a solution to the 1$^{st}$-Order partial differential equation in the $s$-position coordinates, $q$, and the time, $t$.  The solution, in general, depends upon $s$ $+$ 1 constants of integration, where one of these constants is purely additive; meaning, if S$\bigl(q,t\bigr)$ is a solution of the Hamilton-Jacobi equation, then S$\bigl(q,t\bigr)$ $+$ $A$ is too (assuming $A$ is an additive constant)\footnote{So, it's not entirely clear why, but the remaining constants must be invariants of motion.}.  We also assume the total energy of our system is constant, meaning, $\mathcal{H}$ $=$ $\mathcal{E}$ $=$ $\partial S/\partial t$, which leads to an action of the form:
+
+\indent  We now know that S = S$\bigl(q,t\bigr)$ is a solution to the 1$^{st}$-Order partial differential equation in the $s$-position coordinates, $q$, and the time, $t$.  The solution, in general, depends upon $s$ $+$ 1 constants of integration, where one of these constants is purely additive; meaning, if S$\bigl(q,t\bigr)$ is a solution of the Hamilton-Jacobi equation, then S$\bigl(q,t\bigr)$ $+$ $A$ is too (assuming $A$ is an additive constant)\footnote{So, it's not entirely clear why, but the remaining constants must be invariants of motion.}.  We also assume the total energy of our system is constant, meaning, $\mathcal{H}$ $=$ $\mathcal{E}$ $=$ $\partial S/\partial t$, which leads to an action of the form:
+
 \begin{equation}
   \label{eq:oliver74}
     S\Bigl(q,I,t\Bigr) = -\mathcal{E} t + S_{o}\Bigl(q,I\Bigr)
 \end{equation}
-where S$_{o}\Bigl(q,I\Bigr)$ is the time-independent part of the action.  One should also note that the constant, $\mathcal{E}$, is one of the invariants, $I$ $=$ $\bigl(I_{1},I_{2},\dotsc,I_{s}\bigr)$.  So now we have the new momentum-like coordinates, P $\equiv$ $I$ in G$\bigl(q, P, t\bigr)$ $\equiv$ S$_{o}\Bigl(q,I\Bigr)$.  This leaves the remaining coordinates as:
+
+\noindent  where S$_{o}\Bigl(q,I\Bigr)$ is the time-independent part of the action.  One should also note that the constant, $\mathcal{E}$, is one of the invariants, $I$ $=$ $\bigl(I_{1},I_{2},\dotsc,I_{s}\bigr)$.  So now we have the new momentum-like coordinates, P $\equiv$ $I$ in G$\bigl(q, P, t\bigr)$ $\equiv$ S$_{o}\Bigl(q,I\Bigr)$.  This leaves the remaining coordinates as:
+
 \begin{subequations}
   \begin{align}
     p_{i}      & = \frac{\partial}{\partial q_{i}} S_{o}\Bigl(q,I\Bigr)\label{eq:oliver75} \\
     \alpha_{i} & = \frac{\partial}{\partial I_{i}} S_{o}\Bigl(q,I\Bigr) \label{eq:oliver76} \\
   \end{align}
 \end{subequations}
-or they may also be expressed as:
+
+\noindent  or they may also be expressed as:
+
 \begin{subequations}
   \begin{align}
     p_{i}      & = \frac{\partial}{\partial q_{i}} S\Bigl(q,I,t\Bigr) \label{eq:oliver77} \\
     \beta_{i} & = \frac{\partial}{\partial I_{i}} S\Bigl(q,I,t\Bigr) \label{eq:oliver78} \\
   \end{align}
 \end{subequations}
-which leads us to the conclusion that the Hamiltonians in the two sets of coordinates are the same, just of different form, given by:
+
+\noindent  which leads us to the conclusion that the Hamiltonians in the two sets of coordinates are the same, just of different form, given by:
+
 \begin{equation}
   \label{eq:oliver79}
     \mathcal{H}'\Bigl(I\Bigr) = \mathcal{H}\Bigl(q, p\Bigr) \text{ .}
 \end{equation}
-We already know that we can write the action as an integral of the canonical coordinates:
+
+\noindent  We already know that we can write the action as an integral of the canonical coordinates:
+
 \begin{equation}
   \label{eq:oliver80}
     S = \int \Bigl(p_{i}dq_{i} - \mathcal{H}dt \Bigr) 
 \end{equation}
-but this form is \emph{clearly} not an invariant\footnote{Due the indefinite nature of the integral and the lack of rotational invaraince in the p$_{i}$dq$_{i}$ terms, the integral can't be said to be an invariant of motion.}, so we reconsider this case as a contour integral over a closed contour, $\gamma$, in phase space as:
+
+\noindent  but this form is \emph{clearly} not an invariant\footnote{Due the indefinite nature of the integral and the lack of rotational invaraince in the p$_{i}$dq$_{i}$ terms, the integral can't be said to be an invariant of motion.}, so we reconsider this case as a contour integral over a closed contour, $\gamma$, in phase space as:
+
 \begin{equation}
   \label{eq:oliver81}
     S = \oint_{\gamma} \Bigl(p_{i}dq_{i} - \mathcal{H}dt \Bigr)  \text{ .}
 \end{equation}
-One should note that the contour, $\gamma$, itself is not invariant because it is deformed as it is swept through phase space by the flow, however, the integral over this moving contour can be invariant\footnote{The invariance arises from the integration within a closed boundary.  When one considers the integral at hand, one can see we are really integrating the Lagrangian within a closed boundary.  That means, for this integral to NOT be an invariant of motion, requires a violation of the conservation of energy}.  This closed integral is the Poincar$\acute{e}$ invariant.  Though this invariant exists for all motion, its form is completely opaque unless the canonical coordinates are known functions and one can actually solve the integrals. 
+
+\indent  One should note that the contour, $\gamma$, itself is not invariant because it is deformed as it is swept through phase space by the flow, however, the integral over this moving contour can be invariant\footnote{The invariance arises from the integration within a closed boundary.  When one considers the integral at hand, one can see we are really integrating the Lagrangian within a closed boundary.  That means, for this integral to NOT be an invariant of motion, requires a violation of the conservation of energy}.  This closed integral is the Poincar$\acute{e}$ invariant.  Though this invariant exists for all motion, its form is completely opaque unless the canonical coordinates are known functions and one can actually solve the integrals. 
+
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Hooke Motion
 %%----------------------------------------------------------------------------------------
 \subsubsection{Hooke Motion}
-As a way to illustrate how these transformations work, we'll consider a few examples.  The first of which is an idea proposed by Robert Hooke, one of Newton's most prominent contemporaries\footnote{Hooke happened to be a rather short man, while Newton was very tall.  Both men did not get along very well, and as a way to mock Hooke, Newton said the famous quote: \emph{If I have seen further it is by standing on ye shoulders of Giants.}} involved a force corresponding to the potential:
+
+\indent  As a way to illustrate how these transformations work, we'll consider a few examples.  The first of which is an idea proposed by Robert Hooke, one of Newton's most prominent contemporaries\footnote{Hooke happened to be a rather short man, while Newton was very tall.  Both men did not get along very well, and as a way to mock Hooke, Newton said the famous quote: \emph{If I have seen further it is by standing on ye shoulders of Giants.}} involved a force corresponding to the potential:
+
 \begin{equation}
   \label{eq:oliver82}
     V\bigl(q\bigr) = \frac{\kappa q^{2}}{2} \text{ ,}
 \end{equation}
-where $\kappa$ is a constant.  It gives rise to a force, denoted by:
+
+\noindent  where $\kappa$ is a constant.  It gives rise to a force, denoted by:
+
 \begin{equation}
   \label{eq:oliver83}
     -\frac{\partial}{\partial q}V\bigl(q\bigr) = -\kappa q \equiv \mathcal{F} \text{ ,}
 \end{equation}
-which really doesn't correspond to any fundamental force in nature, it's only an approximation to the force between two bodies bound by an elastic material (e.g. a spring)\footnote{Oliver goes into a paragraph-long explanation of how the inverse-square law Coulomb force actually averages out to a linear force when dealing with the macroscopic scale of a spring.  This results in enormous cancelations of forces.}.  The Hamiltonian can be written as:  
+
+\noindent  which really doesn't correspond to any fundamental force in nature, it's only an approximation to the force between two bodies bound by an elastic material (e.g. a spring)\footnote{Oliver goes into a paragraph-long explanation of how the inverse-square law Coulomb force actually averages out to a linear force when dealing with the macroscopic scale of a spring.  This results in enormous cancelations of forces.}.  The Hamiltonian can be written as:  
+
 \begin{equation}
   \label{eq:oliver84}
     \mathcal{H} = \frac{p^{2}}{2 m} + \frac{\kappa q^{2}}{2} \text{ ,}
 \end{equation}
-corresponding to the Hamiltonian for the simple harmonic oscillator with natural frequency, $\omega_{o}$ $=$ $\sqrt{\kappa/m}$.  The canonical invariant of motion and its elementary flow (like all elementary flows) turns out to be:
+
+\noindent  corresponding to the Hamiltonian for the simple harmonic oscillator with natural frequency, $\omega_{o}$ $=$ $\sqrt{\kappa/m}$.  The canonical invariant of motion and its elementary flow (like all elementary flows) turns out to be:
+
 \begin{subequations}
   \begin{align}
     I & = \mathcal{H}/\omega_{o} \label{eq:oliver85} \\
     \alpha_{i} & = \omega_{i} + \beta_{i} \label{eq:oliver86} 
   \end{align}
 \end{subequations}
-which gives us a new Hamiltonian, $\mathcal{H}'\bigl(I\bigr)$ $=$ $\omega_{o} I$, and the coordinates, $\bigl(\alpha, I\bigr)$.  The generating function for this case is the action found in Equation \ref{eq:oliver74}.  This can be found from solving Equation \ref{eq:oliver73} for one degree of freedom, which reduces to:
+
+\noindent  which gives us a new Hamiltonian, $\mathcal{H}'\bigl(I\bigr)$ $=$ $\omega_{o} I$, and the coordinates, $\bigl(\alpha, I\bigr)$.  The generating function for this case is the action found in Equation \ref{eq:oliver74}.  This can be found from solving Equation \ref{eq:oliver73} for one degree of freedom, which reduces to:
+
 \begin{equation}
   \label{eq:oliver87}
   \frac{dS_{o}}{dq} = p\bigl(q\bigr)
 \end{equation}
-After some algebraic manipulation, the integral for S$_{o}$ can be found\footnote{Solve for p(q) in Equation \ref{eq:oliver84} by replacing $\kappa$ with $m\omega_{o}^{2}$, and $\mathcal{H}$ with $\mathcal{H}'$ $=$ I$\omega_{o}$.} to be:
+
+\indent  After some algebraic manipulation, the integral for S$_{o}$ can be found\footnote{Solve for p(q) in Equation \ref{eq:oliver84} by replacing $\kappa$ with $m\omega_{o}^{2}$, and $\mathcal{H}$ with $\mathcal{H}'$ $=$ I$\omega_{o}$.} to be:
+
 \begin{equation}
   \label{eq:oliver88}
   S_{o}\bigl(q, I\bigr) = \int dq \sqrt{2 m \omega_{o} \Bigl(I - \frac{m \omega_{o} q^{2}}{2}  \Bigr)} \text{ .}
@@ -2536,368 +3517,6 @@ After some algebraic manipulation, the integral for S$_{o}$ can be found\footnot
 \end{equation}
 
 \noindent  where we have allowed for the possibility of convection currents and conduction currents \citep[see problem 11.16 of][]{jackson98a}.
-
-\clearpage
-%%----------------------------------------------------------------------------------------
-%%  Appendix:  Wave Properties
-%%----------------------------------------------------------------------------------------
-\section{Wave Properties} \label{app:waveprops}
-
-\noindent  Before we begin, we should define some terms and parameters/functions that will be used later:
-
-\begin{enumerate}
-  \setlength{\itemsep}{0pt}    %% tighten up spacing between items
-  \setlength{\parskip}{0pt}    %% tighten up spacing between items
-  \item  \textbf{Wave Number:}  $\equiv$ effectively the number of wave crests (i.e., anti-node of local maximum) per unit length $\leftrightharpoons$ ``density'' of waves $\rightarrow$ $\mathbf{k}$ $=$ $\mathbf{k} \left(\omega,\mathbf{x},t\right)$ in general (sometimes denoted by $\boldsymbol{\kappa}$ as in \citet[][]{whitham99a})
-  \item  \textbf{Wave Frequency:}  $\equiv$ effectively the number of wave crests crossing position $\mathbf{x}$ per unit time $\leftrightharpoons$ ``flux'' of waves $\rightarrow$ $\omega$ $=$ $\omega\left(\mathbf{k},\mathbf{x},t\right)$ in general
-  \item  \textbf{Wave Phase:}  $\equiv$ position on a wave cycle between a crest and a trough (i.e., anti-node of local minimum) $\rightarrow$ $\phi$ $=$ $\phi\left(\mathbf{x},t\right)$ in general
-  \item  \textbf{Dispersive Wave:}  $\equiv$ a propagating fluctuation where the wave frequency, $\omega\left(\mathbf{k},\mathbf{x},t\right)$, is nonlinearly dependent upon the wave number, $\mathbf{k} \left(\omega,\mathbf{x},t\right)$ $\Rightarrow$ modes with different $\mathbf{k}$ will propagate at different speeds $\Rightarrow$ modes will spread out spatially $=$ \emph{disperse}.
-  \item  \textbf{Dispersion Relation:}  $\equiv$ the mathematical dependence of $\omega$ on $\mathbf{k}$ (or vice versa) $\leftrightharpoons$ mathematical relationship between $\omega$ and $\mathbf{k}$
-  \item  \textbf{[Wave] Mode:}  $\equiv$ a general solution to a dispersion relation\footnote{There can be multiple \emph{modes} for one dispersion relation}
-\end{enumerate}
-
-\noindent  We can define an elementary solution to periodic wave equations as:
-
-\begin{equation}
-  \label{eq:waveprops_0a}
-  \psi\left( \mathbf{x}, t \right) = \mathcal{A} \thickspace e^{ {\displaystyle i\left( \boldsymbol{\kappa} \cdot \mathbf{x} - \omega t \right) } }
-\end{equation}
-
-\noindent  where $\mathcal{A}$ is the wave amplitude and, in general, can be a function of $\boldsymbol{\kappa}$ and/or $\omega$, but we will assume constant for now.  Let us assume that a \emph{dispersion relation}, $\omega$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right)$, exists and may be solved for positive real roots.  In general, there will be multiple solutions to the dispersion relation, where each solution is referred to as different \emph{modes}.  The term in the exponent is known as the \emph{wave phase}, given by:
-
-\begin{equation}
-  \label{eq:waveprops_1a}
-  \phi\left( \mathbf{x}, t \right) = \boldsymbol{\kappa}\left( \omega, \mathbf{x}, t \right) \cdot \mathbf{x}  -  \omega\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) \thickspace t + \phi{\scriptstyle_{o}}
-\end{equation}
-
-\noindent  where we have used a general form for the frequency, $\omega$, and wave number, $\boldsymbol{\kappa}$.  Recall that the Fourier transform of an arbitrary function, $f(\mathbf{x},t)$, in four-dimensions is given by:
-
-\begin{equation}
-  \label{eq:waveprops_2a}
-  f\left( \mathbf{x}, t \right) = \frac{1}{\left( 2 \pi \right)^{2}} \int_{-\infty}^{\infty} \thickspace d^{3}\kappa \thickspace d\omega \thickspace \tilde{f}\left( \boldsymbol{\kappa}, \omega \right) e^{ {\displaystyle i\left( \boldsymbol{\kappa} \cdot \mathbf{x} - \omega t \right) } }
-\end{equation}
-
-\noindent  where $\mathbf{x}(t)$ is an arbitrary position on a plane of constant phase at time $t$.  In other words, ``$\mathbf{x}$ represents the point of maximum constructive interference at time $t$ for a wave packet centered, in Fourier space, on $\boldsymbol{\kappa}$ and $\omega$'' \citep[page 71 of][]{stix92a}.  Because $\phi\left(\mathbf{x},t\right)$ results from solutions of the wave equation, its derivatives must satisfy the dispersion relation through the following:
-
-\begin{equation}
-  \label{eq:waveprops_3a}
-  - \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial t } = \mathcal{W}\left( \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial \mathbf{x} }, \mathbf{x}, t \right)
-\end{equation}
-
-\noindent  and we can see from Equation \ref{eq:waveprops_1a} that the following is true:
-
-\begin{subequations}
-  \begin{align}
-    \boldsymbol{\kappa} & = \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial \mathbf{x} }  \label{eq:waveprops_4a}  \\
-    \omega & = - \frac{ \partial \phi\left( \mathbf{x}, t \right) }{ \partial t }  \text{   .}  \label{eq:waveprops_4b}
-  \end{align}
-\end{subequations}
-
-\noindent  We also know that $\partial^{2} \phi / \partial \mathbf{x} \partial t$ $=$ $\partial^{2} \phi / \partial t \partial \mathbf{x}$ \citep[page 119 of][]{kulsrud05b}, therefore:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ \partial^{2} \phi }{ \partial t \partial \mathbf{x} } - \frac{ \partial^{2} \phi }{ \partial \mathbf{x} \partial t } & = 0  \label{eq:waveprops_5a}  \\
-    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } - \frac{ - \partial \omega }{ \partial \mathbf{x} } = 0  \label{eq:waveprops_5b}  \\
-    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \mathbf{x} } = 0  \label{eq:waveprops_5c}  \\
-    & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \nabla \omega = 0  \text{   .}  \label{eq:waveprops_5d}
-  \end{align}
-\end{subequations}
-
-\noindent  One can see that Equation \ref{eq:waveprops_5d} looks similar to the \emph{continuity equation}, so long as $\boldsymbol{\kappa}$ $\leftrightharpoons$ ``density'' of the waves, and $\omega$ $\leftrightharpoons$ ``flux'' of the waves.  \\
-\indent  From the above relations, we can see that on \emph{contours} of constant $\phi\left(\mathbf{x},t\right)$, we are sitting on local wave crests (i.e., \emph{phase fronts}) where $\boldsymbol{\kappa}$ is orthogonal to these \emph{contours}.  These phase fronts move parallel to $\boldsymbol{\kappa}$ at a speed, $\mathbf{V}{\scriptstyle_{\phi}}$, known as the \emph{phase velocity}.  The general form for this speed is given by:
-
-\begin{equation}
-  \label{eq:waveprops_6a}
-  \mathbf{V}{\scriptstyle_{\phi}} \equiv \frac{ \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \kappa } \boldsymbol{\hat{\kappa}}  \text{   .}
-\end{equation}
-
-\noindent  If we multiply the 2nd term in Equation \ref{eq:waveprops_5c} by unity, we get:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \mathbf{x} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \boldsymbol{\kappa} } & = 0  \label{eq:waveprops_7a}  \\
-    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } & = 0  \label{eq:waveprops_7b}  \\
-    \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \left( \mathbf{V}{\scriptstyle_{g}} \cdot \nabla \right) \boldsymbol{\kappa} & = 0  \label{eq:waveprops_7c}
-  \end{align}
-\end{subequations}
-
-\noindent  where $\mathbf{V}{\scriptstyle_{g}}$ is called the \emph{group velocity}, where we note that:
-
-\begin{equation}
-  \label{eq:waveprops_8a}
-  \frac{ \partial \omega }{ \partial \mathbf{x} } = \frac{ \partial \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \mathbf{x} }
-\end{equation}
-
-\noindent  which shows that $\partial \mathcal{W}$/$\partial \boldsymbol{\kappa}$ $=$ $\left( \partial \omega / \partial \boldsymbol{\kappa} \right){\scriptstyle_{\mathbf{x}}}$ $\Rightarrow$ \emph{different $\boldsymbol{\kappa}$'s propagate with velocity $\mathbf{V}{\scriptstyle_{g}}$} \citep[page 376 of][]{whitham99a}.  In other words, \emph{$\mathbf{V}{\scriptstyle_{g}}$ is the propagation velocity for $\kappa$} \citep[page 380 of][]{whitham99a} and \emph{$\mid$$\mathcal{A}$$\mid^{2}$ propagates with velocity $\mathbf{V}{\scriptstyle_{g}}$} \citep[page 379 of][]{whitham99a}.
-
-\indent  We wish to define the term \emph{dispersive} more appropriately, so we require the following constraints:
-
-\begin{subequations}
-  \begin{align}
-    \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) & = \text{ real and } \neq 0  \label{eq:waveprops_9a}  \\
-    \frac{ \partial^{2} \thickspace \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \kappa^{2} } & \neq 0  \label{eq:waveprops_9b}
-  \end{align}
-\end{subequations}
-
-\noindent  and finally:
-
-\begin{equation}
-  \label{eq:waveprops_10a}
-  \det \left\lvert \frac{ \partial^{2} \thickspace \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) }{ \partial \kappa{\scriptstyle_{i}} \thickspace \partial \kappa{\scriptstyle_{j}} } \right\rvert \neq 0  \text{   .}
-\end{equation}
-
-\noindent  Thus, an observer moving with the phase fronts (crests) moves at $\mathbf{V}{\scriptstyle_{\phi}}$, but they observe the local wave number and frequency to change in time $\Rightarrow$ neighboring phase fronts (crests) move away from the observer in this frame.  In contrast, for an observer moving with $\mathbf{V}{\scriptstyle_{g}}$, they observe constant local wave number and frequency (with respect to time), but phase fronts (crests) continuously move past the observer in this frame \citep[page 377 of][]{whitham99a}.
-
-%%----------------------------------------------------------------------------------------
-%%  Appendix:  Inhomogeneous Media
-%%----------------------------------------------------------------------------------------
-\subsection{Inhomogeneous Media} \label{subapp:inhomogeneous}
-
-\indent  Recall that for an arbitrary function, $\mathcal{F}$ $=$ $\mathcal{F} \left( t, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, ..., x{\scriptstyle_{n - 1}}, x{\scriptstyle_{n}} \right)$, the \emph{exact derivative} or \emph{total derivative} is given by:
-
-\begin{equation}
-  \label{eq:inhomogeneous_0a}
-  \frac{ d \mathcal{F} }{ dt } = \frac{ \partial \mathcal{F} }{ \partial t } + \sum_{i = 1}^{n} \frac{ \partial \mathcal{F} }{ \partial x{\scriptstyle_{i}} } \thickspace \frac{ d x{\scriptstyle_{i}} }{ dt }  \text{   .}
-\end{equation}
-
-\indent  Let us start with the assumption of a lossless dispersion relation, $\mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right)$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right)$ $=$ 0, where $\mathcal{W}$ $=$ 0 for all points along a trajectory following $\mathbf{V}{\scriptstyle_{g}}$.  The variation of the dispersion relation, $\delta \mathcal{W}$, is given by:
-
-\begin{equation}
-  \label{eq:inhomogeneous_0b}
-  \delta \mathcal{W}\left( \boldsymbol{\kappa}, \omega, \mathbf{x}, t \right) = \frac{ \partial \mathcal{W} }{ \partial t } \delta t + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \cdot \delta \mathbf{x} + \frac{ \partial \mathcal{W} }{ \partial \omega } \delta \omega + \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \delta \boldsymbol{\kappa} = 0
-\end{equation}
-
-\noindent  which we require to $=$ 0 as well\footnote{this is actually the constraint that makes $\mathcal{W}$ $\rightarrow$ 0 for all points along the $\mathbf{V}{\scriptstyle_{g}}$-trajectory}.  Now if we let $\tau$ be a measure of distance along this trajectory and we vary the parameters with respect to $\tau$ (e.g., $\delta \boldsymbol{\kappa}$ $\rightarrow$ $d\boldsymbol{\kappa} / d\tau$ $\delta \tau$), then we find the following relations that cause the terms in Equation \ref{eq:inhomogeneous_0b} to cancel accordingly:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ d \mathbf{x} }{ d \tau } & = \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} }  \label{eq:inhomogeneous_1a}  \\
-    \frac{ d \boldsymbol{\kappa} }{ d \tau } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_1b}  \\
-    \frac{ d t }{ d \tau } & = - \frac{ \partial \mathcal{W} }{ \partial \omega }  \label{eq:inhomogeneous_1c}  \\
-    \frac{ d \omega }{ d \tau } & = \frac{ \partial \mathcal{W} }{ \partial t }  \label{eq:inhomogeneous_1d}  \\
-    \intertext{therefore,}
-    \delta \mathbf{x} & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \delta \tau  \label{eq:inhomogeneous_1e}  \\
-    \delta \boldsymbol{\kappa} & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \delta \tau  \label{eq:inhomogeneous_1f}  \\
-    \delta t & \rightarrow \frac{ \partial \mathcal{W} }{ \partial \omega } \delta \tau  \label{eq:inhomogeneous_1g}  \\
-    \delta \omega & \rightarrow \frac{ \partial \mathcal{W} }{ \partial t } \delta \tau  \label{eq:inhomogeneous_1h}
-  \end{align}
-\end{subequations}
-
-\noindent  which shows us that the 2nd and 4th terms and 1st and 3rd terms in Equation \ref{eq:inhomogeneous_0b} cancel, respectively \citep[Chapter 4.7 of][]{stix92a}.  Combining Equations \ref{eq:inhomogeneous_1a} and \ref{eq:inhomogeneous_1c}, we find:
-
-\begin{equation}
-  \label{eq:inhomogeneous_1i}
-  \frac{ d \mathbf{x} }{ d t } = - \frac{ \partial \mathcal{W}/\partial \boldsymbol{\kappa} }{ \partial \mathcal{W}/\partial \omega } = \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} } \equiv \mathbf{V}{\scriptstyle_{g}}  \text{   .}
-\end{equation}
-
-\indent  Now let us consider the dispersion relation, $\omega$ $=$ $\mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right)$, then variation can be shown to be:
-
-\begin{equation}
-  \label{eq:inhomogeneous_2a}
-  \delta \mathcal{W}\left( \boldsymbol{\kappa}, \mathbf{x}, t \right) = \frac{ \partial \mathcal{W} }{ \partial t } \delta t + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \cdot \delta \mathbf{x} + \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \delta \boldsymbol{\kappa} = 0
-\end{equation}
-
-\noindent  which gives us the following relationships:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ d \mathbf{x} }{ d t } & = \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } = \frac{ \partial \omega }{ \partial \boldsymbol{\kappa} }  \label{eq:inhomogeneous_3a}  \\
-    \frac{ d \boldsymbol{\kappa} }{ d t } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } = - \frac{ \partial \omega }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_3b}  \\
-    \frac{ d \omega }{ d t } & = \frac{ \partial \mathcal{W} }{ \partial t } = \frac{ \partial \omega }{ \partial t }  \text{   .}  \label{eq:inhomogeneous_3c}
-  \end{align}
-\end{subequations}
-
-\indent  We can show this by considering that the total derivative of $\boldsymbol{\kappa}$ is given by:
-
-\begin{subequations}
-  \begin{align}
-    \boldsymbol{\kappa} & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } dt + \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } \cdot d \mathbf{x}  \notag \\
-    \frac{ d \boldsymbol{\kappa} }{ dt } & = \frac{ \partial \boldsymbol{\kappa} }{ \partial t } + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99a}  \\
-    & = - {\displaystyle \left( \frac{ \partial \omega }{ \partial \mathbf{x} } \right)_{{\scriptstyle_{t}}} } + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99b}  \\
-    & = - \left\{ \frac{ \partial \mathcal{W} }{ \partial \boldsymbol{\kappa} } \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \right\} + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99c}  \\
-    & = - \left\{ \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} } + \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \right\} + \mathbf{V}{\scriptstyle_{g}} \cdot \frac{ \partial \boldsymbol{\kappa} }{ \partial \mathbf{x} }  \label{eq:inhomogeneous_99d}  \\
-    \intertext{therefore,}
-    \frac{ d \boldsymbol{\kappa} }{ dt } & = - \frac{ \partial \mathcal{W} }{ \partial \mathbf{x} } \equiv - \left( \frac{ \partial \omega }{ \partial \mathbf{x} } \right)_{{\scriptstyle_{\boldsymbol{\kappa}}}}  \label{eq:inhomogeneous_99e}
-  \end{align}
-\end{subequations}
-
-\noindent  where the notation $\left(  \right){\scriptstyle_{\alpha}}$ considers the expression within the parentheses a constant with respect to $\alpha$.  Equation \ref{eq:inhomogeneous_99e} is known as the \emph{wave normal equation}, or sometimes as the \emph{eikonal equation} \citep[Chapter 5.6 of][]{kulsrud05b}.  This equation defines the total rate of change of $\boldsymbol{\kappa}$ for a wave packet while following the wave packet\footnote{this is also the wave packet's \emph{refraction}}.
-
-\clearpage
-%%----------------------------------------------------------------------------------------
-%%  Appendix:  Anisotropic Media
-%%----------------------------------------------------------------------------------------
-\subsection{Anisotropic Media} \label{subapp:AnisotropicMedia}
-
-In anisotropic media, the angle between $\mathbf{V}{\scriptstyle_{gr}}$ and $\mathbf{V}{\scriptstyle_{ph}}$, $\alpha$, is given by:
-
-\begin{subequations}
-  \begin{align}
-    \tan{\alpha} & = \frac{{\displaystyle \frac{ 1 }{ k } \left(\frac{ \partial \omega }{ \partial \theta }\right)_{k} }}{{\displaystyle \left(\frac{ \partial \omega }{ \partial k }\right)_{\theta} }}  \label{eq:definition_9a}  \\
-    & = \frac{{\displaystyle \frac{ 1 }{ n } \left(\frac{ \partial \omega }{ \partial \theta }\right)_{n} }}{{\displaystyle \left(\frac{ \partial \omega }{ \partial n }\right)_{\theta} }}  \label{eq:definition_9b}  \\
-    & = - \frac{ 1 }{ n } \left( \frac{ \partial n }{ \partial \theta } \right)_{\omega}  \text{  .}  \label{eq:definition_9c}
-  \end{align}
-\end{subequations}
-
-Often times it is useful to write $\mathbf{V}{\scriptstyle_{gr}}$ in terms of $\mathbf{V}{\scriptstyle_{ph}}$.  This can be done in the following way:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ \partial \omega }{ \partial k } & = \frac{ c }{ n } - \frac{ k c }{ n^{2} } \left(\frac{ \partial n }{ \partial k }\right)  \label{eq:definition_10a}  \\
-    & = \frac{ c }{ n } \left[ 1 - \frac{ k }{ n } \left( \frac{ \partial \omega }{ \partial k } \cdot \frac{ \partial n }{ \partial \omega } \right) \right]  \label{eq:definition_10b}  \\
-    \frac{ c }{ n } & = \left[ 1 + \frac{ \omega }{ n } \left( \frac{ \partial n }{ \partial \omega } \right) \right] \frac{ \partial \omega }{ \partial k }  \label{eq:definition_10c}  \\
-    \frac{ \partial \omega }{ \partial k } & = \frac{{\displaystyle c }}{{\displaystyle n + \omega \frac{ \partial n }{ \partial \omega } }}  \label{eq:definition_10d}  \\
-    \frac{ \partial \omega }{ \partial k } & = V{\scriptstyle_{gr}} = \frac{{\displaystyle V{\scriptstyle_{ph}} }}{{\displaystyle \frac{ c }{ V{\scriptstyle_{ph}} } + c \omega \frac{ \partial V{\scriptstyle_{ph}}^{-1} }{ \partial \omega } }}  \label{eq:definition_10e}  \\
-    & = \frac{{\displaystyle c }}{{\displaystyle \frac{ c }{ V{\scriptstyle_{ph}} } \left( 1 - \frac{ \omega }{ V{\scriptstyle_{ph}} } \frac{ \partial V{\scriptstyle_{ph}} }{ \partial \omega } \right) }}  \label{eq:definition_10f}
-  \end{align}
-\end{subequations}
-
-which gives us a simple relation between the group and phase speeds, given by:
-
-\begin{equation}
-  \label{eq:definition_11}
-  \mathbf{V}{\scriptstyle_{gr}} = \frac{{\displaystyle V{\scriptstyle_{ph}} }}{{\displaystyle \left( 1 - \frac{ \omega }{ V{\scriptstyle_{ph}} } \frac{ \partial V{\scriptstyle_{ph}} }{ \partial \omega } \right) }}  \text{  .}
-\end{equation}
-
-\clearpage
-%%----------------------------------------------------------------------------------------
-%%  Appendix:  Nonlinear Optics
-%%----------------------------------------------------------------------------------------
-\subsection{Nonlinear Optics} \label{subapp:nonlinoptics}
-
-\indent  To be more general, let us assume that a nonlinear phase, $\vartheta\left(\mathbf{x},t\right)$, contains separable terms where one part represents the phase of the wave if the medium was uniform, stationary, and linear ($\mathbf{k}{\scriptstyle_{o}}$, $\omega{\scriptstyle_{o}}$) and a second part that allows for nonlinear terms ($\boldsymbol{\varkappa}$, $\varpi$).  Under these conditions, we can see that $\omega{\scriptstyle_{o}}$ $=$ $\omega{\scriptstyle_{o}} \left( \mathbf{k}{\scriptstyle_{o}}, 0 \right)$.  Therefore, we can say:
-
-\begin{equation}
-  \label{eq:nonlinoptics_0a}
-  \vartheta\left( \mathbf{x}, t \right) = \left[ \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} - \omega{\scriptstyle_{o}} \thickspace t \right] + \varphi\left( \mathbf{x}, t \right)
-\end{equation}
-
-\noindent  where we now use $\varphi\left(\mathbf{x},t\right)$ to describe the nonlinear part of the wave phase \citep[Chapter 15 of][]{sagdeev88a}.  From this, we can see that the total wave number, $\boldsymbol{\kappa}$, and frequency, $\omega$, are given by:
-
-\begin{subequations}
-  \begin{align}
-    \boldsymbol{\kappa} & = \nabla \vartheta\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1a}  \\
-    & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) - \nabla \left( \omega{\scriptstyle_{o}} \thickspace t \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1b}  \\
-    & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1c}  \\
-    \intertext{and}
-    \omega & = - \partial{\scriptstyle_{t}} \thickspace \vartheta\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_1d}  \\
-    & = - \partial{\scriptstyle_{t}} \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) - \partial{\scriptstyle_{t}} \left( - \omega{\scriptstyle_{o}} \thickspace t \right) - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right) \label{eq:nonlinoptics_1e}  \\
-    & = \partial{\scriptstyle_{t}} \left( \omega{\scriptstyle_{o}} \thickspace t \right) - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_1f}
-  \end{align}
-\end{subequations}
-
-\noindent  If we assume that $\partial{\scriptstyle_{t}}$ and $\nabla$ acting on either $\mathbf{k}{\scriptstyle_{o}}$ or $\omega{\scriptstyle_{o}}$ $\rightarrow$ 0, then we have:
-
-\begin{subequations}
-  \begin{align}
-    \boldsymbol{\kappa} & = \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_2a}  \\
-    \intertext{and}
-    \omega & = \omega{\scriptstyle_{o}} - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_2b}
-  \end{align}
-\end{subequations}
-
-\noindent  To proceed further, we need to recall some rules for vector calculus.  These rules are:
-
-\begin{subequations}
-  \begin{align}
-    \nabla \left( \mathbf{A} \cdot \mathbf{B} \right) & = \mathbf{A} \times \left( \nabla \times \mathbf{B} \right) + \mathbf{B} \times \left( \nabla \times \mathbf{A} \right) + \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B} + \left( \mathbf{B} \cdot \nabla \right) \thickspace \mathbf{A}  \label{eq:nonlinoptics_3a}  \\
-    \nabla \cdot \left( \mathbf{A} \thickspace \mathbf{B} \right) & = \left( \nabla \cdot \mathbf{A} \right) \thickspace \mathbf{B} + \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3b}  \\
-    \mathbf{A} \times \left( \nabla \times \mathbf{B} \right) & = \left( \nabla \thickspace \mathbf{B} \right) \cdot \mathbf{A} - \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3c}  \\
-    \nabla \times \left( \mathbf{A} \times \mathbf{B} \right) & = \mathbf{A} \thickspace \left( \nabla \cdot \mathbf{B} \right) - \mathbf{B} \thickspace \left( \nabla \cdot \mathbf{A} \right) + \left( \mathbf{B} \cdot \nabla \right) \thickspace \mathbf{A} - \left( \mathbf{A} \cdot \nabla \right) \thickspace \mathbf{B}  \label{eq:nonlinoptics_3d}  \\
-    \intertext{and}
-    \nabla \times \mathbf{x} & = 0  \label{eq:nonlinoptics_3e}  \\
-    \nabla \cdot \mathbf{x} & = 3  \label{eq:nonlinoptics_3f}  \\
-    \nabla \thickspace \mathbf{x} & = \overleftrightarrow{\mathbb{I}}  \label{eq:nonlinoptics_3g}
-  \end{align}
-\end{subequations}
-
-\noindent  where $\overleftrightarrow{\mathbb{I}}$ is the unit dyad\footnote{often this is called the unit tensor or unit matrix or identity matrix because it satisfies the multiplication identity for rank two tensors}.  Using these relationships, we can show:
-
-\begin{subequations}
-  \begin{align}
-    \nabla \left( \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x} \right) & = \mathbf{k}{\scriptstyle_{o}} \times \left( \nabla \times \mathbf{x} \right) + \mathbf{x} \times \left( \nabla \times \mathbf{k}{\scriptstyle_{o}} \right) + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} + \left( \mathbf{x} \cdot \nabla \right) \thickspace \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_4a}  \\
-    & = 0 + \left\{ \left( \nabla \thickspace \mathbf{k}{\scriptstyle_{o}} \right) \cdot \mathbf{x} - \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} \right\} + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} + \left( \mathbf{x} \cdot \nabla \right) \thickspace \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_4b}  \\
-    & = \left( \nabla \thickspace \mathbf{k}{\scriptstyle_{o}} \right) \cdot \mathbf{x} + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x}  \label{eq:nonlinoptics_4c}  \\
-    & = 0 + \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x}  \text{   .}  \label{eq:nonlinoptics_4d}
-  \end{align}
-\end{subequations}
-
-\noindent  The final term can be reduced even further by noticing:
-
-\begin{subequations}
-  \begin{align}
-    \left( \mathbf{k}{\scriptstyle_{o}} \cdot \nabla \right) \thickspace \mathbf{x} & = \left( \mathbf{k}{\scriptstyle_{ox}} \thickspace \partial{\scriptstyle_{x}} + \mathbf{k}{\scriptstyle_{oy}} \thickspace \partial{\scriptstyle_{y}} + \mathbf{k}{\scriptstyle_{oz}} \thickspace \partial{\scriptstyle_{z}} \right) \thickspace \left\{ x \thickspace \textbf{i} + y \thickspace \textbf{j} + z \thickspace \mathbf{k} \right\}  \label{eq:nonlinoptics_5a}  \\
-    & = \left( \mathbf{k}{\scriptstyle_{ox}} \thickspace \partial{\scriptstyle_{x}} \thickspace x \right) \textbf{i} + \left( \mathbf{k}{\scriptstyle_{oy}} \thickspace \partial{\scriptstyle_{y}} \thickspace y \right) \textbf{j} + \left( \mathbf{k}{\scriptstyle_{oz}} \thickspace \partial{\scriptstyle_{z}} \thickspace z \right) \mathbf{k}  \label{eq:nonlinoptics_5b}  \\
-    & = \mathbf{k}{\scriptstyle_{o}}  \label{eq:nonlinoptics_5c}
-  \end{align}
-\end{subequations}
-
-\noindent  which means that the final forms for $\boldsymbol{\kappa}$ and $\omega$ are given by:
-
-\begin{subequations}
-  \begin{align}
-    \boldsymbol{\kappa} & = \mathbf{k}{\scriptstyle_{o}} + \nabla \varphi\left( \mathbf{x}, t \right)  \label{eq:nonlinoptics_6a}  \\
-    \omega & = \omega{\scriptstyle_{o}} - \partial{\scriptstyle_{t}} \thickspace \varphi\left( \mathbf{x}, t \right)  \text{   .} \label{eq:nonlinoptics_6b}
-%%    \left\langle  \right\rangle
-%%    \left[  \right]
-%%    \left(  \right)
-%%    \left\{  \right\}
-  \end{align}
-\end{subequations}
-
-\clearpage
-%%----------------------------------------------------------------------------------------
-%%  Subsection:  Doppler Effect
-%%----------------------------------------------------------------------------------------
-\subsection{Doppler Effect}  \label{subapp:doppler}
-
-\noindent  If we assume we are at rest with respect to a fluid moving at a velocity of $\mathbf{V}{\scriptstyle_{sw}}$, then the frequency of a signal convecting with the fluid would be given by:
-
-\begin{equation}
-  \label{eq:doppler_0}
-  \omega{\scriptstyle_{obs}} = \gamma \left( \omega{\scriptstyle_{o}} + \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{V}{\scriptstyle_{sw}} \right)
-\end{equation}
-
-\noindent  where $\omega{\scriptstyle_{obs}}$ is the frequency we observe, $\omega{\scriptstyle_{o}}$ is the actual frequency of the source, $\gamma$ is the relativistic factor, and $\mathbf{k}{\scriptstyle_{o}}$ is the wave vector of the source.  The relationship in Equation \ref{eq:doppler_0} holds because the phase of any signal, $\phi$, is a Lorentz invariant \citep[see page 529 of][]{jackson98a}.  This means:
-
-\begin{equation}
-  \label{eq:doppler_1}
-  \phi = \omega{\scriptstyle_{obs}} t{\scriptstyle_{obs}} - \mathbf{k}{\scriptstyle_{obs}} \cdot \mathbf{x}{\scriptstyle_{obs}} = \omega{\scriptstyle_{o}} t{\scriptstyle_{o}} - \mathbf{k}{\scriptstyle_{o}} \cdot \mathbf{x}{\scriptstyle_{o}}
-\end{equation}
-
-\noindent  where t${\scriptstyle_{j}}$ is the time in the $j$-frame and $\mathbf{x}{\scriptstyle_{j}}$ the position in the $j$-frame.  The wave number is given by:
-
-\begin{equation}
-  \label{eq:doppler_2}
-  k{\scriptstyle_{j}}\left(\omega{\scriptstyle_{j}}\right) = \frac{ \omega{\scriptstyle_{j}} }{ c } n\left(\omega{\scriptstyle_{j}}\right)
-\end{equation}
-
-\noindent  where n$\left(\omega{\scriptstyle_{j}}\right)$ is the wave index of refraction in the $j$-frame.  Thus, we can show for stationary phase ($\partial \thickspace \phi$/$\partial \thickspace \omega$ $=$ 0):
-
-\begin{equation}
-  \label{eq:doppler_3}
-  c \frac{ d \thickspace k{\scriptstyle_{j}} }{ d \thickspace \omega{\scriptstyle_{j}} } = n\left(\omega{\scriptstyle_{j}}\right) + \omega{\scriptstyle_{j}} \frac{ d \thickspace n\left(\omega{\scriptstyle_{j}}\right) }{ d \thickspace \omega{\scriptstyle_{j}} }  \text{  .}
-\end{equation}
-
-\noindent  In general the frequency and wave number are a four vector with the following Lorentz transformations:
-
-\begin{subequations}
-  \begin{align}
-    \frac{ \omega' }{ c } & = \gamma \left( \frac{ \omega }{ c } - \frac{ \mathbf{v} }{ c } \cdot \mathbf{k} \right)  \label{eq:doppler_4a}  \\
-    k{\scriptstyle_{\parallel}}' & = \gamma \left( \frac{ \mathbf{v} \cdot \mathbf{k} }{ \mid \mathbf{v} \mid } - \frac{ v }{ c } \frac{ \omega }{ c } \right)  \label{eq:doppler_4b}  \\
-    \mathbf{k}{\scriptstyle_{\perp}}' & = \mathbf{k}{\scriptstyle_{\perp}}  \text{  .}  \label{eq:doppler_4c}
-  \end{align}
-\end{subequations}
-
-\noindent  For an electromagnetic wave with the angle between $\mathbf{k}$ and $\mathbf{v}$ defined as $\theta$, we have:
-
-\begin{equation}
-  \label{eq:doppler_4}
-  \tan{\theta'} = \frac{{\displaystyle \sin{\theta} }}{{\displaystyle \gamma \left( \cos{\theta} - \frac{ v }{ c } \right) }}
-\end{equation}
-
-\noindent  which shows that there exists a Doppler shift even when $\mathbf{k}$ is orthogonal to $\mathbf{v}$ (i.e. $\theta$ $\rightarrow$ $\pi$/2) \citep[see page 530 of][]{jackson98a}.
 
 \clearpage
 %%----------------------------------------------------------------------------------------
