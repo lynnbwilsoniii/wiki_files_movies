@@ -1495,6 +1495,9 @@ and we can also note that:
 %%  Section: Velocity Distribution Functions
 %%----------------------------------------------------------------------------------------
 \section{Velocity Distribution Functions} \label{app:VelocityDistributionFunctions}
+
+\indent  Note that these details are published in the supplemental information of for the publications by \citet{wilsoniii19a}, \citet{wilsoniii19b}, and \citet{wilsoniii20a}.  The reference to the supplemental information is \citet{wilsoniii19k}.
+
 \indent  Let us define a generalized Gaussian probability density function as:
 
 \begin{equation}
@@ -1590,11 +1593,11 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 
 \begin{subequations}
   \begin{align}
-    \frac{ \partial f^{(m)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(m)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_mdf3} \\
-    \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ \left( w{\scriptstyle_{\parallel}}^{2} - 1 \right) }{ V{\scriptstyle_{T \parallel}} } \right] \ f^{(m)} \label{eq:deriv_mdf4} \\
-    \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left[ \frac{ 2 \ \left( w{\scriptstyle_{\perp}}^{2} - 1 \right) }{ V{\scriptstyle_{T \perp}} } \right] \ f^{(m)} \label{eq:deriv_mdf5} \\
-    \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\parallel}} }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(m)} \label{eq:deriv_mdf6} \\
-    \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\perp}} }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(m)} \label{eq:deriv_mdf7}
+    \frac{ 1 }{ f^{(m)} } \frac{ \partial f^{(m)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_mdf3} \\
+    \frac{ 1 }{ f^{(m)} } \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}}^{2} - 1 }{ V{\scriptstyle_{T \parallel}} } \right] \label{eq:deriv_mdf4} \\
+    \frac{ 1 }{ f^{(m)} } \frac{ \partial f^{(m)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left[ \frac{ 2 \ \left( w{\scriptstyle_{\perp}}^{2} - 1 \right) }{ V{\scriptstyle_{T \perp}} } \right] \label{eq:deriv_mdf5} \\
+    \frac{ 1 }{ f^{(m)} } \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\parallel}} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_mdf6} \\
+    \frac{ 1 }{ f^{(m)} } \frac{ \partial f^{(m)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ 2 \ w{\scriptstyle_{\perp}} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_mdf7}
 %%    \left(  \right)
 %%    \left[  \right]
 %%    \frac{  }{  }
@@ -1637,12 +1640,12 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 
 \begin{subequations}
   \begin{align}
-    \frac{ \partial f^{(\kappa)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(\kappa)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_kdf3} \\
-    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}}^{2} \ \left( \kappa + \tfrac{1}{2} \right) - w{\scriptstyle_{\perp}}^{2} - \left( \kappa - \tfrac{3}{2} \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf4} \\
-    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left\{ \frac{ 2 \ \left[ \kappa \ w{\scriptstyle_{\perp}}^{2} - w{\scriptstyle_{\parallel}}^{2} - \left( \kappa - \tfrac{3}{2} \right) \right] }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right\} \ f^{(\kappa)} \label{eq:deriv_kdf5} \\
-    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf6} \\
-    \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \perp}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\perp}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \ f^{(\kappa)} \label{eq:deriv_kdf7} \\
-    \frac{ \partial f^{(\kappa)} }{ \partial \kappa } & = \left\{ \frac{ \left( w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} \right) \left( \kappa - \tfrac{1}{2} \right) - \tfrac{3}{2} \ \left( \kappa - \tfrac{3}{2} \right) }{ \left( \kappa - \tfrac{3}{2} \right) \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } - \ln{ \lvert 1 + \frac{ w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} }{ \left( \kappa - \tfrac{3}{2} \right) } \rvert } + \psi\left( \kappa + 1 \right) - \psi\left( \kappa - \tfrac{1}{2} \right) \right\} \ f^{(\kappa)} \label{eq:deriv_kdf8}
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_kdf3} \\
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}}^{2} \ \left( \kappa + \tfrac{1}{2} \right) - w{\scriptstyle_{\perp}}^{2} - \left( \kappa - \tfrac{3}{2} \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \label{eq:deriv_kdf4} \\
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left\{ \frac{ 2 \ \left[ \kappa \ w{\scriptstyle_{\perp}}^{2} - w{\scriptstyle_{\parallel}}^{2} - \left( \kappa - \tfrac{3}{2} \right) \right] }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right\} \label{eq:deriv_kdf5} \\
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \parallel}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\parallel}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \parallel}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \label{eq:deriv_kdf6} \\
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial V{\scriptstyle_{o \perp}} } & = \left[ \frac{ 2 \ w{\scriptstyle_{\perp}} \ \left( \kappa + 1 \right) }{ V{\scriptstyle_{T \perp}} \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } \right] \label{eq:deriv_kdf7} \\
+    \frac{ 1 }{ f^{(\kappa)} } \frac{ \partial f^{(\kappa)} }{ \partial \kappa } & = \left\{ \frac{ \left( w{\scriptstyle_{\parallel}}^{2} + w{\scriptstyle_{\perp}}^{2} \right) \left( \kappa - \tfrac{1}{2} \right) - \tfrac{3}{2} \ \left( \kappa - \tfrac{3}{2} \right) }{ \left( \kappa - \tfrac{3}{2} \right) \ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) } - \ln{ \lvert \frac{ D\left( w{\scriptstyle_{\parallel}}, w{\scriptstyle_{\perp}}, \kappa \right) }{ \left( \kappa - \tfrac{3}{2} \right) } \rvert } + \psi\left( \kappa + 1 \right) - \psi\left( \kappa - \tfrac{1}{2} \right) \right\} \label{eq:deriv_kdf8}
 %%    \left(  \right)
 %%    \left[  \right]
 %%    \frac{  }{  }
@@ -1779,12 +1782,12 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 
 \begin{subequations}
   \begin{align}
-    \frac{ \partial f^{(s)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ f^{(s)} }{ n{\scriptstyle_{o}} } \label{eq:deriv_sdf3} \\
-    \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(s)} \label{eq:deriv_sdf4} \\
-    \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(s)} \label{eq:deriv_sdf5} \\
-    \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \ f^{(s)} \label{eq:deriv_sdf6} \\
-    \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p - 1} }{ V{\scriptstyle_{T \perp}} } \right) \ f^{(s)} \label{eq:deriv_sdf7} \\
-    \frac{ \partial f^{(s)} }{ \partial p } & = \left[ \frac{ 3 \ \psi\left( \frac{ 1 + p }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } - w{\scriptstyle_{\perp}}^{p} \ \ln{ w{\scriptstyle_{\perp}} } \right] \ f^{(s)} \label{eq:deriv_sdf8}
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_sdf3} \\
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_sdf4} \\
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_sdf5} \\
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_sdf6} \\
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ p \ w{\scriptstyle_{\perp}}^{p - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_sdf7} \\
+    \frac{ 1 }{ f^{(s)} } \frac{ \partial f^{(s)} }{ \partial p } & = \left[ \frac{ 3 \ \psi\left( \frac{ p + 1 }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } - w{\scriptstyle_{\perp}}^{p} \ \ln{ w{\scriptstyle_{\perp}} } \right] \label{eq:deriv_sdf8}
 %%    \left(  \right)
 %%    \left[  \right]
 %%    \frac{  }{  }
@@ -1797,13 +1800,13 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 
 \begin{subequations}
   \begin{align}
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_s2df3} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df4} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df5} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df6} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df7} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial p } & = \frac{ \psi\left( \frac{ 1 + p }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } \label{eq:deriv_s2df8} \\
-    \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial q } & = \frac{ 2 \ \psi\left( \frac{ 1 + q }{ q } \right) }{ q^{2} } - w{\scriptstyle_{\perp}}^{q} \ \ln{ w{\scriptstyle_{\perp}} } \label{eq:deriv_s2df9}
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:deriv_s2df3} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df4} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df5} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:deriv_s2df6} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:deriv_s2df7} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial p } & = \frac{ \psi\left( \frac{ p + 1 }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } \label{eq:deriv_s2df8} \\
+   \frac{ 1 }{ f^{(s2)} } \frac{ \partial f^{(s2)} }{ \partial q } & = \frac{ 2 \ \psi\left( \frac{ q + 1 }{ q } \right) }{ q^{2} } - w{\scriptstyle_{\perp}}^{q} \ \ln{ w{\scriptstyle_{\perp}} } \label{eq:deriv_s2df9}
 %%    \left(  \right)
 %%    \left[  \right]
 %%    \frac{  }{  }
@@ -1811,6 +1814,67 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 %%    \left[ \frac{  }{  } \right]
   \end{align}
 \end{subequations}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Gyrotropic Self-Similar Distributions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Gyrotropic Self-Similar Distributions} \label{subsec:gyroselfsimilar}
+
+\indent  In Section \ref{subsec:selfsimilar} the stage at which the normalization constant was determined may be too early\footnote{Ilya Kuzichev and Ivan Vasko brought this discrepancy to my attention on January 11, 2021.  The difference arises because one assumes a function of the form $f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right)$ $=$ $A{\scriptstyle_{as}} EXP\left[ - w{\scriptstyle_{\parallel}}^{p} - w{\scriptstyle_{\perp}}^{q} \right]$ then one solves for $A{\scriptstyle_{as}}$ in the usual fashion.  For all values of $s$ $=$ $p$ $=$ $q$ $<$ 2.4, the difference in the magnitude of the coefficients is $\lesssim$6\%.  As the exponents go to large values, the magnitude difference asymptotes to $\sim$20\% (e.g., at an exponent of $\sim$6 the magnitude difference is $\sim$18\%).  The parameter most likely impacted in the fits from \citet{wilsoniii19a}, \citet{wilsoniii19b}, and \citet{wilsoniii20a} is the number density.}, i.e., one should assume gyrotropy prior to calculating the normalization constant.  In doing so, Equation \ref{eq:app4_8} for the symmetric self-similar distribution will go to:
+
+\begin{equation}
+  \label{eq:gyrossvdf_0}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \frac{ n{\scriptstyle_{o}} \ \Gamma^{-1}\left( \frac{ s + 1 }{ s } \right) \ \Gamma^{-1}\left( \frac{ s + 2 }{ s } \right) }{ 2 \ \pi \ V{\scriptstyle_{T \perp}}^{2} V{\scriptstyle_{T \parallel}} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{s} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{s} \right]}}
+\end{equation}
+
+\noindent  where we replaced $p$ with $s$ to imply symmetric.  We can also rewrite Equation \ref{eq:genbissvdf_4} as:
+
+\begin{equation}
+  \label{eq:gyrossvdf_1}
+  f\left( V{\scriptstyle_{\parallel}}, V{\scriptstyle_{\perp}} \right) = \frac{ n{\scriptstyle_{o}} \ \Gamma^{-1}\left( \frac{ p + 1 }{ p } \right) \ \Gamma^{-1}\left( \frac{ q + 2 }{ q } \right) }{ 2 \ \pi \ V{\scriptstyle_{T \perp}}^{2} V{\scriptstyle_{T \parallel}} } \ e^{^{\displaystyle - \left[ \left( \frac{ V{\scriptstyle_{\parallel}} - v{\scriptstyle_{o \parallel}} }{ V{\scriptstyle_{T \parallel}} } \right)^{p} + \left( \frac{ V{\scriptstyle_{\perp}} - v{\scriptstyle_{o \perp}} }{ V{\scriptstyle_{T \perp}} } \right)^{q} \right]}}
+\end{equation}
+
+\noindent  Now we can proceed and define the partial derivatives of Equation \ref{eq:gyrossvdf_0} which we will denote as $f^{(ss)}$ for brevity:
+
+\begin{subequations}
+  \begin{align}
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:gyrossvdf_2a} \\
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ s \ w{\scriptstyle_{\parallel}}^{s} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:gyrossvdf_2b} \\
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ s \ w{\scriptstyle_{\perp}}^{s} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:gyrossvdf_2c} \\
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ s \ w{\scriptstyle_{\parallel}}^{s - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:gyrossvdf_2d} \\
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ s \ w{\scriptstyle_{\perp}}^{s - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:gyrossvdf_2e} \\
+    \frac{ 1 }{ f^{(ss)} } \frac{ \partial f^{(ss)} }{ \partial s } & = \frac{ \psi\left( \frac{ s + 1 }{ s } \right) }{ s^{2} } + \frac{ 2 \ \psi\left( \frac{ s + 2 }{ s } \right) }{ s^{2} } - w{\scriptstyle_{\parallel}}^{s} \ \ln{ w{\scriptstyle_{\parallel}} } - w{\scriptstyle_{\perp}}^{s} \ \ln{ w{\scriptstyle_{\perp}} } \label{eq:gyrossvdf_2f}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  where $w{\scriptstyle_{j}}$ and $\psi\left( z \right)$ are defined by Equations \ref{eq:deriv_sdf1} and \ref{eq:deriv_sdf2}, respectively.  Similarly the partial derivatives of Equation \ref{eq:gyrossvdf_1} which we will denote as $f^{(as)}$ for brevity:
+
+\begin{subequations}
+  \begin{align}
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial n{\scriptstyle_{o}} } & = \frac{ 1 }{ n{\scriptstyle_{o}} } \label{eq:gyrossvdf_3a} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial V{\scriptstyle_{T \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p} - 1 }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:gyrossvdf_3b} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial V{\scriptstyle_{T \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q} - 2 }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:gyrossvdf_3c} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial v{\scriptstyle_{o \parallel}} } & = \left( \frac{ p \ w{\scriptstyle_{\parallel}}^{p - 1} }{ V{\scriptstyle_{T \parallel}} } \right) \label{eq:gyrossvdf_3d} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial v{\scriptstyle_{o \perp}} } & = \left( \frac{ q \ w{\scriptstyle_{\perp}}^{q - 1} }{ V{\scriptstyle_{T \perp}} } \right) \label{eq:gyrossvdf_3e} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial p } & = \frac{ \psi\left( \frac{ p + 1 }{ p } \right) }{ p^{2} } - w{\scriptstyle_{\parallel}}^{p} \ \ln{ w{\scriptstyle_{\parallel}} } \label{eq:gyrossvdf_3f} \\
+   \frac{ 1 }{ f^{(as)} } \frac{ \partial f^{(as)} }{ \partial q } & = \frac{ 2 \ \psi\left( \frac{ q + 2 }{ q } \right) }{ q^{2} } - w{\scriptstyle_{\perp}}^{q} \ \ln{ w{\scriptstyle_{\perp}} } \label{eq:gyrossvdf_3g}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+
+
+
 
 
 \clearpage
