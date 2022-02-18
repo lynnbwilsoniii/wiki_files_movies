@@ -1,15 +1,19 @@
-\documentclass[letterpaper,fleqn,11pt]{article}
+\documentclass[letterpaper,fleqn,10pt]{article}
 
 %%
 %%  Graphics packages
 %%
 \pdfoutput=1
-\usepackage[dvips]{graphicx,color}  %%  allow colored text
+\usepackage[dvips,pdftex]{graphicx,color}  %%  allow colored text
 %\usepackage[dvips,pdftex]{graphicx,color}  %%  allow colored text
+\usepackage{floatrow}
+\usepackage{wrapfig}
+\usepackage[labelfont=bf,justification=raggedright,skip=1pt]{caption}
+\usepackage{rotating}
+\usepackage{subcaption}
 \usepackage{array}
 \usepackage{epstopdf}  %%  convert EPS --> PDF
-\usepackage[tableposition=top]{caption}
-\usepackage{wrapfig}
+\usepackage{float}
 %%
 %%  Math/Symbol packages
 %%
@@ -17,6 +21,7 @@
 \usepackage{latexsym}  %%  adds other symbols in to be used in math mode
 \usepackage{amssymb}   %%  adds new symbols in to be used in math mode
 \usepackage{mathtools} %%  allows the use of the dcases environment
+\allowdisplaybreaks
 %%
 %%  Bibliography packages
 %%
@@ -45,7 +50,7 @@
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage[compact]{titlesec}
-\usepackage[paperwidth=8.5in, paperheight=11.0in, top=1.25in, bottom=1.25in, left=0.875in, right=0.875in, marginparsep=0pt, textwidth=6.5in, textheight=8.5in, headheight=20.0pt, headsep=35.0pt, footnotesep=5pt, footskip=20pt, bindingoffset=0pt, showframe=false]{geometry}
+\usepackage[paperwidth=8.5in, paperheight=11.0in, top=1.00in, bottom=1.00in, left=1.00in, right=1.00in, textwidth=6.50in, textheight=9.0in, bindingoffset=0pt, showframe=false, includehead=false, includefoot=false, ignoreheadfoot=true, layoutsize={8.5in,11.0in}, layoutoffset={0pt,0pt}, hcentering=true]{geometry}
 \usepackage{setspace}
 \linespread{1.00}         %%  Set line spacing to single space
 \usepackage{indentfirst}  %%  Force first paragraph to indent
@@ -55,28 +60,57 @@
 %%
 \usepackage{tocloft}      %%  Allow the user to format the Table of Contents
 \usepackage{lastpage}     %%  Allow user to know total # of pages (e.g. page 5 of 9)
+%%  Change verbatim environment colors
+\usepackage{newverbs}
+\renewenvironment{verbatim}
+{\semiverbatim\color{blue}}
+{\endsemiverbatim}
+\renewcommand{\verb}{\collectverb{\color{blue}}}
 %%########################################################################################
 %%  Length Formatting Settings
 %%########################################################################################
 %%  -> Define the margin sizes
-\setlength{\topmargin}{-0.25in}
+\setlength{\topmargin}{-30pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\marginparwidth}{0pt}
+%%  -> Define the vertical offset of page
+\setlength{\headheight}{18pt}
+\setlength{\headsep}{10pt}
+%%  Adjust vertical offset of center of top margin
+\setlength{\voffset}{0pt}
+%%  Adjust horizontal offset of center of left margin
+\setlength{\hoffset}{0pt}
+%%  -> Define the footnote and header sizes
+%%  Adjust spacing between the baselines of the last line of text and the footnote
+\setlength{\footskip}{20pt}
+%%  Adjust spacing between the baseline of the last line of text and the top of footnote
+%%    = footnotesep option in geometry package
+\setlength{\skip\footins}{10pt}
+%%  -> Define horizontal width of header&footer
+\setlength{\headwidth}{1.00\textwidth}
+%%  Space above and below captions -> 0
+\setlength{\abovecaptionskip}{0pt plus 2pt minus 2pt}
+\setlength{\belowcaptionskip}{0pt plus 2pt minus 2pt}
 %%  Adjust spacing between last top float or first bottom float and the text
-\setlength{\textfloatsep}{1pt}
+\setlength{\textfloatsep}{0pt plus 2pt minus 2pt}
 %%  Adjust spacing before/after an in-text float
-\setlength{\intextsep}{7pt}
+\setlength{\intextsep}{0pt plus 2pt minus 2pt}
 %%  Adjust spacing before/after each item in enumerate
 \setlength{\itemsep}{0pt}
 %%  Adjust spacing before/after a paragraph in each item in enumerate
 \setlength{\parsep}{0pt}
 %%  Adjust spacing before/after a list and paragraph in text
-\setlength{\parskip}{0pt}
+\setlength{\parskip}{0pt plus 2pt minus 2pt}
 %%  Adjust spacing before an enumerate environment
 \setlength{\topsep}{0pt}
-%%  Adjust spacing above/below captions
-\setlength{\abovecaptionskip}{5pt}
-\setlength{\belowcaptionskip}{1pt}
+%%  Adjust spacing between columns in a table [default = 6pt]
+\setlength{\tabcolsep}{3pt}
+%%  Adjust spacing for paragraph indentation
+\setlength{\parindent}{15pt}
+%%  -> Define width of line before equations
+\setlength{\predisplaysize}{\textwidth}
 %%  Adjust horizontal spacing before each item in enumerate
-\setlist{leftmargin=3.5mm}
+\setlist{leftmargin=10mm}
 %%########################################################################################
 %%  Table of Contents (ToC) Formatting Settings
 %%########################################################################################
@@ -1492,9 +1526,271 @@ and we can also note that:
 
 \clearpage
 %%----------------------------------------------------------------------------------------
+%%  Section: Numerical Integration
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\section{Numerical Integration} \label{sec:NumericalIntegration}
+
+\indent  In the following, we will discuss a specific numerical integration technique known as \emph{Simpson's 1/3 Rule}\footnote{The ``1/3'' part comes from a factor of 1/3 in the resulting expression.  There is also another method called \emph{Simpson's 3/8 Rule} that starts with a factor of, you guessed it, 3/8.}.  It can be derived in multiple ways.  Recall that the trapezoidal rule is based upon approximating a curve by a first order polynomial then integrating the polynomial over some interval $\left[ a, b \right]$.  Similarly, Simpson's 1/3 Rule is an extension of the trapezoidal rule, but here the integrand is approximated as a second order polynomial (e.g., $f\left( x \right)$ $\approx$ $a$ $+$ $b \ x$ $+$ $c \ x^{2}$).  Thus, one can implement the trapezoidal rule and solve for the unknown coefficients using the end points and the mid-point of the interval.  One can also derive Simpson's 1/3 Rule by starting with a second order polynomial approximated using Newton's divided difference polynomials.  Further, one could also derive Simpson's 1/3 Rule by using the \emph{Lagrange polynomial}, i.e., any method of three-point quadratic interpolation will work.  Finally, one can also use the \emph{method of coefficients} to derive Simpson's 1/3 Rule.  Some simple examples can be found at: \\
+
+\noindent  \href{https://en.wikipedia.org/wiki/Simpson\%27s_rule}{https://en.wikipedia.org/wiki/Simpson\%27s\_rule} \\
+
+\indent  Technically, what follows will be a discussion of the composite Simpson's 1/3 Rule that depends upon $N$ discrete, independent data points, where $N$ must be an odd number.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Simpson's 1/3 Rule:  Regularly Gridded Data
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Simpson's 1/3 Rule:  Regularly Gridded Data} \label{subsec:Simpsons}
+
+\noindent  \textbf{1D Integration:}  Suppose we have a set of $N$ discrete, independent data points given by $\mathbf{x}$ $=$ $\{ x{\scriptstyle_{0}}, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, \dotsc , x{\scriptstyle_{N - 1}} \}$ that are the abscissa of the function $f\left( \mathbf{x} \right)$, where we define $f{\scriptstyle_{j}}$ $\equiv$ $f\left( x{\scriptstyle_{j}} \right)$.  If the abscissa are evenly spaced, the quadratic interpolation approxation through any three points greatly simplifies and we have a numerical approximation for the integral of $f\left( \mathbf{x} \right)$ on the interval $\left[ a, b \right]$ given by:
+
+\begin{equation}
+  \label{eq:Simpsons_0}
+  \int_{a}^{b} \ dx f\left( x \right) = \lim_{N \rightarrow \infty} S{\scriptstyle_{N}}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where we define $S{\scriptstyle_{N}}$ as:
+
+\begin{equation}
+  \label{eq:Simpsons_1}
+  S{\scriptstyle_{N}} = \frac{ \Delta x }{ 3 } \sum_{j=0}^{T} \ s{\scriptstyle_{j}} \ f{\scriptstyle_{j}}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where $\Delta x$ $\equiv$ $\tfrac{ b - a }{ T }$, $T$ $\equiv$ $\left( N - 1 \right)$, and $s{\scriptstyle_{j}}$ are scale factors that satisfy:
+
+\begin{subequations}
+  \begin{align}
+    s{\scriptstyle_{0}} & = 1 \label{eq:Simpsons_2a} \\
+    s{\scriptstyle_{T}} & = 1 \label{eq:Simpsons_2b} \\
+    s{\scriptstyle_{2 j + 1}} & = 4 \label{eq:Simpsons_2c} \\
+    s{\scriptstyle_{2 j + 2}} & = 2 \label{eq:Simpsons_2d}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  This can be rewritten as follows:
+
+\begin{equation}
+  \label{eq:Simpsons_3}
+  S{\scriptstyle_{N}} = \frac{ \Delta x }{ 3 } \left[ f{\scriptstyle_{0}} + 4 f{\scriptstyle_{1}} + 2 f{\scriptstyle_{2}} + 4 f{\scriptstyle_{3}} + 2 f{\scriptstyle_{4}} + \dotsc + 4 f{\scriptstyle_{T-1}} + f{\scriptstyle_{T}} \right]
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\indent  Fortunately, there is an analytical expression for the maximum possible error that expresses the difference between the continuous integral and the discrete sum approximation given by:
+
+\begin{equation}
+  \label{eq:Simpsons_4}
+  E{\scriptstyle_{S}} \leq \frac{ M{\scriptstyle_{S}} \left( b - a \right)^{5} }{ 180 \ T^{4} }
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where $M{\scriptstyle_{S}}$ is the maximum value of $\lvert f^{\left( 4 \right)}\left( \mathbf{x} \right) \rvert$ and $f^{\left( n \right)}\left( x \right)$ $\equiv$ $\tfrac{ d^{n} }{ dx^{n} } f\left( x \right)$.  As an aside, in practical applications on real data, there are situations where the magnitude of $f\left( \mathbf{x} \right)$ can be such that small variations due to statistical fluctuations result in extremely large values of $M{\scriptstyle_{S}}$, i.e., noise dominated results.  Therefore, it is useful to remove outliers in $\lvert f^{\left( 4 \right)}\left( \mathbf{x} \right) \rvert$ prior to calculating $M{\scriptstyle_{S}}$.  The total error can be approximated by using an average instead of the maximum as well.
+
+\noindent  \textbf{2D Integration:}  Things are similar in quadrature, or in two dimensions, where we now have two sets of $N$ discrete, independent data points given by $\mathbf{x}$ $=$ $\{ x{\scriptstyle_{0}}, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, \dotsc , x{\scriptstyle_{N - 1}} \}$ and $\mathbf{y}$ $=$ $\{ y{\scriptstyle_{0}}, y{\scriptstyle_{1}}, y{\scriptstyle_{2}}, \dotsc , y{\scriptstyle_{N - 1}} \}$ that are the abscissa of the function $f\left( \mathbf{x}, \mathbf{y} \right)$.  We define $f{\scriptstyle_{i,j}}$ $\equiv$ $f\left( x{\scriptstyle_{i}}, y{\scriptstyle_{j}} \right)$ and we want to integrate on the intervals $\left[ a, b \right]$ for $\mathbf{x}$ and $\left[ c, d \right]$ for $\mathbf{y}$.  Similar to the 1D case, we define $\Delta x$ $\equiv$ $\tfrac{ b - a }{ T }$ and further define $\Delta y$ $\equiv$ $\tfrac{ d - c }{ T }$.  Construction of the coefficients, $s{\scriptstyle_{i,j}}$, is similar, but in 2D, of course, where we have:
+
+\begin{subequations}
+  \begin{align}
+    s{\scriptstyle_{0,0}} & = 1 \label{eq:Simpsons_5a} \\
+    s{\scriptstyle_{T,T}} & = 1 \label{eq:Simpsons_5b} \\
+    s{\scriptstyle_{i, 2 j + 1}} & = 4 * s{\scriptstyle_{i}} \label{eq:Simpsons_5c} \\
+    s{\scriptstyle_{2 i + 1, j}} & = 4 * s{\scriptstyle_{j}} \label{eq:Simpsons_5d} \\
+    s{\scriptstyle_{i, 2 j + 2}} & = 2 * s{\scriptstyle_{i}} \label{eq:Simpsons_5e} \\
+    s{\scriptstyle_{2 i + 2, j}} & = 2 * s{\scriptstyle_{j}} \label{eq:Simpsons_5f}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  where we have used the $s{\scriptstyle_{k}}$ notation to refer to the 1D version of the coefficients defined in Equations \ref{eq:Simpsons_2a}--\ref{eq:Simpsons_2d}.  Note that the following is satisfied for these coefficients 1 $\leq$ $s{\scriptstyle_{i, k}}$ $\leq$ 16.  We can now define $S{\scriptstyle_{N}}$ in 2D as:
+
+\begin{equation}
+  \label{eq:Simpsons_6}
+  S{\scriptstyle_{N}} = \frac{ \Delta x }{ 3 } \frac{ \Delta y }{ 3 } \sum_{i=0}^{T} \ \sum_{j=0}^{T} \ s{\scriptstyle_{i,j}} \ f{\scriptstyle_{i,j}}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  One can see that 4 $\leq$ $s{\scriptstyle_{i, k}}$ $\leq$ 16 for all $i$ and $k$ satisfying $\left( k \mod 2 \right) \neq 0$ (i.e., odd values of $k$).  Similarly, one can see that 1 $\leq$ $s{\scriptstyle_{i, 0}}$ $\leq$ 4 and 1 $\leq$ $s{\scriptstyle_{i, T}}$ $\leq$ 4 for all $i$.  Further, we can see that 2 $\leq$ $s{\scriptstyle_{i, k}}$ $\leq$ 8 for all $i$ and $k$ satisfying $\left( k \mod 2 \right) = 0$ (i.e., even values of $k$).  By construction, $s{\scriptstyle_{i, k}}$ is a symmetric tensor, thus $s{\scriptstyle_{i, k}}$ $=$ $s{\scriptstyle_{k, i}}$.
+
+\noindent  \textbf{3D Integration:}  Adding a third dimension can make things slightly more complicated but it's mostly a variation on a theme at this point.  Now we have three sets of $N$ discrete, independent data points given by $\mathbf{x}$ $=$ $\{ x{\scriptstyle_{0}}, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, \dotsc , x{\scriptstyle_{N - 1}} \}$, $\mathbf{y}$ $=$ $\{ y{\scriptstyle_{0}}, y{\scriptstyle_{1}}, y{\scriptstyle_{2}}, \dotsc , y{\scriptstyle_{N - 1}} \}$, and $\mathbf{z}$ $=$ $\{ z{\scriptstyle_{0}}, z{\scriptstyle_{1}}, z{\scriptstyle_{2}}, \dotsc , z{\scriptstyle_{N - 1}} \}$ that are the abscissa of the function $f\left( \mathbf{x}, \mathbf{y}, \mathbf{z} \right)$.  We define $f{\scriptstyle_{i,j,k}}$ $\equiv$ $f\left( x{\scriptstyle_{i}}, y{\scriptstyle_{j}}, z{\scriptstyle_{k}} \right)$ and we want to integrate on the intervals $\left[ a, b \right]$ for $\mathbf{x}$, $\left[ c, d \right]$ for $\mathbf{y}$, and $\left[ e, f \right]$ for $\mathbf{z}$.  Similar to the 2D case, we define $\Delta x$ $\equiv$ $\tfrac{ b - a }{ T }$ and $\Delta y$ $\equiv$ $\tfrac{ d - c }{ T }$ but further define $\Delta z$ $\equiv$ $\tfrac{ f - e }{ T }$.  Construction of the coefficients, $s{\scriptstyle_{i,j,k}}$, is similar to 2D, of course, where we have:
+
+\begin{subequations}
+  \begin{align}
+    s{\scriptstyle_{0,0,0}} & = 1 \label{eq:Simpsons_7a} \\
+    s{\scriptstyle_{T,T,T}} & = 1 \label{eq:Simpsons_7b} \\
+    s{\scriptstyle_{T,0,0}} & = 1 \label{eq:Simpsons_7c} \\
+    s{\scriptstyle_{0,T,0}} & = 1 \label{eq:Simpsons_7d} \\
+    s{\scriptstyle_{0,0,T}} & = 1 \label{eq:Simpsons_7e} \\
+    s{\scriptstyle_{T,T,0}} & = 1 \label{eq:Simpsons_7f} \\
+    s{\scriptstyle_{T,0,T}} & = 1 \label{eq:Simpsons_7g} \\
+    s{\scriptstyle_{0,T,T}} & = 1 \label{eq:Simpsons_7h} \\
+    s{\scriptstyle_{2 i + 1, j, k}} & = 4 * s{\scriptstyle_{j}} * s{\scriptstyle_{k}} \label{eq:Simpsons_7i} \\
+    s{\scriptstyle_{2 i + 2, j, k}} & = 2 * s{\scriptstyle_{j}} * s{\scriptstyle_{k}} \label{eq:Simpsons_7j} \\
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  where we have again used the $s{\scriptstyle_{l}}$ notation to refer to the 1D version of the coefficients defined in Equations \ref{eq:Simpsons_2a}--\ref{eq:Simpsons_2d}.  Again, by construction, $s{\scriptstyle_{i, j, k}}$ is a symmetric tensor, thus $s{\scriptstyle_{i, j, k}}$ $=$ $s{\scriptstyle_{i, k, j}}$ $=$ $s{\scriptstyle_{j, k, i}}$ $=$ $s{\scriptstyle_{j, i, k}}$ $=$ $s{\scriptstyle_{k, i, j}}$ $=$ $s{\scriptstyle_{k, j, i}}$.  Note that the following is satisfied for these coefficients 1 $\leq$ $s{\scriptstyle_{i, j, k}}$ $\leq$ 64.  We can now define $S{\scriptstyle_{N}}$ in 3D as:
+
+\begin{equation}
+  \label{eq:Simpsons_8}
+  S{\scriptstyle_{N}} = \frac{ \Delta x }{ 3 } \frac{ \Delta y }{ 3 } \frac{ \Delta z }{ 3 } \sum_{i=0}^{T} \ \sum_{j=0}^{T} \ \sum_{k=0}^{T} \ s{\scriptstyle_{i,j,k}} \ f{\scriptstyle_{i,j,k}}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Simpson's 1/3 Rule:  IDL 1D
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsubsection{Simpson's 1/3 Rule:  IDL 1D} \label{subsubsec:SimpsonsIDL1D}
+
+\indent  To implement Simpson's 1/3 Rule in IDL in 1D and vectorize it is very straightforward when $\mathbf{x}$ are regularly spaced.  Defining $\Delta x$ is trivial, so we will only show how to define $s{\scriptstyle_{j}}$.  The approach is as follows: \\
+
+\noindent  \verb+IDL> sc                    = REPLICATE(1d0,nx[0])+ \\
+\noindent  \verb+IDL> sc[1:(nx[0] - 2L):2] *= 4d0+ \\
+\noindent  \verb+IDL> sc[2:(nx[0] - 3L):2] *= 2d0+ \\
+\noindent  \verb+IDL> sc[(nx[0] - 1L)]      = 1d0+ \\
+
+\noindent  where $nx$ here is $N$ and $sc$ is $s{\scriptstyle_{j}}$.  Then the integration is really just a simple sum given by: \\
+
+\noindent  \verb+IDL> output = TOTAL(h[0]*sc*f,/NAN)+ \\
+
+\noindent  where $h$ is $\Delta x/3$ and $f$ is our $f\left( \mathbf{x} \right)$ array.  The $[0]$ used here is to ensure a scalar quantity as sometimes variables can unintentionally be defined as single-element arrays, which can cause concatination errors, among other things.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Simpson's 1/3 Rule:  IDL 2D
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsubsection{Simpson's 1/3 Rule:  IDL 2D} \label{subsubsec:SimpsonsIDL2D}
+
+\indent  Vectorizing Simpson's 1/3 Rule in IDL in 2D is a little trickier but not much.  Again, when $\mathbf{x}$ and $\mathbf{y}$ are regularly spaced, so it's trivial to define $\Delta x$ and $\Delta y$.  The approach to defining $s{\scriptstyle_{i,j}}$ starts the same as the 1D case described in Section \ref{subsubsec:SimpsonsIDL1D} but follows with: \\
+
+\noindent  \verb+IDL> scx            = sc # REPLICATE(1d0,nx[0])+ \\
+\noindent  \verb+IDL> scy            = REPLICATE(1d0,nx[0]) # sc+ \\
+\noindent  \verb+IDL> scxy           = scx*scy+ \\
+
+\noindent  Then the integration is really just a simple sum given by: \\
+
+\noindent  \verb+IDL> output = TOTAL(h[0]*TOTAL(scxy*f,2,/NAN),/NAN)+ \\
+
+\noindent  where $h$ is $\tfrac{ \Delta x \ \Delta y }{ 9 }$ and the summation is done over the second index then the first.
+
+\indent  The call \verb+TOTAL(x,m[0],/NAN)+, the $n$-dimensional array $x$ is being summed over the $m^{th}$-dimension (for $m \leq n$).  In IDL, keywords specifying the dimension over which an operator is to be applied generally start indexing from one instead of zero.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Simpson's 1/3 Rule:  IDL 3D
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsubsection{Simpson's 1/3 Rule:  IDL 3D} \label{subsubsec:SimpsonsIDL3D}
+
+\indent  Vectorizing Simpson's 1/3 Rule in IDL in 3D is a little trickier still, but again not much more so than 2D.  Again, when $\mathbf{x}$, $\mathbf{y}$, and $\mathbf{z}$ are regularly spaced, so it's trivial to define $\Delta x$, $\Delta y$, and $\Delta z$.  The approach to defining $s{\scriptstyle_{i,j,k}}$ starts the same as the 1D case described in Section \ref{subsubsec:SimpsonsIDL1D} but follows with: \\
+
+\noindent  \verb+IDL> scx            = sc # REPLICATE(1d0,nx[0])+ \\
+\noindent  \verb+IDL> scx3d          = REBIN(scx,nx[0],nx[0],nx[0])+ \\
+\noindent  \verb+IDL> scy3d          = TRANSPOSE(scx3d,[2,0,1])+ \\
+\noindent  \verb+IDL> scz3d          = TRANSPOSE(scy3d,[0,2,1])+ \\
+\noindent  \verb+IDL> scxyz          = scx3d*scy3d*scz3d+ \\
+
+\noindent  Then the integration is really just a simple sum given by: \\
+
+\noindent  \verb+IDL> output = h[0]*TOTAL(TOTAL(TOTAL(scxyz*f,3,/NAN),2,/NAN),/NAN)+ \\
+
+\noindent  where $h$ is $\tfrac{ \Delta x \ \Delta y \ \Delta z }{ 27 }$ and the summation is done over the third index, then the second, then the first.
+
+\indent  The call to \verb+TRANSPOSE(x,[l,m,n])+ takes the array $x$ and reorders the dimensions such that the $l^{th}$-dimension is now first, the $m^{th}$-dimension is now second, and the $n^{th}$-dimension is now third.  Suppose, for example, that the $l^{th}$-dimension has 10-elements, the $m^{th}$-dimension has 15-elements, and the $n^{th}$-dimension has 3-elements, then the output of \verb+TRANSPOSE(x,[l,m,n])+ would be a [10,15,3]-element array.  So if $x$ were originally a [3,15,10]-element array, then the call would be given by \verb+TRANSPOSE(x,[2,1,0])+ to convert it to a [10,15,3]-element array.
+
+\indent  The call to \verb+REBIN(x,n,n,n)+ takes the originally 2D $x$, which had [n,n]-elements, and creates a new 3D array with [n,n,n]-elements.  The original expansion of \verb+scx+ to a 2D array using the \verb+#+ operator with an array of ones takes the \verb+sc+ array and copies the values into the second dimension.  That is, the values of \verb+scx[i,*]+ are all the same such that \verb+scx[i,*] = scx[j,*]+ for 0 $\leq$ $i$ $\leq$ $n - 1$ and 0 $\leq$ $j$ $\leq$ $n - 1$.  Similarly, the values of \verb+scx3d[i,j,*]+ are all the same as well.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Simpson's 1/3 Rule:  Irregularly Gridded Data
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Simpson's 1/3 Rule:  Irregularly Gridded Data} \label{subsec:SimpsonsIrr}
+
+\noindent  \textbf{1D Integration:}  Suppose we have a set of $N$ discrete, independent data points given by $\mathbf{x}$ $=$ $\{ x{\scriptstyle_{0}}, x{\scriptstyle_{1}}, x{\scriptstyle_{2}}, \dotsc , x{\scriptstyle_{N - 1}} \}$ that are the abscissa of the function $f\left( \mathbf{x} \right)$, where we define $f{\scriptstyle_{j}}$ $\equiv$ $f\left( x{\scriptstyle_{j}} \right)$.  If the abscissa are not evenly spaced, then we define the $i^{th}$ spacing as $h{\scriptstyle_{i}}$ $\equiv$ $x{\scriptstyle_{i+1}}$ $-$ $x{\scriptstyle_{i}}$ and the number of intervals as $T$ $\equiv$ $\left( N - 1 \right)$.  We can then define the numerical integral approximation as:
+
+\begin{equation}
+  \label{eq:Simpsons_9}
+  S{\scriptstyle_{N}} = \sum_{j=0}^{T/2 - 1} \left\{ \frac{ h{\scriptstyle_{2 i}} + h{\scriptstyle_{2 i + 1}} }{ 6 } \left[ \left( 2 - \frac{ h{\scriptstyle_{2 i + 1}} }{ h{\scriptstyle_{2 i}} } \right) f{\scriptstyle_{2 i}} + \frac{ \left( h{\scriptstyle_{2 i}} + h{\scriptstyle_{2 i + 1}} \right)^{2} }{ h{\scriptstyle_{2 i}} \ h{\scriptstyle_{2 i + 1}} } f{\scriptstyle_{2 i + 1}} + \left( 2 - \frac{ h{\scriptstyle_{2 i}} }{ h{\scriptstyle_{2 i + 1}} } \right) f{\scriptstyle_{2 i + 2}} \right] \right\}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  \textbf{2D Integration:}  Extrapolation to 2D\footnote{I think this is correct but still need to check it...} can be treated in the following manner where we define:
+
+\begin{equation}
+  \label{eq:Simpsons_10}
+  \begin{split}
+    \mathcal{H}{\scriptstyle_{i,j}} & \equiv \Biggl\{ \frac{ h{\scriptstyle_{l,m}} + h{\scriptstyle_{l + 1, m + 1}} }{ 6 } \biggl[ \left( 2 - \frac{ h{\scriptstyle_{l + 1, m + 1}} }{ h{\scriptstyle_{l,m}} } \right) f{\scriptstyle_{l,m}} + \frac{ \left( h{\scriptstyle_{l,m}} + h{\scriptstyle_{l + 1, m + 1}} \right)^{2} }{ h{\scriptstyle_{l,m}} \ h{\scriptstyle_{l + 1, m + 1}} } f{\scriptstyle_{l + 1, m + 1}} \\
+    & + \left( 2 - \frac{ h{\scriptstyle_{l,m}} }{ h{\scriptstyle_{l + 1, m + 1}} } \right) f{\scriptstyle_{l + 2, m + 2}} \biggr] \Biggr\}
+  \end{split}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where we have assumed $l$ $=$ $2 i$, $m$ $=$ $2 j$, $f{\scriptstyle_{i,j}}$ $\equiv$ $f\left( x{\scriptstyle_{i}}, y{\scriptstyle_{j}} \right)$, and we used:
+
+\begin{equation}
+  \label{eq:Simpsons_11}
+  h{\scriptstyle_{k,n}} \equiv \left( x{\scriptstyle_{k+1}} - x{\scriptstyle_{k}} \right) \left( x{\scriptstyle_{n+1}} - x{\scriptstyle_{n}} \right)
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+
+
+\clearpage
+%%----------------------------------------------------------------------------------------
 %%  Section: Velocity Distribution Functions
 %%----------------------------------------------------------------------------------------
-\section{Velocity Distribution Functions} \label{app:VelocityDistributionFunctions}
+\phantomsection   %%  Fix reference link
+\section{Velocity Distribution Functions} \label{sec:VelocityDistributionFunctions}
 
 \indent  Note that these details are published in the supplemental information of for the publications by \citet{wilsoniii19a}, \citet{wilsoniii19b}, and \citet{wilsoniii20a}.  The reference to the supplemental information is \citet{wilsoniii19k}.
 
@@ -1505,28 +1801,28 @@ and we can also note that:
   f{\scriptstyle_{s}}\left( x \right) = \frac{ A{\scriptstyle_{o}} }{\sqrt{ 2 \pi \sigma^{2} }} \ e^{^{\displaystyle - \frac{ (x - x{\scriptstyle_{o}})^{2} }{ 2 \sigma^{2} } }}
 \end{equation}
 
-where $x{\scriptstyle_{o}}$ is the displacement of the peak from x $=$ 0, $A{\scriptstyle_{o}}$ is a normalization amplitude, $s$ denotes the specific set (later used for particle species) of data the distribution describes, and $\sigma^{2}$ is the variance (e.g., see Section \ref{subsubsec:variance}).  For this distribution, one can find the Full Width at Half Maximum (FWHM) as:
+\noindent  where $x{\scriptstyle_{o}}$ is the displacement of the peak from x $=$ 0, $A{\scriptstyle_{o}}$ is a normalization amplitude, $s$ denotes the specific set (later used for particle species) of data the distribution describes, and $\sigma^{2}$ is the variance (e.g., see Section \ref{subsubsec:variance}).  For this distribution, one can find the Full Width at Half Maximum (FWHM) as:
 
 \begin{equation}
   \label{eq:gauss_1}
   FWHM = 2 \sqrt{ 2 \ln 2 } \ \sigma
 \end{equation}
 
-which is an expression for the width of the distribution at half its peak value.  If we change x $\rightarrow$ v, where v is a velocity, then the distribution in Equation \ref{eq:gauss_0} is now referred to as a Maxwell-Boltzmann distribution, or Maxwellian.  A one dimensional Maxwellian is given by:
+\noindent  which is an expression for the width of the distribution at half its peak value.  If we change x $\rightarrow$ v, where v is a velocity, then the distribution in Equation \ref{eq:gauss_0} is now referred to as a Maxwell-Boltzmann distribution, or Maxwellian.  A one dimensional Maxwellian is given by:
 
 \begin{equation}
   \label{eq:gauss_2}
   f{\scriptstyle_{s}}\left( v \right) = \frac{ n{\scriptstyle_{o}} }{ \sqrt{\pi} \ V{\scriptscriptstyle_{T_{s}}} } \ e^{^{\displaystyle - \left( \frac{ v - v{\scriptstyle_{o}} }{ V{\scriptscriptstyle_{T_{s}}} } \right)^{2} }}
 \end{equation}
 
-where $v{\scriptstyle_{o}}$ is the drift speed of the peak relative to zero, $n{\scriptstyle_{o}}$ is the particle number density, and we have replaced 2$\sigma^{2}$ with $V{\scriptstyle_{T_{s}}}^{2}$, the thermal speed\footnote{Note that this version is referred to as the \emph{most probable speed} for a 1D Gaussian.}, which is given by:
+\noindent  where $v{\scriptstyle_{o}}$ is the drift speed of the peak relative to zero, $n{\scriptstyle_{o}}$ is the particle number density, and we have replaced 2$\sigma^{2}$ with $V{\scriptstyle_{T_{s}}}^{2}$, the thermal speed\footnote{Note that this version is referred to as the \emph{most probable speed} for a 1D Gaussian.}, which is given by:
 
 \begin{equation}
   \label{eq:gauss_3}
   V{\scriptstyle_{T_{s}}} = \sqrt{ \frac{ 2 k{\scriptstyle_{B}} T{\scriptstyle_{s}} }{ m{\scriptstyle_{s}} } }
 \end{equation}
 
-where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $T{\scriptstyle_{s}}$ is the temperature, $m{\scriptstyle_{s}}$ is the mass, and $s$ is the particle species.  Therefore, one can show that FWHM $=$ 2$\sqrt{\ln 2}$ $V{\scriptstyle_{T_{s}}}$.
+\noindent  where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $T{\scriptstyle_{s}}$ is the temperature, $m{\scriptstyle_{s}}$ is the mass, and $s$ is the particle species.  Therefore, one can show that FWHM $=$ 2$\sqrt{\ln 2}$ $V{\scriptstyle_{T_{s}}}$.
 
 \indent  The general representation of a two dimensional multivariate distribution is given by the following:
 
@@ -1538,7 +1834,7 @@ where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $T{\scriptstyle_{s}}$ is th
   \end{align}
 \end{subequations}
 
-where we define $\rho$ and $\sigma{\scriptstyle_{j}}$ in the following manner:
+\noindent  where we define $\rho$ and $\sigma{\scriptstyle_{j}}$ in the following manner:
 
 \begin{subequations}
   \begin{align}
@@ -1546,25 +1842,26 @@ where we define $\rho$ and $\sigma{\scriptstyle_{j}}$ in the following manner:
     cov\left( x, y \right) & = E\left[ \left( x - \mu{\scriptstyle_{x}} \right) \left( y - \mu{\scriptstyle_{y}} \right) \right]  \label{eq:gauss_5b} 
   \end{align}
 \end{subequations}
-where $\rho$ is the correlation between x and y, $\mu{\scriptstyle_{x}}$ $=$ E[x] is the expected value of the aggregate data set X $=$ $\cup{\scriptstyle_{i}}$ $x{\scriptstyle_{i}}$, and $\mu{\scriptstyle_{x_{i}}}$ (e.g., see Section \ref{subsec:meanvarcovar}).  In the limit $\rho$ $\rightarrow$ 0 (i.e., x and y are uncorrelated), Equation \ref{eq:gauss_4b} reduces to:
+\noindent  where $\rho$ is the correlation between x and y, $\mu{\scriptstyle_{x}}$ $=$ E[x] is the expected value of the aggregate data set X $=$ $\cup{\scriptstyle_{i}}$ $x{\scriptstyle_{i}}$, and $\mu{\scriptstyle_{x_{i}}}$ (e.g., see Section \ref{subsec:meanvarcovar}).  In the limit $\rho$ $\rightarrow$ 0 (i.e., x and y are uncorrelated), Equation \ref{eq:gauss_4b} reduces to:
 
 \begin{equation}
   \label{eq:gauss_6}
   f\left( x, y \right) = \frac{ A{\scriptstyle_{x}} A{\scriptstyle_{y}} }{ 2 \pi \sigma{\scriptstyle_{x}} \sigma{\scriptstyle_{y}} } \ e^{^{\displaystyle - \frac{1}{2} \left[ \left(\frac{ x - \mu{\scriptstyle_{x}} }{ \sigma{\scriptstyle_{x}} }\right)^{2} + \left(\frac{ y - \mu{\scriptstyle_{y}} }{ \sigma{\scriptstyle_{y}} }\right)^{2} \right] }} \text{  .}
 \end{equation}
 
-In general, for uncorrelated variables, we can write:
+\noindent  In general, for uncorrelated variables, we can write:
 
 \begin{equation}
   \label{eq:gauss_7}
   f\left( x, y, z \right) = f\left( x \right) f\left( y \right) f\left( z \right)
 \end{equation}
 
-but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\cos{\phi}$, $V{\scriptstyle_{y}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\sin{\phi}$, and $V{\scriptstyle_{z}}$ $\rightarrow$ $V{\scriptstyle_{\parallel}}$, where $\phi$ is the phase angle of the velocity and $\partial f/\partial \phi$ $=$ 0, the distribtuion is gyrotropic.  
+\noindent  but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\cos{\phi}$, $V{\scriptstyle_{y}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\sin{\phi}$, and $V{\scriptstyle_{z}}$ $\rightarrow$ $V{\scriptstyle_{\parallel}}$, where $\phi$ is the phase angle of the velocity and $\partial f/\partial \phi$ $=$ 0, the distribtuion is gyrotropic.  
 
 %%----------------------------------------------------------------------------------------
 %%  Subsection:  Bi-Maxwellian Distributions
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \subsection{Bi-Maxwellian Distributions} \label{subsec:bimaxwellian}
 
 \indent  One can show that a gyrotropic distribution satisfies $V{\scriptstyle_{T \perp, x}}$ $=$ $V{\scriptstyle_{T \perp, y}}$ $\equiv$ $V{\scriptstyle_{T \perp}}$.  If we substitute into Equation \ref{eq:gauss_6} x $\rightarrow$ $V{\scriptstyle_{\parallel}}$, y $\rightarrow$ $V{\scriptstyle_{\perp}}$, $\mu{\scriptstyle_{j}}$ $\rightarrow$ $V{\scriptstyle_{o, j}}$, and $\sigma{\scriptstyle_{j}}$ $\rightarrow$ $V{\scriptstyle_{T, j}} / \sqrt{2}$ we arrive at a bi-Maxwellian distribution given by:
@@ -1872,6 +2169,353 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
   \end{align}
 \end{subequations}
 
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Section:  Energy Distribution Functions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\section{Energy Distribution Functions} \label{sec:EnergyDistributionFunctions}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Maxwell-Boltzmann Energy Distributions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Maxwell-Boltzmann Energy Distributions} \label{subsec:maxwellianboltzmann}
+
+\indent  The Maxwell-Boltzmann energy distribution function (EDF) for a system with three degrees of freedom in the presence of a potential, $\phi{\scriptstyle_{s}}$, is given by:
+
+\begin{equation}
+  \label{eq:mbedf_0}
+  f{\scriptstyle_{s}}\left( E \right) = 2 \ n{\scriptstyle_{s}} \sqrt{ \frac{ E - \phi{\scriptstyle_{s}} }{ \pi } } \ \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right)^{-3/2} \ e^{ {\displaystyle - \left( \frac{ E - \phi{\scriptstyle_{s}} }{ k{\scriptstyle_{B}} T{\scriptstyle_{s}} } \right)} }
+\end{equation}
+
+\noindent  where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $T{\scriptstyle_{s}}$ is the temperature, and $n{\scriptstyle_{s}}$ is the number density of particle species $s$.  Note that unlike a velocity distribution function (VDF), the units of the EDF are given as number per unit volume per unit energy, e.g., \# cm$^{-3}$ eV$^{-1}$.  Normally Equation \ref{eq:mbedf_0} is shown in the limit where $\phi{\scriptstyle_{s}} \rightarrow 0$ and then moments of $f{\scriptstyle_{s}}\left( E \right)$ are integrated over all energies from zero to infinity.  However, in this case in the presence of a potential, the moments are given as:
+
+\begin{equation}
+  \label{eq:mbedf_1}
+  \epsilon^{N} \equiv \int_{ \phi{\scriptstyle_{s}} }^{ \infty } \ dE \ \left( E - \phi{\scriptstyle_{s}} \right)^{N} \ f{\scriptstyle_{s}}\left( E \right)
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where $\epsilon^{N}$ is the N$^{th}$ energy moment of $f{\scriptstyle_{s}}\left( E \right)$.  Then the first four moments are given by:
+
+\begin{subequations}
+  \begin{align}
+    \epsilon^{0} & = n{\scriptstyle_{s}} \label{eq:mbedf_2a} \\
+    \epsilon^{1} & = n{\scriptstyle_{s}} \left[ \frac{ 3 }{ 2 } \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right) + \phi{\scriptstyle_{s}} \right] \label{eq:mbedf_2b} \\
+    \epsilon^{2} & = n{\scriptstyle_{s}} \left[ \phi{\scriptstyle_{s}}^{2} + 3 \phi{\scriptstyle_{s}} \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right) + \frac{ 15 }{ 4 } \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right)^{2} \right] \label{eq:mbedf_2c} \\
+    \epsilon^{3} & = n{\scriptstyle_{s}} \left[ \phi{\scriptstyle_{s}}^{3} + \frac{ 9 }{ 2 } \phi{\scriptstyle_{s}}^{2} \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right) + \frac{ 45 }{ 4 } \phi{\scriptstyle_{s}} \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right)^{2} + \frac{ 105 }{ 8 } \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right)^{3} \right] \label{eq:mbedf_2d}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+  \end{align}
+\end{subequations}
+
+\noindent  where the units of $\epsilon^{N}$ are given as, e.g., \# cm$^{-3}$ eV$^{N}$.
+
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Kappa Energy Distributions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Kappa Energy Distributions} \label{subsec:KappaEDFs}
+
+\indent  The kappa energy distribution function (EDF) for a system with three kinetic degrees of freedom in the absence of a potential energy \citep[e.g.,][]{livadiotis15a, livadiotis15b} is given by:
+
+\begin{equation}
+  \label{eq:kpedf_0}
+  f{\scriptstyle_{s}}\left( E \right) = \frac{ 2 \ n{\scriptstyle_{s}} E^{-1/2} \ \Gamma\left( \kappa{\scriptstyle_{s}} + 1 \right) }{ \sqrt{ \pi } \ \Gamma\left( \kappa{\scriptstyle_{s}} - \frac{ 1 }{ 2 } \right) } \left[ \left( \kappa{\scriptstyle_{s}} - \frac{ 3 }{ 2 } \right) \left( k{\scriptstyle_{B}} T{\scriptstyle_{s}} \right) \right]^{-3/2} \left[ 1 + \left( \kappa{\scriptstyle_{s}} - \frac{ 3 }{ 2 } \right)^{-1} \left( \frac{ E }{ k{\scriptstyle_{B}} T{\scriptstyle_{s}} } \right) \right]^{-\left( \kappa{\scriptstyle_{s}} + 1 \right)}
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  where $k{\scriptstyle_{B}}$ is Boltzmann's constant, $\kappa{\scriptstyle_{s}}$ is the kappa exponent, $T{\scriptstyle_{s}}$ is the temperature, and $n{\scriptstyle_{s}}$ is the number density of particle species $s$.  Equation \ref{eq:kpedf_0} assumes that any kinetic energies are given by the Galilean representation, i.e., $E$ $=$ $\tfrac{ m{\scriptstyle_{s}} }{ 2 } \left( \mathbf{v} - \mathbf{v}{\scriptstyle_{os}} \right)^{2}$ where $m{\scriptstyle_{s}}$ is the mass and $\mathbf{v}{\scriptstyle_{os}}$ is the drift velocity relative to relevant reference frame of $\mathbf{v}$.
+
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Subsection:  Constructing Energy Distributions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsection{Constructing Energy Distributions} \label{subsec:ConstructingEDFs}
+
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Constructing EDFs:  Regular Grid
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsubsection{Constructing EDFs:  Regular Grid} \label{subsubsec:ConstructingEDFsRegular}
+
+\indent  Suppose someone wanted to construct model energy distributions for electrons and they were given $n{\scriptstyle_{s}}$, $T{\scriptstyle_{s}}$, $\kappa{\scriptstyle_{s}}$, $\phi{\scriptstyle_{SC}}$ (spacecraft potential), and $\mathbf{v}{\scriptstyle_{os}}$.  For the sake of simplicity, let's assume that $\mathbf{v}{\scriptstyle_{os}}$ are all along the quasi-static magnetic field vector, $\mathbf{B}{\scriptstyle_{o}}$, and $T{\scriptstyle_{\parallel}}$ $=$ $T{\scriptstyle_{\perp}}$.  Then to construct a model $f{\scriptstyle_{s}}\left( E \right)$, one follows these steps: \\
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  Construct an array of energy bin values, $E{\scriptstyle_{o}}$
+  \item  Shift $E{\scriptstyle_{o}}$ by $\phi{\scriptstyle_{SC}}$ to generate array of shifted energies, $E{\scriptstyle_{sh}}$ $=$ $E{\scriptstyle_{o}}$ - $\phi{\scriptstyle_{SC}}$
+  \item  Compute the equivalent energies, $E{\scriptstyle_{os}}$, for each $\mathbf{v}{\scriptstyle_{os}}$ offset to create second shifted energy array, $E{\scriptstyle_{ss}}$ $=$ $E{\scriptstyle_{sh}}$ - $E{\scriptstyle_{os}}$
+  \item  For Equation \ref{eq:mbedf_0}, $\left( E - \phi{\scriptstyle_{s}} \right)$ $\rightarrow$ $E{\scriptstyle_{ss}}$ and for Equation \ref{eq:kpedf_0}, the first energy (i.e., $E^{-1/2}$ factor outside of brackets) goes to $E{\scriptstyle_{sh}}$ and the second energy (i.e., the $E$ inside the brackets) goes to $E{\scriptstyle_{ss}}$, per \citet[][]{livadiotis15b}.  That is, only one of the energy terms is affected by the energy shift (which is acting as our potential here) due to the finite $\mathbf{v}{\scriptstyle_{os}}$.
+  \item  Compute $f{\scriptstyle_{s}}\left( E \right)$ for each electron component (e.g., core, halo, and/or strahl) and sum them together, to generate the total electron EDF, $f{\scriptstyle_{e}}\left( E \right)$ $=$ $f{\scriptstyle_{ce}}\left( E \right)$ $+$ $f{\scriptstyle_{he}}\left( E \right)$ $+$ $f{\scriptstyle_{be}}\left( E \right)$
+  \item  Compute a model EDF for the photoelectrons, $f{\scriptstyle_{ph}}\left( E \right)$, using Equation \ref{eq:mbedf_0}.  Example parameters\footnote{From an example EESA Low VDF I fit to on 2015-12-05 at $\sim$07:31:47.489 UTC.  There is a range of values due to the anisotropy of $\phi{\scriptstyle_{SC}}$ due to a dipole moment, so the given values are from the fit to the median values of the VDF.  The ranges are $n{\scriptstyle_{ph}}$ $\sim$ 43.4--104.9 $cm^{-3}$, $T{\scriptstyle_{ph}}$ $\sim$ 0.5651--0.9870 eV, and $\phi{\scriptstyle_{ph}}$ $\sim$ 1.04--2.90 eV.  These results are consistent with previous efforts to model photoelectrons near Earth \citep[e.g.,][]{pedersen95a}.} are $n{\scriptstyle_{ph}}$ $\sim$ 104.9 $cm^{-3}$, $T{\scriptstyle_{ph}}$ $\sim$ 0.6695 eV, and $\phi{\scriptstyle_{ph}}$ $\sim$ 2.24 eV, where $\left( E - \phi{\scriptstyle_{s}} \right)$ $\rightarrow$ $\left( E{\scriptstyle_{o}} - \phi{\scriptstyle_{ph}} \right)$
+  \item  Sum the total electron and photoelectron EDFs together to get the total model EDF, $f{\scriptstyle_{mod}}\left( E \right)$ $=$ $f{\scriptstyle_{e}}\left( E \right)$ $+$ $f{\scriptstyle_{ph}}\left( E \right)$
+\end{itemize}
+
+\indent  Now that we have a model EDF\footnote{Note that when interpolating to the $E{\scriptstyle_{m}}$ values, the abscissa of $f{\scriptstyle_{mod}}\left( E \right)$ need to be the original energy grid values, $E{\scriptstyle_{o}}$.  This is because the instrument $E{\scriptstyle_{m}}$ values have not been corrected for $\phi{\scriptstyle_{SC}}$ or any distribution offsets, i.e., they are the unadjusted spacecraft frame energies.} $f{\scriptstyle_{mod}}\left( E{\scriptstyle_{o}} \right)$, we can interpolate to the energy bin values of an actual detector/instrument, $E{\scriptstyle_{m}}$, and then integrate the result to get moments of the EDF.  Note that in doing so, you will want to follow these steps: \\
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  Compute the base-10 logarithm of $f{\scriptstyle_{mod}}\left( E \right)$ then linearly interpolate to $E{\scriptstyle_{m}}$, giving $L{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$
+  \item  Convert back to linear space to get the measured EDF, $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ $=$ $10^{ L{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right) }$
+\end{itemize}
+
+\indent  Note that $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ is at the unadjusted, spacecraft frame energies, $E{\scriptstyle_{m}}$.  That is, these energies have not yet accounted for $\phi{\scriptstyle_{SC}}$ so keep that in mind.  These are the energy bin values of a detector.  Thus, when finding the moments of $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$, only use the elements of $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ and $E{\scriptstyle_{m}}$ that satisfy $E{\scriptstyle_{m}}$ $>$ $\phi{\scriptstyle_{SC}}$ (assuming $\phi{\scriptstyle_{SC}}$ $>$ 0). \\
+
+\indent  To compute the moments, follow these steps:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  Define the good elements that satisfy $E{\scriptstyle_{m}}$ $>$ $\phi{\scriptstyle_{SC}}$
+  \item  Define the shifted energies, $E{\scriptstyle_{msh}}$ $=$ $E{\scriptstyle_{m}}$ $-$ $\phi{\scriptstyle_{SC}}$
+  \item  Calcuate the number density, $n{\scriptstyle_{em}}$, by numerically integrating over $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ with $E{\scriptstyle_{msh}}$ as the abscissa
+  \item  Calcuate the temperature, $T{\scriptstyle_{em}}$, by numerically integrating over $E{\scriptstyle_{msh}} \ f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ with $E{\scriptstyle_{msh}}$ as the abscissa, then multiplying by $\tfrac{ 2 }{ 3 n{\scriptstyle_{em}} }$ (i.e., mean kinetic energy is defined as $\tfrac{ 3 }{ 2 } n{\scriptstyle_{em}} T{\scriptstyle_{em}}$, where $T{\scriptstyle_{em}}$ is in units of energy)
+\end{itemize}
+
+\indent  You can compare the results by numerically integrating $f{\scriptstyle_{mod}}\left( E \right)$ in a similar manner with $E{\scriptstyle_{sh}}$ as the abscissa and multiplying factor.  You can use $E{\scriptstyle_{sh}}$ instead of $E{\scriptstyle_{ss}}$ because the electron fit parameters should be defined in the solar wind bulk flow rest frame where $\mathbf{j}$ $=$ $- e \ \sum_{s} n{\scriptstyle_{s}} \ \mathbf{v}{\scriptstyle_{os}}$ $\simeq$ 0, i.e., the effective offset should be zero after accounting for the spacecraft potential because the sub-offsets used to construct the three electron components should balance.  The accuracy of the results depends upon the actual location of the discrete energy values and the range of energy values\footnote{It's actually more complicated than this, see \href{https://math.stackexchange.com/a/1599401/177342}{https://math.stackexchange.com/a/1599401/177342} for example}.  For instance, one can get a more accurate numerical integration result with a lower energy grid resolution if the lowest energy is closer to $E{\scriptstyle_{sh}} \sim 0$ than another grid with higher resolution but also a higher minimum energy bin value.  Thus, one can and should tailor the gridded energies accordingly\footnote{I artificially increased the grid resolution of $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ to improve the accuracy of the numerical integration to test the limits and constraints on the output.  I compared the EESA Low energy range ($\sim$5.18--1113.0 eV) with 15 energy bins to an artificial grid constructed to match an instrument on a potential future mission called MAKOS.  MAKOS will have higher angular and energy resolution than \emph{Wind}'s EESA Low, but for the example with $\phi{\scriptstyle_{SC}}$ $\sim$ 7.42 eV, the lowest $E{\scriptstyle_{sh}}$ for EESA Low happens to be closer to zero than that from the MAKOS grid of energy bins (even though the MAKOS energy range is $\sim$1.00--2000 eV, i.e., completely envelops the EESA Low range)}.
+
+\indent  As an example, we used a model distribution with the following parameters \citep[taken from][]{wilsoniii19a, wilsoniii19b, wilsoniii20a} for the perpendicular direction (i.e., for simplicity to avoid any issues with $\mathbf{v}{\scriptstyle_{os}}$):
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  $n{\scriptstyle_{ec(h)[b]}}$ $\sim$ 8.29(0.27)[0.16] $cm^{-3}$
+  \item  $T{\scriptstyle_{ec(h)[b]}}$ $\sim$ 12.91(47.66)[37.41] eV
+  \item  $\kappa{\scriptstyle_{ec(h)[b]}}$ $\sim$ $\infty$(4.10)[3.84] N/A
+  \item  $\phi{\scriptstyle_{SC}}$ $\sim$ 7.42 eV
+\end{itemize}
+
+%\clearpage
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Comparison btwn MMS DES and Wind EESA Low
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\begin{wrapfigure}[35]{r}{0.55\textwidth}
+\begin{figure}[!htb]
+    \vspace{-5pt}
+  \centering
+    {\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.98\textwidth]{ExampleCompareMMSDESwithWind3dp}}
+    \caption{Illustrative example electron VDFs from \emph{Wind} 3DP \citep[][]{wilsoniii21b} and MMS DES \citep[][]{pollock16a}.  The top row shows contours of constant phase space density [$cm^{-3} \ km^{-3} \ s^{+3}$] of a two-dimensional cut through a three-dimensional VDF.  The plane and coordinate basis are defined by the quasi-static magnetic field, $\mathbf{B}{\scriptstyle_{o}}$, and the ion bulk flow velocity, $\mathbf{V}{\scriptstyle_{i}}$.  The vertical axis is defined by the unit vector $\left( \mathbf{B}{\scriptstyle_{o}} \times \mathbf{V}{\scriptstyle_{i}} \right) \times \mathbf{B}{\scriptstyle_{o}}$ and the horizontal by $\mathbf{B}{\scriptstyle_{o}}$.  The bottom row shows one-dimensional cuts of the VDF along the horizontal (solid red line) and along the vertical (solid blue line).  The location of these cuts are defined by the color-coded cross hairs in the top row panels.  Also shown are the one-count (solid green line) and Poisson statistics (solid magenta line) levels for reference.  The VDF is shown in the ion bulk flow rest frame.}
+    \label{fig:ExampleComparisonDESvsEL}
+\end{figure}
+%\end{wrapfigure}
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Comparison btwn MMS DES and Wind EESA Low
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\noindent  We construct a regular energy grid in logarithmic space to increase the density of points at lower energies where things change much more quickly to generate the initial $f{\scriptstyle_{mod}}\left( E \right)$.  We then follow the above steps to calculate $f{\scriptstyle_{m}}\left( E{\scriptstyle_{m}} \right)$ at energy bin values of \emph{Wind}'s EESA Low ($f{\scriptstyle_{EL}}\left( E{\scriptstyle_{EL}} \right)$), MMS's DES ($f{\scriptstyle_{DES}}\left( E{\scriptstyle_{DES}} \right)$), and a concept instrument for the potential future MAKOS mission ($f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$).  We numerically compute the energy moments using Simpson's 1/3 rule \citep[e.g., see discussion in][]{wilsoniii19b} (e.g., see Section \ref{sec:NumericalIntegration}) of $f{\scriptstyle_{mod}}\left( E \right)$ and compare those results to the numerical moments of $f{\scriptstyle_{EL}}\left( E{\scriptstyle_{EL}} \right)$, $f{\scriptstyle_{DES}}\left( E{\scriptstyle_{DES}} \right)$, and $f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$.  If we define the percent difference as $Q{\scriptstyle_{\%}}$ $=$ $\left( 1 - \tfrac{ Q{\scriptstyle_{m}} }{ Q{\scriptstyle_{mod}} } \right) \times 100\%$, where $Q{\scriptstyle_{m}}$ is the moment of the EDFs interpolated to the instrument energies and $Q{\scriptstyle_{mod}}$ is the moment of model EDF, then we find:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.72 $cm^{-3}$
+  \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 14.44 eV
+  \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 8.78(7.16)[8.69] $cm^{-3}$
+  \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 14.36(9.86)[14.42] eV
+  \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ -0.70($+$17.9)[$+$0.30] \%
+  \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$0.54($+$31.7)[$+$0.14] \%
+\end{itemize}
+
+\noindent  Also tried two other cases where everything stays the same except we alter the $T{\scriptstyle_{ec}}$ value to $\sim$5.025 eV and $\sim$27.11 eV.  The comparisons are as follows:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  \textbf{Case where $T{\scriptstyle_{ec}}$ $\sim$ 5.025 eV}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.71 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 6.94 eV
+    \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 8.53(7.78)[8.43] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 7.12(5.51)[7.10] eV
+    \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$2.12($+$10.8)[$+$3.27] \%
+    \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $-$2.56($+$20.6)[$-$2.24] \%
+  \end{itemize}
+  \item  \textbf{Case where $T{\scriptstyle_{ec}}$ $\sim$ 27.11 eV}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.72 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 27.93 eV
+    \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 8.82(4.69)[8.75] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 27.48(12.02)[27.75] eV
+    \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $-$1.14($+$46.2)[$-$0.38] \%
+    \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$1.61($+$57.0)[$+$0.65] \%
+  \end{itemize}
+\end{itemize}
+
+\noindent  Again note that the minimum regridded energy bin for $f{\scriptstyle_{EL}}\left( E{\scriptstyle_{EL}} \right)$ was closer to zero (after accounting for $\phi{\scriptstyle_{SC}}$) than that for $f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$, which affects the accuracy of some moments more than others, depending on temperature and density.
+
+\indent  A final note about which energy bin values were used.  As can be seen in Figure \ref{fig:ExampleComparisonDESvsEL}, there are substantial regions of velocity space where the MMS DES detector has extremely low signal-to-noise (SNR) ratios, i.e., the data are not statistically significant.  So to get a proxy for the statistically significant energy bins, I examined the MMS DES VDFs in a burst interval on 2018-01-24 where the MMS1 spacecraft was in the solar wind\footnote{The interval used spans 2018-01-24/04:00:40.0000 UTC to 2018-01-24/04:01:50.0000 UTC which corresponds to 2333 DES VDFs.} (i.e., I exclude the first part of the interval ``contaminated'' by shock-reflected particles).  I use the SPEDAS \citep[][]{angelopoulos19a} software to retrieve the MMS DES data and I use their built-in routines to remove the secondary electron errors.  I then adjust for the spacecraft potential and an example of the end result is seen in Figure \ref{fig:ExampleComparisonDESvsEL}.  I then calculate the ratio between this corrected data and the Poisson statistics, $\tfrac{ \delta f }{ f }$, of the corrected data for all VDFs in the interval and all energy-angle bins.  Note that in burst mode, the DES instrument measures 32 energies, 16 poloidal angles, and 32 azimuthal angles, i.e., 16384 energy-angle bins per VDF.  In contrast, \emph{Wind} EL has 15 energies and 88 angle bins for a total of 1320 energy-angle bins.
+
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Comparison btwn MMS DIS and Wind PESA Low
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\begin{wrapfigure}[35]{r}{0.55\textwidth}
+\begin{figure}[!htb]
+    \vspace{-5pt}
+  \centering
+    {\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.98\textwidth]{ExampleCompareMMSDISwithWind3dp}}
+    \caption{Illustrative example ion VDFs from \emph{Wind} 3DP \citep[][]{wilsoniii21b} and MMS DIS \citep[][]{pollock16a}.  The format is similar to that of Figure \ref{fig:ExampleComparisonDESvsEL} except there is an extra panel for PESA Low showing the zoomed-in view of the VDF (i.e., first column).  All VDFs have been transformed to the incident core, bulk flow rest frame (i.e., defined by centering the peak phase space density on the origin of this field-aligned coordinate basis).}
+    \label{fig:ExampleComparisonDISvsPL}
+\end{figure}
+%\end{wrapfigure}
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Comparison btwn MMS DIS and Wind PESA Low
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\indent  So we now have a 4D array of data, i.e., [V,E,T,P]-elements where V is the number of VDFs, E is the number of energy bins, T is the number of poloidal bins, and P is the number of azimuthal bins.  I average $\tfrac{ \delta f }{ f }$ over the V VDFs and then determine how many of these energy-angle bins satisfy $\geq$0.5.  If the number is at least 200, then I consider it a good energy bin, otherwise not.  The ``good'' DES energy bins are: \\
+\noindent  E [eV]:  8.54, 11.2, 14.6, 19.2, 25.1, 32.8, and 43.0. \\
+\noindent  That is, there are only 7 energy bins that consistently have enough SNR to be statistically significant for DES when it is in burst mode in the solar wind (for this interval).  Performing the same calculations for \emph{Wind} EL shows that all 15 energy bins are consistently valid for 3 days worth of data\footnote{It is worth noting, again, that the MMS instruments were not designed for the cold, fast solar wind.  The \emph{Wind} 3DP instrument was and it integrates over $\sim$3 seconds, $\sim$100 times longer than MMS DES.  Thus, it's not surprising that MMS has low SNR in the solar wind.  However, it is incredibly important to consider this and know about the implications.}.  The \emph{Wind} EL energies are: \\
+\noindent  E [eV]:  5.18, 5.92, 7.26, 9.41, 12.8, 18.3, 27.3, 41.8, 65.2, 103, 165, 265, 427, 689, and 1113. \\
+
+\indent  The instrument concept for MAKOS (as of Jan. 21, 2022) includes a dedicated, low energy ($\sim$1--2000 eV) electron and ion ($\sim$400--6000 eV) instrument designed to measure the solar wind.  The electron(ion) instrument is planned to have $\Delta E/E$ $\sim$ 15\%(7\%) and $\Delta \alpha$ $<$ 15$^{\circ}$(6$^{\circ}$).  To determine the number of energy bins, $N$, based upon the energy range, $\left[ E{\scriptstyle_{min}}, E{\scriptstyle_{max}} \right]$, and $\Delta E/E$, one can show that:
+
+\begin{equation}
+  \label{eq:ConstEDF_0}
+  \left( N - 1 \right) = \frac{ \log_{10} E{\scriptstyle_{max}} - \log_{10} E{\scriptstyle_{min}} }{ \log_{10} \lvert 2 + \tfrac{ \Delta E }{ E } \rvert - \log_{10} \lvert 2 - \tfrac{ \Delta E }{ E } \rvert }
+%%    \left(  \right)
+%%    \left[  \right]
+%%    \frac{  }{  }
+%%    \left( \frac{  }{  } \right)
+%%    \left[ \frac{  }{  } \right]
+\end{equation}
+
+\noindent  Therefore, the electron(ion) instrument will need at least 52(40) energy bins.  These will most likely be on a uniform grid in logarithmic space.  Because we cannot know ahead of time which energy bins will have sufficient counting statistics for this analysis, we use the full array.
+
+\indent  The above results were all derived from using a regularly gridded array of energy bins, i.e., we re-gridded the data onto uniform (linear space) energy grids before numerical integration.  The following subsection does not increase the number of energy bins and leaves the data on a non-uniform grid, for comparison.
+
+%\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Subsubsection:  Constructing EDFs:  Irregular Grid
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\subsubsection{Constructing EDFs:  Irregular Grid} \label{subsubsec:ConstructingEDFsIrregular}
+
+%%----------------------------------------------------------------------------------------
+%%  Paragraph:  Irregular Grid:  Electrons
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\paragraph{Irregular Grid:  Electrons} \label{para:IrregularElectrons}
+
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Irregular Grid Electrons
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{wrapfigure}[35]{r}{0.35\textwidth}
+%\begin{figure}[!htb]
+    \vspace{-5pt}
+  \centering
+    {\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.98\textwidth]{ExampleInterp2IrregEnersElectronsWindMMSMAKOS}}
+    \caption{Example of the model EDF for the case where $T{\scriptstyle_{ec}}$ $\sim$ 5.025 eV.  The color-coded legend is in the top panel and the model parameters are in the bottom panel.}
+    \label{fig:ExampleIrregularGridElec}
+%\end{figure}
+\end{wrapfigure}
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Irregular Grid Electrons
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\indent  Again, let's use the example model distribution with the following parameters \citep[taken from][]{wilsoniii19a, wilsoniii19b, wilsoniii20a} for the perpendicular direction (i.e., for simplicity to avoid any issues with $\mathbf{v}{\scriptstyle_{os}}$).  However, instead of constructing an artificial, regular grid of energy bins (as was done in Section \ref{subsubsec:ConstructingEDFsRegular}) we use the actual midpoint energy bin values of \emph{Wind}'s EESA Low ($f{\scriptstyle_{EL}}\left( E{\scriptstyle_{EL}} \right)$), MMS's DES ($f{\scriptstyle_{DES}}\left( E{\scriptstyle_{DES}} \right)$), and a concept instrument for the potential future MAKOS mission ($f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$).  We use the energy bins shown at the end of Section \ref{subsubsec:ConstructingEDFsRegular} and use $\phi{\scriptstyle_{SC}}$ $\sim$ 7.42 eV to stay consistent with the results from Section \ref{subsubsec:ConstructingEDFsRegular}.  We use the same three example cases as in Section \ref{subsubsec:ConstructingEDFsRegular} but even the model is integrated on an irregular energy grid.  We report the results in terms of percent difference as before too.  So for the three cases we find:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  \textbf{Initial model parameters}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{ec(h)[b]}}$ $\sim$ 8.29(0.27)[0.16] $cm^{-3}$
+    \item  $T{\scriptstyle_{ec(h)[b]}}$ $\sim$ 12.91(47.66)[37.41] eV
+    \item  $\kappa{\scriptstyle_{ec(h)[b]}}$ $\sim$ $\infty$(4.10)[3.84] N/A
+    \item  $\phi{\scriptstyle_{SC}}$ $\sim$ 7.42 eV
+  \end{itemize}
+  \item  \textbf{Photoelectron model parameters, shown as Min-Max[used]}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{ph}}$ $\sim$ 43.4--104.9[104.9] $cm^{-3}$
+    \item  $T{\scriptstyle_{ph}}$ $\sim$ 0.5651--0.9870[0.6695] eV
+    \item  $\phi{\scriptstyle_{ph}}$ $\sim$ 1.04--2.90[2.24] eV
+  \end{itemize}
+  \item  \textbf{Case where $T{\scriptstyle_{ec}}$ $\sim$ 12.91 eV}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.72 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 14.43 eV
+    \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 8.27(7.22)[8.71] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 14.95(9.85)[14.44] eV
+    \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$5.20($+$17.2)[$+$0.07] \%
+    \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $-$3.59($+$31.8)[$-$0.04] \%
+  \end{itemize}
+  \item  \textbf{Case where $T{\scriptstyle_{ec}}$ $\sim$ 5.025 eV}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.72 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 6.94 eV
+    \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 7.35(7.91)[8.52] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 7.94(5.46)[7.09] eV
+    \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$15.7($+$9.33)[$+$2.32] \%
+    \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $-$14.5($+$21.3)[$-$2.25] \%
+  \end{itemize}
+  \item  \textbf{Case where $T{\scriptstyle_{ec}}$ $\sim$ 27.11 eV}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 8.72 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 27.93 eV
+    \item  $n{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 8.50(4.71)[8.76] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, EL(DES)[MAK]}}$ $\sim$ 28.16(12.04)[27.81] eV
+    \item  $n{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $+$2.53($+$46.0)[$-$0.44] \%
+    \item  $T{\scriptstyle_{\%, EL(DES)[MAK]}}$ $\sim$ $-$0.83($+$56.9)[$+$0.46] \%
+  \end{itemize}
+\end{itemize}
+
+\indent  Thus, it becomes quite clear that both \emph{Wind} and MAKOS do significantly better than MMS.  This should be expected, as both \emph{Wind} and MAKOS are/will be designed for the solar wind.  There are also rather significant improvements in the accuracy of the results using an irregularly spaced energy grid than the uniform in linear space results shown in Section \ref{subsubsec:ConstructingEDFsRegular}.  The reason being that even when the solar wind is considered ``hot'' as in our third example here, the distribution is still much cooler than typical magnetosheath and/or magnetosphere plasmas.  Further, the instrument often has rather low SNR in the solar wind, which means only a small subset of all possible energy bins are actually valid in the solar wind.
+
+%%----------------------------------------------------------------------------------------
+%%  Paragraph:  Irregular Grid:  Ions
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\paragraph{Irregular Grid:  Ions} \label{para:IrregularIons}
+
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Irregular Grid Ions
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{wrapfigure}[31]{r}{0.35\textwidth}
+%\begin{figure}[!htb]
+    \vspace{-5pt}
+  \centering
+    {\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.98\textwidth]{ExampleInterp2IrregEnersIonsWindMMSMAKOS}}
+    \caption{Example of the model EDF for the ions.  The color-coded legend is in the top panel and the model parameters are in the bottom panel.}
+    \label{fig:ExampleIrregularGridIons}
+%\end{figure}
+\end{wrapfigure}
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Image:  Example Irregular Grid Ions
+%%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\indent  Here we use the model distribution described by Equation \ref{eq:mbedf_0} with typical parameters \citep[taken from][]{wilsoniii18b} for the protons and alpha-particles.  Because most instruments measure energy per charge, we construct the EDFs in terms of speed of protons (i.e., convert from energy to speed assuming proton mass) and then convert back into energy space after drift speeds (relative to spacecraft frame), $\mathbf{v}{\scriptstyle_{os}}$, are taken into account.  Again, we use the actual midpoint energy bin values of \emph{Wind}'s PESA Low Burst ($f{\scriptstyle_{PL}}\left( E{\scriptstyle_{PL}} \right)$), MMS's DIS ($f{\scriptstyle_{DIS}}\left( E{\scriptstyle_{DIS}} \right)$), and a concept instrument for the potential future MAKOS mission ($f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$).  The energy bins
+
+perpendicular direction (i.e., for simplicity to avoid any issues with $\mathbf{v}{\scriptstyle_{os}}$).  However, instead of constructing an artificial, regular grid of energy bins (as was done in Section \ref{subsubsec:ConstructingEDFsRegular}) we use the actual midpoint energy bin values of \emph{Wind}'s EESA Low ($f{\scriptstyle_{EL}}\left( E{\scriptstyle_{EL}} \right)$), MMS's DES ($f{\scriptstyle_{DES}}\left( E{\scriptstyle_{DES}} \right)$), and a concept instrument for the potential future MAKOS mission ($f{\scriptstyle_{MAK}}\left( E{\scriptstyle_{MAK}} \right)$).  We use the energy bins shown at the end of Section \ref{subsubsec:ConstructingEDFsRegular} and use $\phi{\scriptstyle_{SC}}$ $\sim$ 7.42 eV to stay consistent with the results from Section \ref{subsubsec:ConstructingEDFsRegular}.  We use the same three example cases as in Section \ref{subsubsec:ConstructingEDFsRegular} but even the model is integrated on an irregular energy grid.  We report the results in terms of percent difference as before too.  The \emph{Wind} PL energies are: \\
+\noindent  E [eV]:  $\sim$670, 786, 922, 1079, 1265, 1485, 1740, 2037, 2384, 2797, 3278, 3837, 4495, 5264. \\
+\noindent  The ``good'' DIS energy bins are: \\
+\noindent  E [eV]:  $\sim$556, 736, 975, 1291, 1709, 2263, 2997, 3968, 5253, 6955. \\
+\noindent  Similar to how we limited the DES ``good'' energy bins, we considered the statistical averages over an array of DIS VDFs in the solar wind.  However, the threshold for $\tfrac{ \delta f }{ f }$ here was 0.1 and only 10 angle bins needed to satisfy this requirement (i.e., because the ion VDF is much more narrow in energy-angle space than the electrons).
+
+\indent  The instrument concept for MAKOS (as of Jan. 21, 2022) includes a dedicated, low energy ion ($\sim$400--6000 eV) instrument designed to measure the solar wind.  The ion instrument is planned to have $\Delta E/E$ $\sim$ 7\% and $\Delta \alpha$ $<$ 6$^{\circ}$.  Using Equation \ref{eq:ConstEDF_0} we can show we need at least 40 logarithmically spaced energy bins to achieve these parameters.  Similar to the electron MAKOS instrument, because we cannot know ahead of time which energy bins will have sufficient counting statistics for this analysis, we use the full array.  The parameters and resulting numerical integration values are given below:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  \textbf{Initial model parameters}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{p[\alpha]}}$ $\sim$ 11.7[0.53] $cm^{-3}$
+    \item  $T{\scriptstyle_{p[\alpha]}}$ $\sim$ 5.43[34.7] eV
+    \item  $\mathbf{v}{\scriptstyle_{op}}$ $\sim$ $\left( -450, -7.22, -21.1 \right)$ km/s, GSE
+    \item  $\mathbf{v}{\scriptstyle_{o \alpha}}$ $\sim$ $\left( -400, -0.83, -5.28 \right)$ km/s, GSE
+  \end{itemize}
+  \item  \textbf{Integrated results}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  $n{\scriptstyle_{e, mod}}$ $\sim$ 12.23 $cm^{-3}$
+    \item  $T{\scriptstyle_{e, mod}}$ $\sim$ 7.36 eV
+    \item  $n{\scriptstyle_{e, PL(DIS)[MAK]}}$ $\sim$ 20.3(-2.19)[15.7] $cm^{-3}$
+    \item  $T{\scriptstyle_{e, PL(DIS)[MAK]}}$ $\sim$ 10.2(-2.19)[8.79] eV
+    \item  $n{\scriptstyle_{\%, PL(DIS)[MAK]}}$ $\sim$ $-$66.1($+$118)[$-$28.4] \%
+    \item  $T{\scriptstyle_{\%, PL(DIS)[MAK]}}$ $\sim$ $-$38.2($+$130)[$-$19.4] \%
+  \end{itemize}
+\end{itemize}
+
+\indent  As we can see, even with the very high resolution of the novel MAKOS instrumentation, a direct numerical integration of a measured EDF of a plasma with these parameters will still have relatively large uncertainties.  However, it will exceed \emph{Wind}'s capabilities by nearly a factor of 3 and this illustrates just how inaccurate the MMS DIS instrument can be under cold solar wind conditions.  Again, this is due to the FPI instrument being designed for the hot, slow magnetosphere and magnetosheath, not a flaw in the instrument itself.
+
+\indent  It should also be noted that the above results for both the ions and electrons are kind of a worst case scenario to illustrate the difference that detector design can have on measured distributions.  In practical implementation of any electrostatic analyzer (ESA), the distribution is not integrated over just energy as has been done here.  There are geometric factor corrections, deadtime corrections, efficiency corrections, angular corrections, etc.  All of these corrections actually improve the results from those presented here, which is why, for example, \emph{Wind}'s velocity moments aren't off by upwards of 60\% just because the solar wind is cold.
+
 
 
 
@@ -1881,6 +2525,7 @@ but if we let $V{\scriptstyle_{x}}$ $\rightarrow$ $V{\scriptstyle_{\perp}}$ $\co
 %%----------------------------------------------------------------------------------------
 %%  Section:  Wave Properties
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \section{Wave Properties} \label{sec:waveprops}
 
 \noindent  Before we begin, we should define some terms and parameters/functions that will be used later:
