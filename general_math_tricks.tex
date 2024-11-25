@@ -55,6 +55,8 @@
 \linespread{1.00}         %%  Set line spacing to single space
 \usepackage{indentfirst}  %%  Force first paragraph to indent
 \usepackage{fancyhdr}     %%  Allow the use of custom headers and footers
+\usepackage{mdframed}     %%  Allow isolated, framed environments
+\usepackage{framed}       %%  Allow isolated, framed environments
 %%
 %%  Extra Formatting packages
 %%
@@ -111,6 +113,25 @@
 \setlength{\predisplaysize}{\textwidth}
 %%  Adjust horizontal spacing before each item in enumerate
 \setlist{leftmargin=10mm}
+%%########################################################################################
+%%  Shaded quote commands
+%%########################################################################################
+\mdfdefinestyle{MyShadeQuoteStyle}{%
+    leftmargin=15pt,
+    rightmargin=15pt,
+    backgroundcolor=gray!25,
+    linewidth=0pt,
+    skipbelow=\topskip,
+    skipabove=\topskip
+}
+
+\newenvironment{MyShadequote}[1][]{%
+    \ignorespaces%
+    \begin{mdframed}[style=MyShadeQuoteStyle,#1]%
+}{%
+    \end{mdframed}%
+    \ignorespacesafterend%
+}%
 %%########################################################################################
 %%  Table of Contents (ToC) Formatting Settings
 %%########################################################################################
@@ -2516,8 +2537,111 @@ perpendicular direction (i.e., for simplicity to avoid any issues with $\mathbf{
 
 \indent  It should also be noted that the above results for both the ions and electrons are kind of a worst case scenario to illustrate the difference that detector design can have on measured distributions.  In practical implementation of any electrostatic analyzer (ESA), the distribution is not integrated over just energy as has been done here.  There are geometric factor corrections, deadtime corrections, efficiency corrections, angular corrections, etc.  All of these corrections actually improve the results from those presented here, which is why, for example, \emph{Wind}'s velocity moments aren't off by upwards of 60\% just because the solar wind is cold.
 
+\clearpage
+%%----------------------------------------------------------------------------------------
+%%  Section:  Adiabatic Invariance
+%%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
+\section{Adiabatic Invariance} \label{sec:AdiabaticInvariance}
 
+\indent  The following comes from pages 592--593 of \citet[][]{jackson98a} and pages 48--60 of \citet[][]{gurnett05}.  Let us suppose we start with the action integral (e.g., see Section \ref{subsec:ActionPrinciple}) given by:
 
+\begin{equation}
+  \label{eq:AdiabaticInvariance_0}
+  J{\scriptstyle_{i}} = \oint \ dq{\scriptstyle_{i}} \ p{\scriptstyle_{i}}
+\end{equation}
+
+\noindent  where $p{\scriptstyle_{i}}$ and $q{\scriptstyle_{i}}$ are the usual generalized canonical coordinates and the integration is over a complete cycle of $q{\scriptstyle_{i}}$.  Then from \citet[][]{jackson98a}:
+
+\begin{MyShadequote}
+...For a given mechanical system with specified initial conditions the action integrals $J{\scriptstyle_{i}}$ are constants.  If now the properties of the system are changed in some way (e.g., a change in spring constant or mass of some particle), the question arises as to how the action integrals change.  It can be proved that, if the change in property is slow compared to the relevant periods of motion and is not related to the periods (such a change is called an \textit{adiabatic change}), the action integrals are invariant.
+\end{MyShadequote}
+
+\noindent  First we need to define a few things.  These are the gyroradius, $\rho{\scriptstyle_{cs}}$, and cyclotron frequency, $\Omega{\scriptstyle_{cs}}$, of species $s$ given by:
+
+\begin{subequations}
+  \begin{align}
+    \rho{\scriptstyle_{cs}} & = \frac{ \gamma \ m{\scriptstyle_{s}} \ v{\scriptstyle_{\perp}} }{ q{\scriptstyle_{s}} \ B{\scriptstyle_{o}} } \label{eq:AdiabaticInvariance_1a} \\
+    \Omega{\scriptstyle_{cs}} & = \frac{ q{\scriptstyle_{s}} \ B{\scriptstyle_{o}} }{ \gamma \ m{\scriptstyle_{s}} } \label{eq:AdiabaticInvariance_1b}
+  \end{align}
+\end{subequations}
+
+\noindent  where $q{\scriptstyle_{s}}$ $=$ $e \ Z{\scriptstyle_{s}}$ is the fundamental charge, $e$ [C], times the charge state, $Z{\scriptstyle_{s}}$, $\gamma$ is the relativistic Lorentz factor [N/A], $B{\scriptstyle_{o}}$ is the magnitude of the quasi-static magnetic field [T], $m{\scriptstyle_{s}}$ is the rest mass of species $s$ [kg], and $v{\scriptstyle_{\perp}}$ is the orthogonal (to the magnetic field vector, $\mathbf{B}{\scriptstyle_{o}}$) projection of the particle's velocity [km/s].  Note that in Gaussian units there is a factor of $c$ (speed of light in vacuum) in the numerator of $\rho{\scriptstyle_{cs}}$ and denominator of $\Omega{\scriptstyle_{cs}}$.
+
+\indent  Now for a charged particle in a magnetic field, we know the canonical momentum (Gaussian units) is given by $\mathbf{P}{\scriptstyle_{s}} = \mathbf{p}{\scriptstyle_{s}} + \tfrac{ q{\scriptstyle_{s}} }{ c } \mathbf{A}$, where $\mathbf{p}$ is the 3-vector momentum and $\mathbf{A}$ is the vector potential.  Then we can write the action integral as:
+
+\begin{subequations}
+  \begin{align}
+    J & = \oint \ d\mathbf{l} \cdot \mathbf{P} \label{eq:AdiabaticInvariance_2a} \\
+      & = \oint \ d\mathbf{l} \cdot \left( \gamma \ m{\scriptstyle_{s}} \ v{\scriptstyle_{\perp}} \right) + \frac{ q{\scriptstyle_{s}} }{ c } \oint \ d\mathbf{l} \cdot \mathbf{A} \label{eq:AdiabaticInvariance_2b} \\
+      & = \oint \ d\phi \ \gamma \ m{\scriptstyle_{s}} \ \Omega{\scriptstyle_{cs}} \ \rho{\scriptstyle_{cs}}^{2} + \frac{ q{\scriptstyle_{s}} }{ c } \int_{S} \ dA \ \hat{n} \cdot \nabla \times \mathbf{A} \label{eq:AdiabaticInvariance_2c} \\
+      & = 2 \pi \ \gamma \ m{\scriptstyle_{s}} \ \Omega{\scriptstyle_{cs}} \ \rho{\scriptstyle_{cs}}^{2} + \frac{ q{\scriptstyle_{s}} }{ c } \int_{S} \ dA \ \hat{n} \cdot \mathbf{B}{\scriptstyle_{o}} \label{eq:AdiabaticInvariance_2d}
+  \end{align}
+\end{subequations}
+
+\noindent  where we've used Stokes' theorem for the second integral and took advantage of the fact that $d\mathbf{l}$ and $v{\scriptstyle_{\perp}}$ are parallel and that $d\mathbf{l} = \rho{\scriptstyle_{cs}} \ d\hat{\phi}$ in the first integral.  The line element $d\mathbf{l}$ orbits $\mathbf{B}{\scriptstyle_{o}}$ in a counterclockwise sense, thus the outward unit normal, $\hat{n}$, is anti-parallel to $\mathbf{B}{\scriptstyle_{o}}$.  The second integral is then an integral over the area of a gyroradius, which reduces it to $\pi \rho{\scriptstyle_{cs}}^{2}$ (i.e., just the area of a circle with radius equal to $\rho{\scriptstyle_{cs}}$).  After a little manipulation one sees the second integral is one half the first integral and negative resulting in the action going to:
+
+\begin{equation}
+  \label{eq:AdiabaticInvariance_3}
+  J = \pi \ \gamma \ m{\scriptstyle_{s}} \ \Omega{\scriptstyle_{cs}} \ \rho{\scriptstyle_{cs}}^{2} = \frac{ q{\scriptstyle_{s}} }{ c } \left( \pi \rho{\scriptstyle_{cs}}^{2} \ B{\scriptstyle_{o}} \right)
+\end{equation}
+
+\indent  The quantity in ()'s in Equation \ref{eq:AdiabaticInvariance_3} is the magnetic flux through the particles gyro orbit.  So now we ask how this relates to \textit{adiabatic invariance}.   If we look at Equation \ref{eq:AdiabaticInvariance_3} we can see that for slowly varying magnetic fields, $J$ must be constant.  The reason we can say this is the following:
+
+\begin{MyShadequote}
+If B increases, then $\rho{\scriptstyle_{cs}}$ decreases such that $\left( \pi \rho{\scriptstyle_{cs}}^{2} B{\scriptstyle_{o}} \right)$ remains constant.
+\end{MyShadequote}
+
+\noindent  This statement can be reduced to three so called adiabatic invariants of motion for charged particles in slowly varying fields given by:
+
+\begin{subequations}
+  \begin{align}
+    \left( \pi \rho{\scriptstyle_{cs}}^{2} B{\scriptstyle_{o}} \right) & \equiv \text{magnetic flux conservation} \label{eq:AdiabaticInvariance_4a} \\
+    \frac{ p{\scriptstyle_{\perp}}^{2} }{ B{\scriptstyle_{o}} } & \equiv \text{transverse momentum} \label{eq:AdiabaticInvariance_4b} \\
+    \gamma \mu{\scriptstyle_{s}} & \equiv \text{magnetic moment} \label{eq:AdiabaticInvariance_4c} \\
+    \int_{a}^{b} \ ds \ p{\scriptstyle_{\parallel}} & \equiv \text{parallel momentum} \label{eq:AdiabaticInvariance_4d}
+  \end{align}
+\end{subequations}
+
+\noindent  where the particle magnetic moment, $\mu{\scriptstyle_{s}}$, is given by:
+
+\begin{subequations}
+  \begin{align}
+    \mu{\scriptstyle_{s}} & \equiv \frac{ q{\scriptstyle_{s}} }{ 2 } \ \Omega{\scriptstyle_{cs}} \ \rho{\scriptstyle_{cs}}^{2} \label{eq:AdiabaticInvariance_5a} \\
+      & = \left( \frac{ q{\scriptstyle_{s}} }{ 2 \ c } \right) \left( \frac{ q{\scriptstyle_{s}} \ B{\scriptstyle_{o}} }{ \gamma \ m{\scriptstyle_{s}} } \right) \left( \frac{ \gamma \ m{\scriptstyle_{s}} \ v{\scriptstyle_{\perp}} }{ q{\scriptstyle_{s}} \ B{\scriptstyle_{o}} } \right)^{2} \label{eq:AdiabaticInvariance_5b} \\
+      & = \left( \frac{ \gamma \ m{\scriptstyle_{s}} \ v{\scriptstyle_{\perp}}^{2} }{ 2 \ B{\scriptstyle_{o}} } \right) \label{eq:AdiabaticInvariance_5c}
+  \end{align}
+\end{subequations}
+
+\indent  These are linked to particle motions in, for instance, Earth's magnetosphere.  Below are some physical examples of the above relationships.
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  Equations \ref{eq:AdiabaticInvariance_4b} and \ref{eq:AdiabaticInvariance_4c} relate to the gyration of particles about the magnetic field.  If $B{\scriptstyle_{o}}$ varies slowly compared to the gyroperiod of the particle, then an increase in $B{\scriptstyle_{o}}$ will result in an increase in the momentum transverse to $\mathbf{B}{\scriptstyle_{o}}$.  This is merely the gyration of charged particles about the magnetic field.  Equations \ref{eq:AdiabaticInvariance_4b} and \ref{eq:AdiabaticInvariance_4c} correspond to the so called \textbf{first adiabatic invariant}.
+  \item  Equation \ref{eq:AdiabaticInvariance_4d} relates to what is called \textit{bounce motion} of particles parallel or anti-parallel to $\mathbf{B}{\scriptstyle_{o}}$.  If $B{\scriptstyle_{o}}$ varies slowly compared to the time it takes to bounce between magnetic mirror points, then the action integral of Equation \ref{eq:AdiabaticInvariance_4d} is constant, e.g., the particles will bounce between the north and south magnetic poles of Earth's dipole magnetic field.  Equation \ref{eq:AdiabaticInvariance_4d} corresponds to the so called \textbf{second adiabatic invariant}.
+  \item  Equation \ref{eq:AdiabaticInvariance_4a} relates to particle drifts in the azimuthal direction around the Earth.  If $B{\scriptstyle_{o}}$ increases slowly compared to the drift-orbital period of the particles\footnote{This is caused by a gradient-drift motion in regions like Earth's radiation belts.}, the particles drift orbit radius must decrease accordingly.  The inward motion of these particles is related to a phenomena called \textit{radial diffusion}, important for radiation belt dynamics.  Equation \ref{eq:AdiabaticInvariance_4a} corresponds to the so called \textbf{third adiabatic invariant}.
+\end{itemize}
+
+\noindent  So we have three periodic motions (from fastest to slowest):  gyration (\textbf{first adiabatic invariant}), bounce (\textbf{second adiabatic invariant}), and drift (\textbf{third adiabatic invariant}).  Note the relative speeds or periods/durations for each of these is rated based upon single-particle motion in Earth's magnetosphere, specifically the radiation belts.
+
+\indent  Note that these action integrals are not always constants of motion.  The easiest way to violate these approximations is either to have parameters (e.g., $B{\scriptstyle_{o}}$) change \textit{too fast} or remove a periodicity in system (e.g., asymmetric dipole geometry or loss-point in drift like what occurs in magnetopause shadowing).  Some figurative and/or physically meaningful examples of violations are:
+
+\begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+  \item  \textbf{first adiabatic invariant}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  This can be violated if $\Omega{\scriptstyle_{cs}}$ $\sim$ 0 or if either $\dot{\Omega}{\scriptstyle_{cs}}$ or $\ddot{\Omega}{\scriptstyle_{cs}}$ become \textit{too large}.
+    \item  Examples include inhomogeneous magnetic fields (e.g., shock ramps or reconnection null points) and electromagnetic waves, i.e., modify the perpendicular momentum without changing the background magnetic field magnitude in less than one gyroperiod for the particle.
+  \end{itemize}
+  \item  \textbf{second adiabatic invariant}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  Usually the \textbf{second} requires longer time durations than the first, so most things that would violate the \textbf{first} will cause the \textbf{second} to be violated.
+    \item  Another example is a loss due to a compression or change in field geometry.  In the case of the Earth's radiation belts, the particles \textit{bounce} between mirror points, located near the geomagnetic poles.  They bounce because the \textit{mirror force}\footnote{The mirror force is jsut a special form of the Lorentz force in a spatially varying magnetic field and can be approximated as $\sim$ $- \mu{\scriptstyle_{s}} \ \partial{\scriptstyle_{l}} \ B{\scriptstyle_{l}}$, where $l$ is meant to represent a direction along the nominal, quasi-static magnetic field.} decreases the particle's parallel momentum to zero but if the \textbf{first} is conserved, one can usually assume the total kinetic energy is conserved.
+  \end{itemize}
+  \item  \textbf{third adiabatic invariant}
+  \begin{itemize}[itemsep=0pt,parsep=0pt,topsep=0pt]
+    \item  Generally, the \textbf{third} is the easiest to violate.  In fact, only a small fraction of particles in any given velocity distribution function (VDF) actually obey the \textbf{third adiabatic invariant}.
+    \item  In the Earth's radiation belts, a violation of the \textbf{third} results in something called \textit{radial diffusion}, i.e., particles can move closer-to or further-from the Earth in their attempt to continue to gradient-drift about the Earth.
+  \end{itemize}
+\end{itemize}
 
 
 
@@ -3345,11 +3469,13 @@ Again we step back and intentionally remove the rounding errors before renormali
 %%----------------------------------------------------------------------------------------
 %%  Section: David Oliver's book
 %%----------------------------------------------------------------------------------------
-\section{Notes from the Shaggy Steed of Physics Book}
+\phantomsection   %%  Fix reference link
+\section{Notes from the Shaggy Steed of Physics Book} \label{sec:ShaggySteed}
 %%----------------------------------------------------------------------------------------
 %%  Subsection: The Action Principle
 %%----------------------------------------------------------------------------------------
-\subsection{The Action Principle}
+\phantomsection   %%  Fix reference link
+\subsection{The Action Principle} \label{subsec:ActionPrinciple}
 
 \indent  Action \citep{oliver04a} is mathematically defined by the integral:
 
@@ -3442,6 +3568,7 @@ S = \int_{t_{1}}^{t_{2}} L dt
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Other important definitions
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \subsection{Other important definitions}
 
 \textbf{The Total Time Derivative}
@@ -3598,6 +3725,7 @@ S = \int_{t_{1}}^{t_{2}} L dt
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Hamilton-Jacobi Theory
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \subsection{Hamilton-Jacobi Theory}
 
 \indent  \emph{The motion of the world is imaged as a flow in phase space}.  The manner in which to find these \emph{flows} involves the integrals to Hamilton's equations.  The mathematical forms of the action principle, Hamilton's equations, and Poisson brackets are independent of the coordinate system they are expressed in.  \emph{Motion with s-degrees of freedom has 2s canonical coordinates which form s-conjugate pairs}. $\Rightarrow$ Any set of canonical coordinates is related to another set by transformations which preserve the action principle.
@@ -3767,6 +3895,7 @@ S = \int_{t_{1}}^{t_{2}} L dt
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Action Again
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \subsection{Action Again}
 
 \indent  Since we can say that the Lagrangian is really just the total time derivative of the action, we can also say:
@@ -3843,6 +3972,7 @@ S = \int_{t_{1}}^{t_{2}} L dt
 %%----------------------------------------------------------------------------------------
 %%  Subsection: Hooke Motion
 %%----------------------------------------------------------------------------------------
+\phantomsection   %%  Fix reference link
 \subsubsection{Hooke Motion}
 
 \indent  As a way to illustrate how these transformations work, we'll consider a few examples.  The first of which is an idea proposed by Robert Hooke, one of Newton's most prominent contemporaries\footnote{Hooke happened to be a rather short man, while Newton was very tall.  Both men did not get along very well, and as a way to mock Hooke, Newton said the famous quote: \emph{If I have seen further it is by standing on ye shoulders of Giants.}} involved a force corresponding to the potential:
